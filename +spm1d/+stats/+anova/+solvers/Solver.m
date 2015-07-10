@@ -72,7 +72,10 @@ classdef Solver
            F         = MS/MSE;
            if self.dim==0
                SPM = spm1d.stats.spm.SPM0DF(F, [df dfE], [SS SSE], [MS MSE]);
+           else
+               SPM = spm1d.stats.spm.SPM('F', F, [df dfE], self.fwhm, self.resels);
            end
+
        end
        
         function [SPM] = compute_test_statistics(self, contrasts)
