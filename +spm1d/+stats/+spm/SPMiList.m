@@ -37,6 +37,11 @@ classdef SPMiList
 %         end
         
         function disp_summ(self)
+            for i = 1:self.n
+                if numel(self.SPMs{i}.z) > 1
+                    error('The disp_summ function should be used only for 0D analysis')
+                end
+            end
             [F,df,p] = deal(zeros(1,self.n), cell(1,self.n), zeros(1,self.n));
             for i = 1:self.n
                 spm   = self.SPMs{i};
