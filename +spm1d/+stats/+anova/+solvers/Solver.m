@@ -65,11 +65,12 @@ classdef Solver
            [SS0,df0] = self.compute_ss_from_matrix(C');
            [SSE,dfE] = self.compute_ss_from_matrix(CE');
            [SS,df]   = deal(SS0-SSE, df0-dfE);
+           
            if df<0
                df    = contrast.n;
            end
            [MS,MSE]  = deal(SS/df, SSE/dfE);
-           F         = MS/MSE;
+           F         = (MS ./ MSE)';
            if self.dim==0
                SPM = spm1d.stats.spm.SPM0DF(F, [df dfE], [SS SSE], [MS MSE]);
            else
