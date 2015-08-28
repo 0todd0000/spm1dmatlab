@@ -66,11 +66,7 @@ classdef ANOVA2rm < spm1d.stats.anova.designs.Design
         end
         
         function check_balanced(self)
-            if ~(self.A.balanced && self.B.balanced && self.S.balanced)
-                error('Design must be balanced.')
-            elseif ~self.A.check_balanced(self.B)
-                error('Design must be balanced.')
-            elseif ~self.S.check_balanced(self.A)
+            if ~(self.B.balanced)
                 error('Design must be balanced.')
             elseif ~self.S.check_balanced(self.B)
                 error('Design must be balanced.')
