@@ -7,6 +7,8 @@ classdef ANOVA1 < spm1d.stats.anova.designs.Design
         function self = ANOVA1(A)
             self.A = spm1d.stats.anova.factors.Factor(A);
             self.J = self.A.J;
+            self.term_labels = {'Intercept', 'A'};
+            self.f_terms = {{'A','Error'}};
             self   = assemble(self);
         end
     end
@@ -15,12 +17,11 @@ classdef ANOVA1 < spm1d.stats.anova.designs.Design
         function self = assemble(self)
             XA     = self.A.get_design_main();
             XCONST = self.get_column_const();
-            model  = spm1d.stats.anova.ModelBuilder({'A', 'CONST'});
+            model  = spm1d.stats.anova.ModelBuilder(self.term_labels);
+            model  = model.add_main_columns('Intercept', XCONST);
             model  = model.add_main_columns('A', XA);
-            model  = model.add_main_columns('CONST', XCONST);
             self.X = model.get_design_matrix();
-            CA     = model.get_contrast('A');
-            self.contrasts = {CA};
+            self.contrasts = model.get_contrasts;
         end
         
     end

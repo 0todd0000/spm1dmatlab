@@ -5,11 +5,12 @@ clear all;  clc
 
 %(0) Load dataset:
 dataset = spm1d.data.uv0d.anova2.Detergent();
-dataset = spm1d.data.uv0d.anova2.Mouse();
-dataset = spm1d.data.uv0d.anova2.Satisfaction();
-dataset = spm1d.data.uv0d.anova2.SouthamptonCrossed1();
+% dataset = spm1d.data.uv0d.anova2.Mouse();
+% dataset = spm1d.data.uv0d.anova2.Satisfaction();
+% dataset = spm1d.data.uv0d.anova2.SouthamptonCrossed1();
 [y,A,B] = deal(dataset.Y, dataset.A, dataset.B);
 disp(dataset)
+
 
 
 

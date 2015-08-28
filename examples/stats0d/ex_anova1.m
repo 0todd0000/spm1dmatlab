@@ -18,8 +18,7 @@ fprintf('    p = %s\n', dataset.p)
 
 
 
-
-% %(1) Conduct test using spm1d:
+%(1) Run ANOVA:
 spm  = spm1d.stats.anova1(y, A);
 spmi = spm.inference(0.05);
 disp(spmi)
@@ -35,11 +34,6 @@ disp(spmi)
 %     fprintf('    F = %s\n', F)
 %     fprintf('    p = %s\n', p)
 % end
-
-
-
-
-
 
 
 

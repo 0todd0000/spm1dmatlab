@@ -1,29 +1,26 @@
 
 
 
-classdef Contrast
+classdef Contrasts
     properties
         C
-        isrm
+        term_labels
     end
     methods
-        function self = Contrast(C)
+        function self = Contrasts(C, term_labels)
             self.C    = C;
-            self.isrm = false;
+            self.term_labels = term_labels;
         end
         
         function plot(self, varargin)
-            %parse inputs:
             parser = inputParser;
             addOptional(parser, 'ax',      gca, @(x)isa(x, 'matlab.graphics.axis.Axes'));
             parser.parse(varargin{:});
             ax     = parser.Results.ax;
-%             imshow(self.C, [-1 1], 'initialmagnification','fit', 'parent',ax);
             imagesc(self.C, 'parent',ax);
             set(ax, 'clim',[-1 1])
             colormap('gray')
         end
-       
        
    end
     

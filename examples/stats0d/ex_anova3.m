@@ -5,7 +5,7 @@ clear all;  clc
 
 %(0) Load dataset:
 dataset   = spm1d.data.uv0d.anova3.RSItalian();
-% dataset   = spm1d.data.uv0d.anova3.SouthamptonFullyCrossedMixed();
+dataset   = spm1d.data.uv0d.anova3.SouthamptonFullyCrossedMixed();
 [y,A,B,C] = deal(dataset.Y, dataset.A, dataset.B, dataset.C);
 disp(dataset)
 

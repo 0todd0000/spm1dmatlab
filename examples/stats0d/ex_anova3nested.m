@@ -9,20 +9,10 @@ dataset = spm1d.data.uv0d.anova3nested.SouthamptonNested3();
 disp(dataset)
 
 
-
 %(1) Conduct test using spm1d:
 spm  = spm1d.stats.anova3nested(y, A, B, C);
 spmi = spm.inference(0.05);
 disp_summ(spmi)
-
-
-
-
-close all
-design = spm1d.stats.anova.designs.ANOVA3nested(A, B, C);
-design.plot()
-
-
 
 
 

@@ -5,10 +5,9 @@ clear all;  clc
 
 %(0) Load dataset:
 dataset = spm1d.data.uv0d.anova3onerm.NYUCaffeine();
-% dataset = spm1d.data.uv0d.anova3onerm.Southampton3onerm();
+dataset = spm1d.data.uv0d.anova3onerm.Southampton3onerm();
 [y,A,B,C,SUBJ] = deal(dataset.Y, dataset.A, dataset.B, dataset.C, dataset.SUBJ);
 disp(dataset)
-% design = spm1d.stats.anova.designs.ANOVA3onerm(A, B, C, SUBJ);
 
 
 %(1) Conduct test using spm1d:

@@ -1,92 +1,69 @@
 
 
 
-classdef ANOVA3tworm < spm1d.stats.anova.designs.Design
-    properties
-        B
-        C
-        S
-        swap
-    end
-    
-    
+classdef ANOVA3tworm < spm1d.stats.anova.designs.ANOVA3rm
     methods
         function self = ANOVA3tworm(A, B, C, SUBJ)
-            self.S    = spm1d.stats.anova.factors.FactorSubject(SUBJ);
-            self.A    = spm1d.stats.anova.factors.FactorRM(A, self.S);
-            self.B    = spm1d.stats.anova.factors.FactorRM(B, self.S);
-            self.C    = spm1d.stats.anova.factors.FactorRM(C, self.S);
-            self.J    = self.A.J;
-            self.swap = self.B.n > self.C.n;
-            self      = self.swapBC();
+            self@spm1d.stats.anova.designs.ANOVA3rm(A, B, C, SUBJ)
+            self.A = spm1d.stats.anova.factors.Factor(A);
+            self.B = spm1d.stats.anova.factors.Factor(B);
+            self.C = spm1d.stats.anova.factors.Factor(C);
+            self.S = spm1d.stats.anova.factors.FactorNested(SUBJ, self.A);
+            self.J = self.A.J;
+            self.term_labels = {'Intercept',  'A','B','C','S',  'AB','AC','BC',   'SB','SC',   'ABC', 'SBC'};
+            self.f_terms = {{'A','S'}, {'B','SB'}, {'C','SC'},  {'AB','SB'},{'AC','SC'},{'BC','SBC'},  {'ABC','SBC'}};
             self      = assemble(self);
-            self      = self.swapBC();
+            self.check_balanced()
         end
     end
     
     methods (Access = private)
         function self = assemble(self)
             %design matrix columns:
+            XCONST = self.get_column_const();
             XA     = self.A.get_design_main();
             XB     = self.B.get_design_main();
             XC     = self.C.get_design_main();
+            XS     = self.S.get_design_main();
             XAB    = self.A.get_design_interaction(self.B);
             XAC    = self.A.get_design_interaction(self.C);
             XBC    = self.B.get_design_interaction(self.C);
+            XSB    = self.S.get_design_interaction(self.B);
+            XSC    = self.S.get_design_interaction(self.C);
             XABC   = self.A.get_design_interaction_3way(self.B, self.C);
-            XCONST = self.get_column_const();
-            XSpool = self.A.get_design_subject_pooled();
-            XSB    = self.B.get_design_subject_partitioned();
-            XSC    = self.C.get_design_subject_partitioned();
-            XSBC   = self.B.get_design_subject_partitioned3(self.C);
+            XSBC   = self.S.get_design_interaction_3way(self.B, self.C);
             %assemble:
-            clabels = {'A', 'B', 'C', 'AB', 'AC', 'BC', 'ABC', 'CONST'};
-            model  = spm1d.stats.anova.ModelBuilder(clabels, {'Spooled','SB','SC','SBC'});
+            model  = spm1d.stats.anova.ModelBuilder(self.term_labels);
+            model  = model.add_main_columns('Intercept', XCONST);
             model  = model.add_main_columns('A', XA);
             model  = model.add_main_columns('B', XB);
             model  = model.add_main_columns('C', XC);
+            model  = model.add_main_columns('S', XS);
             model  = model.add_main_columns('AB', XAB);
             model  = model.add_main_columns('AC', XAC);
             model  = model.add_main_columns('BC', XBC);
+            model  = model.add_main_columns('SB', XSB);
+            model  = model.add_main_columns('SC', XSC);
             model  = model.add_main_columns('ABC', XABC);
-            model  = model.add_main_columns('CONST', XCONST);
-            model  = model.add_subj_columns('Spooled', XSpool);
-            model  = model.add_subj_columns('SB', XSB);
-            model  = model.add_subj_columns('SC', XSC);
-            model  = model.add_subj_columns('SBC', XSBC);
+            model  = model.add_main_columns('SBC', XSBC);
             self.X = model.get_design_matrix();
-            %create contrasts:
-            self.contrasts  = cell(1, 7);
-            sspairs         = cell(1,7);
-            if self.swap
-                sspairs{1}  = {'A','Spooled'};
-                sspairs{2}  = {'C','SC'};
-                sspairs{3}  = {'B','SB'};
-                sspairs{4}  = {'AC','SC'};
-                sspairs{5}  = {'AB','SB'};
-                sspairs{6}  = {'BC','SBC'};
-                sspairs{7}  = {'ABC','SBC'};
-            else
-                sspairs{1}  = {'A','Spooled'};
-                sspairs{2}  = {'B','SB'};
-                sspairs{3}  = {'C','SC'};
-                sspairs{4}  = {'AB','SB'};
-                sspairs{5}  = {'AC','SC'};
-                sspairs{6}  = {'BC','SBC'};
-                sspairs{7}  = {'ABC','SBC'};
-            end
-            for i = 1:7
-                sspair = sspairs{i};
-                [s0,s1] = deal(sspair{1}, sspair{2});
-                self.contrasts{i} = model.get_contrast_compound(s0, s1);
-            end
+            self.contrasts = model.get_contrasts;
         end
         
-        function [self] = swapBC(self)
-            if self.swap
-                [B,C] = deal(self.C, self.B);
-                self.B = B;
-                self.C = C; %#ok<*PROP>
+        
+        function check_balanced(self)
+            if ~(self.A.balanced && self.B.balanced && self.C.balanced && self.S.balanced)
+                error('Design must be balanced.')
+            elseif ~self.A.check_balanced(self.B)
+                error('Design must be balanced.')
+            elseif ~self.A.check_balanced(self.C)
+                error('Design must be balanced.')
+            elseif ~self.B.check_balanced(self.C)
+                error('Design must be balanced.')
+            elseif ~self.S.check_balanced_rm(self.B)
+                error('Design must be balanced.')
+            elseif ~self.S.check_balanced_rm(self.C)
+                error('Design must be balanced.')
             end
         end
         

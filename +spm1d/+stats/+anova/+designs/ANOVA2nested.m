@@ -11,7 +11,10 @@ classdef ANOVA2nested < spm1d.stats.anova.designs.Design
             self.A = spm1d.stats.anova.factors.Factor(A);
             self.B = spm1d.stats.anova.factors.FactorNested(B, self.A);
             self.J = self.A.J;
+            self.term_labels = {'Intercept', 'A', 'B'};
+            self.f_terms = {{'A','B'}, {'B','Error'}};
             self   = assemble(self);
+            self.check_balanced()
         end
     end
     
@@ -20,15 +23,24 @@ classdef ANOVA2nested < spm1d.stats.anova.designs.Design
             XA     = self.A.get_design_main();
             XB     = self.B.get_design_main();
             XCONST = self.get_column_const();
-            model  = spm1d.stats.anova.ModelBuilder({'A', 'B', 'CONST'});
+            model  = spm1d.stats.anova.ModelBuilder(self.term_labels);
+            model  = model.add_main_columns('Intercept', XCONST);
             model  = model.add_main_columns('A', XA);
             model  = model.add_main_columns('B', XB);
-            model  = model.add_main_columns('CONST', XCONST);
             self.X = model.get_design_matrix();
-            CA     = model.get_contrast('A');
-            CB     = model.get_contrast('B');
-            self.contrasts = {CA, CB};
+            self.contrasts = model.get_contrasts;
         end
+        
+        
+        function check_balanced(self)
+            if ~(self.A.balanced && self.B.balanced)
+                error('Design must be balanced.')
+            elseif ~self.A.check_balanced_nested(self.B)
+                error('Design must be balanced.')
+            end
+        end
+
+        
         
     end
 

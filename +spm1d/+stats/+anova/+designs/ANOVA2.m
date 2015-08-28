@@ -12,27 +12,36 @@ classdef ANOVA2 < spm1d.stats.anova.designs.Design
             self.A = spm1d.stats.anova.factors.Factor(A);
             self.B = spm1d.stats.anova.factors.Factor(B);
             self.J = self.A.J;
+            self.term_labels = {'Intercept', 'A', 'B', 'AB'};
+            self.f_terms = {{'A','Error'}, {'B','Error'}, {'AB','Error'}};
             self   = assemble(self);
+            self.check_balanced()
         end
     end
     
     methods (Access = private)
         function self = assemble(self)
+            XCONST = self.get_column_const();
             XA     = self.A.get_design_main();
             XB     = self.B.get_design_main();
             XAB    = self.A.get_design_interaction(self.B);
-            XCONST = self.get_column_const();
-            model  = spm1d.stats.anova.ModelBuilder({'A', 'B', 'AB', 'CONST'});
+            model  = spm1d.stats.anova.ModelBuilder(self.term_labels);
+            model  = model.add_main_columns('Intercept', XCONST);
             model  = model.add_main_columns('A', XA);
             model  = model.add_main_columns('B', XB);
             model  = model.add_main_columns('AB', XAB);
-            model  = model.add_main_columns('CONST', XCONST);
             self.X = model.get_design_matrix();
-            CA     = model.get_contrast('A');
-            CB     = model.get_contrast('B');
-            CAB    = model.get_contrast('AB');
-            self.contrasts = {CA, CB, CAB};
+            self.contrasts = model.get_contrasts;
         end
+        
+        function check_balanced(self)
+            if ~(self.A.balanced && self.B.balanced)
+                error('Design must be balanced.')
+            elseif ~self.A.check_balanced(self.B)
+                error('Design must be balanced.')
+            end
+        end
+
         
     end
 

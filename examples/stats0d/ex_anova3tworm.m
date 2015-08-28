@@ -10,10 +10,11 @@ dataset = spm1d.data.uv0d.anova3tworm.Southampton3tworm();
 disp(dataset)
 
 
+
 %(1) Conduct test using spm1d:
 spm  = spm1d.stats.anova3tworm(y, A, B, C, SUBJ);
 spmi = spm.inference(0.05);
-% disp_summ(spmi)
+disp_summ(spmi)
 
 
 

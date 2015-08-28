@@ -14,7 +14,10 @@ classdef ANOVA3nested < spm1d.stats.anova.designs.Design
             self.B = spm1d.stats.anova.factors.FactorNested(B, self.A);
             self.C = spm1d.stats.anova.factors.FactorNested2(C, self.A, self.B);
             self.J = self.A.J;
+            self.term_labels = {'Intercept', 'A', 'B', 'C'};
+            self.f_terms = {{'A','B'}, {'B', 'C'}, {'C','Error'}};
             self   = assemble(self);
+            self.check_balanced()
         end
     end
     
@@ -26,17 +29,22 @@ classdef ANOVA3nested < spm1d.stats.anova.designs.Design
             XC     = self.C.get_design_main();
             XCONST = self.get_column_const();
             %assemble:
-            clabels = {'A', 'B', 'C', 'CONST'};
-            model  = spm1d.stats.anova.ModelBuilder(clabels);
+            model  = spm1d.stats.anova.ModelBuilder(self.term_labels);
+            model  = model.add_main_columns('Intercept', XCONST);
             model  = model.add_main_columns('A', XA);
             model  = model.add_main_columns('B', XB);
             model  = model.add_main_columns('C', XC);
-            model  = model.add_main_columns('CONST', XCONST);
             self.X = model.get_design_matrix();
-            %create contrasts:
-            self.contrasts  = cell(1, 3);
-            for i = 1:numel(clabels(1:end-1))
-                self.contrasts{i} = model.get_contrast(clabels{i});
+            self.contrasts = model.get_contrasts;
+        end
+        
+    
+
+        function check_balanced(self)
+            if ~(self.A.balanced && self.B.balanced && self.C.balanced)
+                error('Design must be balanced.')
+%             elseif ~self.A.check_balanced_nested3(self.B, self.C)
+%                 error('Design must be balanced.')
             end
         end
         
