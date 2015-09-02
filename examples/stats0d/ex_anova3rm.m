@@ -10,7 +10,6 @@ dataset = spm1d.data.uv0d.anova3rm.SPM1D3x3x3();
 [y,A,B,C,SUBJ] = deal(dataset.Y, dataset.A, dataset.B, dataset.C, dataset.SUBJ);
 disp(dataset)
 
-design = spm1d.stats.anova.designs.ANOVA3rm(A, B, C, SUBJ);
 
 
 %(1) Conduct test using spm1d:

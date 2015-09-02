@@ -9,7 +9,7 @@ dataset = spm1d.data.uv0d.anova2nested.QIMacros();
 [y,A,B] = deal(dataset.Y, dataset.A, dataset.B);
 disp(dataset)
 
-% design = spm1d.stats.anova.designs.ANOVA2nested(A, B);
+
 
 
 %(1) Conduct test using spm1d:
