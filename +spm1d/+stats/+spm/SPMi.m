@@ -19,6 +19,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         ax
         ax0
         centroids
+        roi
     end
     
     
@@ -31,6 +32,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             self.nNodes       = spm.nNodes;
             self.fwhm         = spm.fwhm;
             self.resels       = spm.resels;
+            self.roi          = spm.roi;
             self.alpha        = alpha;
             self.zstar        = zstar;
             if two_tailed
@@ -50,7 +52,14 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             self.ax0 = gca;
             self.set_axes()
             Q        = self.nNodes;
-            h0       = plot(0:Q-1, self.z, 'k-', 'linewidth',3);  %SPM
+            zm       = self.z;
+            self.roi
+            %%% mask if ROI exists:
+            if ~isempty(self.roi)
+                zm(self.roi==0) = nan;
+            end
+            %%% plot:
+            h0       = plot(0:Q-1, zm, 'k-', 'linewidth',3);  %SPM
             h1       = plot([0 Q-1], [0 0], 'k--');               %datum
             h2       = plot([0 Q-1], self.zstar*[1 1], 'r:');     %threshold
             if self.two_tailed

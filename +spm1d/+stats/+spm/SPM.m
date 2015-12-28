@@ -17,6 +17,7 @@ classdef SPM < matlab.mixin.CustomDisplay
         beta
         R
         sigma2
+        roi
     end
     
     methods
@@ -27,6 +28,7 @@ classdef SPM < matlab.mixin.CustomDisplay
             addOptional(parser, 'beta',      [], @(x)isnumeric(x));
             addOptional(parser, 'residuals', [], @(x)isnumeric(x) && ndims(x)>1 && ndims(x)<4 );
             addOptional(parser, 'sigma2',    [], @(x)isnumeric(x) && isvector(x) );
+            addOptional(parser, 'roi',       [], @(x)(isnumeric(x) && isvector(x)) || isempty(x));
             parser.parse(varargin{:});
             %assemble inputs:
             self.STAT     = STAT;
@@ -38,16 +40,19 @@ classdef SPM < matlab.mixin.CustomDisplay
             self.beta     = parser.Results.beta;
             self.R        = parser.Results.residuals;
             self.sigma2   = parser.Results.sigma2;
+            self.roi      = parser.Results.roi;
 
        end
        
        function spmi = inference(self, alpha, varargin)
             %parse inputs
             default2tailed = isequal(self.STAT,'T');
-            parser = inputParser;
+            parser         = inputParser;
             addOptional(parser, 'two_tailed', default2tailed, @islogical);
+            addOptional(parser, 'withBonf', true, @islogical);
             parser.parse(varargin{:});
-            two_tailed    = parser.Results.two_tailed;
+            two_tailed     = parser.Results.two_tailed;
+            withBonf       = parser.Results.withBonf;
             %two-tailed check
             if two_tailed && ~isequal(self.STAT, 'T')
                 error('Two-tailed inference can only be used for t tests and regression.')
@@ -59,7 +64,7 @@ classdef SPM < matlab.mixin.CustomDisplay
                 pstar = alpha;
             end
             %compute critical threshold
-            zstar  = self.get_critical_threshold(pstar);
+            zstar  = self.get_critical_threshold(pstar, withBonf);
             % compute supra-threshold cluster geometry:
             [extents,heights] = spm1d.geom.cluster_geom(self.z, zstar);
             if two_tailed
@@ -86,17 +91,17 @@ classdef SPM < matlab.mixin.CustomDisplay
 
                 
                 
-        function [zstar] = get_critical_threshold(self, alpha)
-            [v,Q,w] = deal(self.df, self.nNodes, self.fwhm);
+        function [zstar] = get_critical_threshold(self, alpha, withBonf)
+            [v,res,n] = deal(self.df, self.resels, self.nNodes);
             switch self.STAT
                 case 'T'
-                    zstar = spm1d.rft1d.t.isf(alpha, v(2), Q, w);
+                    zstar = spm1d.rft1d.t.isf_resels(alpha, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'X2'
-                    zstar = spm1d.rft1d.chi2.isf(alpha, v(2), Q, w);
+                    zstar = spm1d.rft1d.chi2.isf_resels(alpha, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'F'
-                    zstar = spm1d.rft1d.f.isf(alpha, v, Q, w);
+                    zstar = spm1d.rft1d.f.isf_resels(alpha, v, res, 'withBonf',withBonf, 'nNodes',n);
                 case 'T2'
-                    zstar = spm1d.rft1d.T2.isf(alpha, v, Q, w);
+                    zstar = spm1d.rft1d.T2.isf_resels(alpha, v, res, 'withBonf',withBonf, 'nNodes',n);
             end
         end
         

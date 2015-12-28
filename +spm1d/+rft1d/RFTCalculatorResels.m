@@ -1,39 +1,38 @@
 
 
-classdef RFTCalculator
+classdef RFTCalculatorResels
     properties
         FWHM
         Q
         STAT
         df
         mask
-        nNodes
         n
         resels
         version = 'spm8';
         withBonf
+        nNodes
         expected
         p
     end
     methods
-        function self = RFTCalculator(varargin)
+        function self = RFTCalculatorResels(varargin)
             %RFTCalculator(STAT, df, nodes, FWHM, n, withBonf, version)
             parser = inputParser;
             addOptional(parser, 'STAT','T', @(x)ismember(x, {'T','F','X','T2'}) );
             addOptional(parser, 'df', 1, @(x)isnumeric(x) && (isscalar(x) || isvector(x)) );
-            addOptional(parser, 'nodes', 101, @(x) isscalar(x) || isvector(x));
-            addOptional(parser, 'FWHM', 10, @isscalar);
+            addOptional(parser, 'resels', [1 5], @(x) isvector(x) || (numel(x)==2));
             addOptional(parser, 'n', 1, @isscalar);
             addOptional(parser, 'withBonf', true, @islogical);
+            addOptional(parser, 'nNodes', 101, @isscalar);
             addOptional(parser, 'version', 'spm8', @(x)ismember(x, {'spm8','spm12'}) );
             parser.parse(varargin{:});
             self.STAT     = parser.Results.STAT;
             self.df       = parser.Results.df;
-            self.nNodes   = parser.Results.nodes;
-            self.FWHM     = parser.Results.FWHM;
+            self.resels   = parser.Results.resels;
             self.n        = parser.Results.n;
             self.withBonf = parser.Results.withBonf;
-            self.resels   = [1 (self.nNodes-1)/self.FWHM];
+            self.nNodes   = parser.Results.nNodes;
             %%% set dependent variables:
             if self.withBonf
                 self.Q    = self.nNodes;
