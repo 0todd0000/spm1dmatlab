@@ -1,5 +1,10 @@
 function [SPM] = cca(Y, x, varargin)
 
+parser = inputParser;
+addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
+parser.parse(varargin{:});
+roi          = parser.Results.roi;
+
 
 if ismatrix(Y)
     [x2,df]    = cca_single_node(Y, x);
@@ -13,8 +18,14 @@ else
     end
     R          = here_get_residuals(Y, x);
     fwhm       = spm1d.geom.fwhmmv(R);
-    resels     = spm1d.geom.resels(R, fwhm);
-    SPM        = spm1d.stats.spm.SPM('X2', X2, df, fwhm, resels);
+    if isempty(roi)
+        resels   = spm1d.geom.resels(R, fwhm);
+    else
+        B    = any(isnan(any(isnan(R), 1)), 3);
+        B    = ~B & roi;
+        resels   = spm1d.geom.resels(B, fwhm);
+    end
+    SPM        = spm1d.stats.spm.SPM('X2', X2, df, fwhm, resels, 'roi', roi);
 end
 end
 

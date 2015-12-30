@@ -1,5 +1,10 @@
 function [SPM] = hotellings2(YA, YB, varargin)
 
+parser = inputParser;
+addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
+parser.parse(varargin{:});
+roi          = parser.Results.roi;
+
 
 if ismatrix(YA)
     [JA,I]  = size(YA);
@@ -17,8 +22,14 @@ else
     df      = [I JA+JB-2]; 
     R       = here_get_residuals(YA, YB);
     fwhm    = spm1d.geom.fwhmmv(R);
-    resels  = spm1d.geom.resels(R, fwhm);
-    SPM     = spm1d.stats.spm.SPM('T2', T2, df, fwhm, resels);
+    if isempty(roi)
+        resels   = spm1d.geom.resels(R, fwhm);
+    else
+        B    = any(isnan(any(isnan(R), 1)), 3);
+        B    = ~B & roi;
+        resels   = spm1d.geom.resels(B, fwhm);
+    end
+    SPM     = spm1d.stats.spm.SPM('T2', T2, df, fwhm, resels, 'roi', roi);
 end
 end
 

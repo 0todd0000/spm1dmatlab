@@ -213,7 +213,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             if s == 'T'
                 s = 't';
             end
-            header = sprintf('\nSPM{%s} (0D) inference',s);
+            header = sprintf('\nSPM{%s} inference',s);
         end
         
         function propgrp = getPropertyGroups(self)

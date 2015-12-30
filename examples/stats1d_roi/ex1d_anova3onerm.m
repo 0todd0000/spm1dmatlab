@@ -19,17 +19,17 @@ spmlist   = spm1d.stats.anova3onerm(Y, A, B, C, SUBJ, 'roi', roi);
 spmlisti  = spmlist.inference(0.05);
 
 
-%(2) Plot: 
-close all
-titles = {'Main effect A', 'Main effect B', 'Main effect C',...
-    'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
-for k = 1:spmlist.n
-    subplot(3,3,k)
-    spmi = spmlisti.SPMs{k};
-    plot(spmi)
-    title(titles{k})
-end
-    
+% %(2) Plot: 
+% close all
+% titles = {'Main effect A', 'Main effect B', 'Main effect C',...
+%     'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
+% for k = 1:spmlist.n
+%     subplot(3,3,k)
+%     spmi = spmlisti.SPMs{k};
+%     plot(spmi)
+%     title(titles{k})
+% end
+%     
 
 
 
