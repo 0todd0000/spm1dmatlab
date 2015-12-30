@@ -5,7 +5,7 @@ b       = z >= u;
 extents = zeros(1,n);
 heights = zeros(1,n);
 for i=1:n
-    extents(i) = sum(L==i);
+    extents(i) = sum(L==i)-1+eps;
     heights(i) = min( z(L==i) );
 end
 

@@ -12,6 +12,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         zstar
         h0reject
         p
+        nClusters
     end
     properties (Hidden)
         STAT
@@ -42,6 +43,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             end
             self.p            = p;
             self.two_tailed   = two_tailed;
+            self.nClusters    = numel(p);
         end
        
         function [varargout] = plot(self, varargin)
@@ -53,7 +55,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             self.set_axes()
             Q        = self.nNodes;
             zm       = self.z;
-            self.roi
             %%% mask if ROI exists:
             if ~isempty(self.roi)
                 zm(self.roi==0) = nan;
@@ -61,10 +62,11 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             %%% plot:
             h0       = plot(0:Q-1, zm, 'k-', 'linewidth',3);  %SPM
             h1       = plot([0 Q-1], [0 0], 'k--');               %datum
-            h2       = plot([0 Q-1], self.zstar*[1 1], 'r:');     %threshold
-            if self.two_tailed
-                h2a =  plot([0 Q-1], -self.zstar*[1 1], 'r:');   %lower threshold 
-            end
+            h2       = self.plot_threshold();
+%             h2       = plot([0 Q-1], self.zstar*[1 1], 'r:');     %threshold
+%             if self.two_tailed
+%                 h2a =  plot([0 Q-1], -self.zstar*[1 1], 'r:');   %lower threshold 
+%             end
             %fill suprathreshold clusters:
             h3      = self.plot_cluster_patches();
             %labels
@@ -78,11 +80,12 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             %tidy up:
             self.return2originalaxes()
             if nargout==1
-                if SPMi.two_tailed
-                    varargout = {[h0,h1,h2,h2a,h3]};
-                else
-                    varargout = {[h0,h1,h2,h3]};
-                end
+                varargout = {[h0,h1,h2,h3]};
+%                 if SPMi.two_tailed
+%                     varargout = {[h0,h1,h2,h2a,h3]};
+%                 else
+%                     varargout = {[h0,h1,h2,h3]};
+%                 end
             end
         end
         
@@ -126,8 +129,49 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
     
     methods (Access=private)
         
+        function [h] = plot_threshold(self)
+            Q        = self.nNodes;
+            if isempty(self.roi)
+                h        = plot([0 Q-1], self.zstar*[1 1], 'r:');
+                if self.two_tailed
+                    ha =  plot([0 Q-1], -self.zstar*[1 1], 'r:');
+                    h  = [h ha];
+                end
+            else
+                h      =  [];
+                xx     = 0:Q-1;
+                if islogical(self.roi)
+                    zz = self.zstar * ones(1,Q);
+                    zz(~self.roi) = nan;
+                    h(numel(h)+1) = plot(xx, zz, 'r:', 'linewidth',2);
+                    if self.two_tailed
+                        h(numel(h)+1) = plot(xx, -zz, 'r:', 'linewidth',2);
+                    end
+                else  %directional ROI
+                    
+                    if any(self.roi>0)
+                        zz = self.zstar * ones(1,Q);
+                        zz(self.roi<=0) = nan;
+                        h(numel(h)+1)  = plot(xx, zz, 'r:', 'linewidth',2);
+                    end
+                    if any(self.roi<0)
+                        zz = -self.zstar * ones(1,Q);
+                        zz(self.roi>=0) = nan;
+                        h(numel(h)+1) = plot(xx, zz, 'r:', 'linewidth',2);
+                    end
+                end
                 
+            end
+            
+        end
+        
+        
         function [h] = plot_cluster_patches(self)
+            if self.nClusters==0
+                h = [];
+                return
+            end
+                
             [Q,y,thresh] = deal(self.nNodes, self.z, self.zstar);
             [x0,y0]  = deal( 1:Q, y );
             %find suprathreshold clusters
@@ -153,13 +197,14 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
                 csign      = csigns(i);
                 [x,y]      = deal(x0(L==i), y0(L==i));
                 [x,y]      = deal([x(1) x], [csign*thresh y]);
+
                 %interpolate if necessary:
-                if x(1)   ~= 1
+                if (x(1) ~= 1) && ~any(isnan(y0))
                     dx     = 1;
                     dy     = (csign*thresh - y0(x(1))) / (y0(x(1)) - y0(x(1)-1)  );
                     x(1)   = x(1) + dy/dx;
                 end
-                if x(end) ~= Q
+                if (x(end) ~= Q) && ~any(isnan(y0))
                     dx     = 1;
                     dy     = (csign*thresh - y0(x(end))) / (y0(x(end)+1) - y0(x(end))  );
                     x      = [x   x(end)+dy/dx]; %#ok<AGROW>
@@ -170,6 +215,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
                 self.centroids{i} = [mean(x), mean(y)];
             end
             set(h, 'FaceAlpha',0.5, 'EdgeColor','None')
+            
         end
     end
     

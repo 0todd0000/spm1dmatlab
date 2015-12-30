@@ -4,7 +4,7 @@ function [SPM] = glm(Y, X, c, varargin)
 % Version: M0.1 (2014/05/01)
 
 parser = inputParser;
-addOptional(parser, 'roi', [], @(x)isnumeric(x) && isvector(x));
+addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
 parser.parse(varargin{:});
 roi          = parser.Results.roi;
 
