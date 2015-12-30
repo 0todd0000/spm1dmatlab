@@ -34,15 +34,46 @@ classdef f
             calc = spm1d.rft1d.RFTCalculator('F', df, nodes, FWHM, 'withBonf',withBonf);
             p = calc.sf(u);
         end
+        
+        
+        %1D probabilities (resel-based):
+        function [u] = isf_resels(alpha, df, resels, varargin)
+            [withBonf,nNodes] = parse_varargin(varargin{:});
+            calc = spm1d.rft1d.RFTCalculatorResels('F', df, resels, 'withBonf',withBonf, 'nNodes', nNodes);
+            u = calc.isf(alpha);
+        end
+        
+        function [p] = p_cluster_resels(k, u, df, resels, varargin)
+            [withBonf,nNodes] = parse_varargin(varargin{:});
+            calc = spm1d.rft1d.RFTCalculatorResels('F', df, resels, 'withBonf',withBonf, 'nNodes', nNodes);
+            p = calc.p.cluster(k, u);
+        end
+
+        function [p] = p_set_resels(c, k, u, df, resels, varargin)
+            [withBonf,nNodes] = parse_varargin(varargin{:});
+            calc = spm1d.rft1d.RFTCalculatorResels('F', df, resels, 'withBonf',withBonf, 'nNodes', nNodes);
+            p = calc.p.set(c, k, u);
+        end
+        
+        function [p] = sf_resels(u, df, resels, varargin)
+            [withBonf,nNodes] = parse_varargin(varargin{:});
+            calc = spm1d.rft1d.RFTCalculatorResels('F', df, resels, 'withBonf',withBonf, 'nNodes', nNodes);
+            p = calc.sf(u);
+        end    
+
+        
+        
     end
    
     
 end
 
 
-function withBonf = parse_varargin(varargin)
+function [withBonf,nNodes] = parse_varargin(varargin)
     parser = inputParser;
     addOptional(parser, 'withBonf', false, @islogical);
+    addOptional(parser, 'nNodes', 0, @isscalar);
     parser.parse(varargin{:});
     withBonf = parser.Results.withBonf;
+    nNodes = parser.Results.nNodes;
 end

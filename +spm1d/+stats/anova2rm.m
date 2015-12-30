@@ -1,7 +1,7 @@
-function [SPM] = anova2rm(Y, A, B, SUBJ)
+function [SPM] = anova2rm(Y, A, B, SUBJ, varargin)
 
 design = spm1d.stats.anova.designs.ANOVA2rm(A, B, SUBJ);
-model  = spm1d.stats.anova.LinearModel(Y, design.X);
+model  = spm1d.stats.anova.LinearModel(Y, design.X, varargin{:});
 if (model.dim==1) && ( design.check_for_single_responses() )
     model  = model.fit(  design.contrasts.C(1:5,:)  );
 else

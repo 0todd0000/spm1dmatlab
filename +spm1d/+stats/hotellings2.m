@@ -1,4 +1,4 @@
-function [SPM] = hotellings2(YA, YB)
+function [SPM] = hotellings2(YA, YB, varargin)
 
 
 if ismatrix(YA)

@@ -1,6 +1,6 @@
     
 
-clear all;  clc
+clear;  clc
 
 
 %(0) Load data:

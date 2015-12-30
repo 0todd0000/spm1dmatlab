@@ -63,10 +63,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             h0       = plot(0:Q-1, zm, 'k-', 'linewidth',3);  %SPM
             h1       = plot([0 Q-1], [0 0], 'k--');               %datum
             h2       = self.plot_threshold();
-%             h2       = plot([0 Q-1], self.zstar*[1 1], 'r:');     %threshold
-%             if self.two_tailed
-%                 h2a =  plot([0 Q-1], -self.zstar*[1 1], 'r:');   %lower threshold 
-%             end
             %fill suprathreshold clusters:
             h3      = self.plot_cluster_patches();
             %labels
@@ -81,11 +77,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             self.return2originalaxes()
             if nargout==1
                 varargout = {[h0,h1,h2,h3]};
-%                 if SPMi.two_tailed
-%                     varargout = {[h0,h1,h2,h2a,h3]};
-%                 else
-%                     varargout = {[h0,h1,h2,h3]};
-%                 end
             end
         end
         
@@ -148,7 +139,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
                         h(numel(h)+1) = plot(xx, -zz, 'r:', 'linewidth',2);
                     end
                 else  %directional ROI
-                    
                     if any(self.roi>0)
                         zz = self.zstar * ones(1,Q);
                         zz(self.roi<=0) = nan;
@@ -171,7 +161,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
                 h = [];
                 return
             end
-                
             [Q,y,thresh] = deal(self.nNodes, self.z, self.zstar);
             [x0,y0]  = deal( 1:Q, y );
             %find suprathreshold clusters
@@ -187,24 +176,19 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
                 csigns   = ones(1,n);
             end
             %plot suprathreshold cluster patches
-            if n==0
-                h   = -1;
-                return
-            end
             h       = zeros(1,n);
             self.centroids = cell(1,n);
             for i = 1:n
                 csign      = csigns(i);
                 [x,y]      = deal(x0(L==i), y0(L==i));
                 [x,y]      = deal([x(1) x], [csign*thresh y]);
-
                 %interpolate if necessary:
-                if (x(1) ~= 1) && ~any(isnan(y0))
+                if (x(1) ~= 1) && ~isnan(y0(x(1)-1))
                     dx     = 1;
                     dy     = (csign*thresh - y0(x(1))) / (y0(x(1)) - y0(x(1)-1)  );
                     x(1)   = x(1) + dy/dx;
                 end
-                if (x(end) ~= Q) && ~any(isnan(y0))
+                if (x(end) ~= Q) && ~isnan(y0(x(end)+1))
                     dx     = 1;
                     dy     = (csign*thresh - y0(x(end))) / (y0(x(end)+1) - y0(x(end))  );
                     x      = [x   x(end)+dy/dx]; %#ok<AGROW>

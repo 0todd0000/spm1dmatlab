@@ -171,26 +171,12 @@ classdef SPM < matlab.mixin.CustomDisplay
                         p = min(1, 2*p);
                     end
                 case 'X2'
-                    p = spm1d.rft1d.chi2.p_cluster(k, u, v(2), res, 'withBonf',withBonf, 'nNodes',n);
+                    p = spm1d.rft1d.chi2.p_cluster_resels(k, u, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'F'
-                    p = spm1d.rft1d.f.p_cluster(k, u, v, Q, res, 'withBonf',withBonf, 'nNodes',n);
+                    p = spm1d.rft1d.f.p_cluster_resels(k, u, v, res, 'withBonf',withBonf, 'nNodes',n);
                 case 'T2'
-                    p = spm1d.rft1d.T2.p_cluster(k, u, v, Q, res, 'withBonf',withBonf, 'nNodes',n);
+                    p = spm1d.rft1d.T2.p_cluster_resels(k, u, v, res, 'withBonf',withBonf, 'nNodes',n);
             end
-%             [v,Q,w] = deal(self.df, self.nNodes, self.fwhm);
-%             switch self.STAT
-%                 case 'T'
-%                     p = spm1d.rft1d.t.p_cluster(k, abs(u), v(2), Q, w);
-%                     if two_tailed
-%                         p = min(1, 2*p);
-%                     end
-%                 case 'X2'
-%                     p = spm1d.rft1d.chi2.p_cluster(k, u, v(2), Q, w);
-%                 case 'F'
-%                     p = spm1d.rft1d.f.p_cluster(k, u, v, Q, w);
-%                 case 'T2'
-%                     p = spm1d.rft1d.T2.p_cluster(k, u, v, Q, w);
-%             end
         end
     end
             

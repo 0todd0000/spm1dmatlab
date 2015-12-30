@@ -4,18 +4,21 @@ clear;  clc
 
 
 %(0) Load data:
-dataset = spm1d.data.uv1d.t2.PlantarArchAngle();
 dataset = spm1d.data.uv1d.t2.SimulatedTwoLocalMax();
 [YA,YB] = deal(dataset.YA, dataset.YB);
 
 
 
+%(0a) Create region(s) of interest (ROI):
+roi        = false( 1, size(YA,2) );
+roi(16:35) = true;
+roi(66:85) = true;
 
 
 
 %(1) Conduct SPM analysis:
-spm       = spm1d.stats.ttest2(YA, YB);
-spmi      = spm.inference(0.05, 'two_tailed', false);
+spm       = spm1d.stats.ttest2(YA, YB, 'roi', roi);
+spmi      = spm.inference(0.05, 'two_tailed', false)
 
 
 

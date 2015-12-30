@@ -1,4 +1,4 @@
-function [SPM] = cca(Y, x)
+function [SPM] = cca(Y, x, varargin)
 
 
 if ismatrix(Y)

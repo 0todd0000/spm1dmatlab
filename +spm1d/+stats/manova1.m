@@ -1,4 +1,4 @@
-function [SPM] = manova1(Y, A)
+function [SPM] = manova1(Y, A, varargin)
 
 
 % create design matrix:

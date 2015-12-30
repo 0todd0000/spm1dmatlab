@@ -4,19 +4,20 @@ clear;  clc
 
 
 %(0) Load data:
-dataset = spm1d.data.uv1d.t1.SimulatedPataky2015a();
-[Y,mu]  = deal(dataset.Y, dataset.mu);
+dataset = spm1d.data.uv1d.regress.SpeedGRF();
+[Y,x]  = deal(dataset.Y, dataset.x);
 
 
 
 %(0a) Create region(s) of interest (ROI):
 roi        = false( 1, size(Y,2) );
-roi(71:80) = true;
+roi(21:55) = true;
+
 
 
 
 %(1) Conduct SPM analysis:
-spm       = spm1d.stats.ttest(Y - mu, 'roi', roi);
+spm       = spm1d.stats.regress(Y, x, 'roi', roi);
 spmi      = spm.inference(0.05, 'two_tailed', false);
 
 

@@ -9,8 +9,15 @@ dataset = spm1d.data.uv1d.tpaired.PlantarArchAngle();
 
 
 
+%(0a) Create region(s) of interest (ROI):
+roi        = false( 1, size(YA,2) );
+roi(1:10)  = true;
+
+
+
+
 %(1) Conduct SPM analysis:
-spm       = spm1d.stats.ttest_paired(YA, YB);
+spm       = spm1d.stats.ttest_paired(YA, YB, 'roi', roi);
 spmi      = spm.inference(0.05, 'two_tailed', false);
 disp(spmi)
 
