@@ -16,6 +16,20 @@ classdef ANOVA1rm < spm1d.stats.anova.designs.Design
             self   = assemble(self);
             check_balanced(self)
         end
+        
+        function [only_single] = check_for_single_responses(self)
+            [A,S] = deal(self.A.A, self.S.A); %#ok<*PROP>
+            only_single = false;
+            for iA = 1:self.A.n
+                a = self.A.u(iA);
+                s = S( (A==a) );
+                if numel(unique(s)) == numel(s)
+                    only_single = true;
+                    warning('Only one observation per subject found.  Residuals and inference will be approximate. To avoid approximate residuals: (a) Add multiple observations per subject and per condition, and (b) ensure that all subjects and conditions have the same number of observations.')
+                    return
+                end
+            end
+        end
     end
     
     methods (Access = private)
