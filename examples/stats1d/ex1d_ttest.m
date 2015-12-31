@@ -4,8 +4,8 @@ clear;  clc
 
 
 %(0) Load data:
-dataset = spm1d.data.uv1d.t1.Random();
-dataset = spm1d.data.uv1d.t1.SimulatedPataky2015a();
+% dataset = spm1d.data.uv1d.t1.Random();
+% dataset = spm1d.data.uv1d.t1.SimulatedPataky2015a();
 dataset = spm1d.data.uv1d.t1.SimulatedPataky2015b();
 [Y,mu]  = deal(dataset.Y, dataset.mu);
 
@@ -13,8 +13,7 @@ dataset = spm1d.data.uv1d.t1.SimulatedPataky2015b();
 
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.ttest(Y - mu);
-spmi      = spm.inference(0.05, 'two_tailed', false);
-
+spmi      = spm.inference(0.05, 'two_tailed',false, 'interp',true);
 
 
 %(2) Plot:

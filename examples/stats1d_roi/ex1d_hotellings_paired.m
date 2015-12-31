@@ -16,6 +16,7 @@ roi(21:50)  = true;
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.hotellings_paired(YA, YB, 'roi', roi);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:

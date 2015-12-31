@@ -22,7 +22,7 @@ disp(spmi)
 
 %(2) Compare to Statistics Toolbox result:
 v = ver;
-if any(strcmp('Statistics Toolbox', {v.Name}))
+if any(strncmp('Statistics', {v.Name}, 10))
     [A,B,R,U,V,STATS] = canoncorr(x, y);
     [X2,p] = deal(STATS.chisq, STATS.p);
     fprintf('Statistics Toolbox results:\n')

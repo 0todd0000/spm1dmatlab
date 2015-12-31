@@ -17,8 +17,10 @@ roi(66:85) = true;
 
 
 %(1) Conduct SPM analysis:
-spm       = spm1d.stats.ttest2(YA, YB, 'roi', roi);
-spmi      = spm.inference(0.05, 'two_tailed', false)
+spm       = spm1d.stats.ttest2(YA, YB, 'roi',roi);
+spmi      = spm.inference(0.05, 'two_tailed',false, 'interp',true);
+disp(spmi)
+
 
 
 

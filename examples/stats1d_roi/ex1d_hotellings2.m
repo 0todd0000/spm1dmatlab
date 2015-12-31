@@ -16,11 +16,15 @@ roi(71:end)  = true;
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.hotellings2(YA, YB, 'roi', roi);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:
 close all
 spmi.plot()
+spmi.plot_threshold_label();
+spmi.plot_p_values();
+
 
 
 

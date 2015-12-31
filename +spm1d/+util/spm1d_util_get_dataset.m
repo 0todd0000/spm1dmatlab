@@ -1,7 +1,9 @@
 function [varargout] = spm1d_util_get_dataset(name, varargin)
 
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: spm1d_util_get_dataset.m 1 2016-01-04 16:07 todd $
+
 
 
 dir0    = fileparts( mfilename('fullpath') );

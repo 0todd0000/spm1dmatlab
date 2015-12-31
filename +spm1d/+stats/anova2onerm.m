@@ -1,4 +1,7 @@
 function [SPM] = anova2onerm(Y, A, B, SUBJ, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: anova2onerm.m 1 2016-01-04 16:07 todd $
 
 design = spm1d.stats.anova.designs.ANOVA2onerm(A, B, SUBJ);
 model  = spm1d.stats.anova.LinearModel(Y, design.X, varargin{:});

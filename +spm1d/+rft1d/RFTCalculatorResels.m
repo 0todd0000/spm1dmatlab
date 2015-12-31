@@ -1,4 +1,6 @@
-
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: RFTCalculatorResels.m 1 2016-01-04 16:07 todd $
 
 classdef RFTCalculatorResels
     properties

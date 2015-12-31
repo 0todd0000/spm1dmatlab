@@ -25,7 +25,7 @@ disp(spmi)
 
 %(2) Compare to Statistics Toolbox result:
 v = ver;
-if any(strcmp('Statistics Toolbox', {v.Name}))
+if any(strncmp('Statistics', {v.Name}, 10))
     [d,p,stats] = manova1(y, A);
     fprintf('Statistics Toolbox results:\n')
     fprintf('    X2 = %s\n', stats.chisq(1))

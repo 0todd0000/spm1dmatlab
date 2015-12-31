@@ -1,4 +1,8 @@
 function [SPM] = anova3nested(Y, A, B, C, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: anova3nested.m 1 2016-01-04 16:07 todd $
+
 
 design = spm1d.stats.anova.designs.ANOVA3nested(A, B, C);
 model  = spm1d.stats.anova.LinearModel(Y, design.X, varargin{:});

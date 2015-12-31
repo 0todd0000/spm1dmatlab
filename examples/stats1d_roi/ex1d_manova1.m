@@ -16,6 +16,7 @@ roi(61:90) = true;
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.manova1(Y, A, 'roi', roi);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:

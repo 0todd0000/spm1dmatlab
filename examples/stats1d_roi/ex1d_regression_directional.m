@@ -10,15 +10,17 @@ dataset = spm1d.data.uv1d.regress.SpeedGRF();
 
 
 %(0a) Create region(s) of interest (ROI):
-roi        = false( 1, size(Y,2) );
-roi(21:55) = true;
+roi        = zeros( 1, size(Y,2) );
+roi(1:20)  = +1;
+roi(31:65) = -1;
 
 
 
 
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.regress(Y, x, 'roi', roi);
-spmi      = spm.inference(0.05, 'two_tailed', true);
+spmi      = spm.inference(0.05, 'two_tailed', false);
+disp(spmi)
 
 
 
@@ -26,7 +28,7 @@ spmi      = spm.inference(0.05, 'two_tailed', true);
 close all
 spmi.plot()
 spmi.plot_threshold_label();
-spmi.plot_p_values();
+% spmi.plot_p_values();
 
 
 

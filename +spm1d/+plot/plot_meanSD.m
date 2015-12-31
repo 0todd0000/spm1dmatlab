@@ -1,7 +1,8 @@
 function [h0,h1] = plot_meanSD(Y)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: plot_meanSD.m 1 2016-01-04 16:07 todd $
 
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
 
 [y,ys]    = deal(mean(Y,1), std(Y,1));       
 x         = 0:numel(y)-1;

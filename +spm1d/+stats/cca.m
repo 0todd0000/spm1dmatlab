@@ -1,4 +1,8 @@
 function [SPM] = cca(Y, x, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: cca.m 1 2016-01-04 16:07 todd $
+
 
 parser = inputParser;
 addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );

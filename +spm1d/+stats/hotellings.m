@@ -1,4 +1,7 @@
 function [SPM] = hotellings(Y, mu, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: hotellings.m 1 2016-01-04 16:07 todd $
 
 
 parser = inputParser;

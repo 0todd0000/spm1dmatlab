@@ -26,6 +26,7 @@ roi(61:end) = true;
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.glm(Y, X, c, 'roi', roi);
 spmi      = spm.inference(0.05, 'two_tailed', false);
+disp(spmi)
 
 
 

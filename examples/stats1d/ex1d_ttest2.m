@@ -15,7 +15,8 @@ dataset = spm1d.data.uv1d.t2.SimulatedTwoLocalMax();
 
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.ttest2(YA, YB);
-spmi      = spm.inference(0.05, 'two_tailed', false);
+spmi      = spm.inference(0.05, 'two_tailed',false, 'interp',true);
+disp(spmi)
 
 
 

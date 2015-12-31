@@ -1,7 +1,7 @@
 function [SPM] = glm(Y, X, c, varargin)
-
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: glm.m 1 2016-01-04 16:07 todd $
 
 parser = inputParser;
 addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );

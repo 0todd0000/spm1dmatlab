@@ -17,12 +17,14 @@ roi(61:90) = true;
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.cca(Y, x, 'roi', roi);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:
 close all
 spmi.plot()
-
+spmi.plot_threshold_label();
+spmi.plot_p_values();
 
 
 

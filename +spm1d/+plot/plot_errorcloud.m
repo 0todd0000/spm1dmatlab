@@ -1,7 +1,7 @@
 function [h] = plot_errorcloud(y, ye, x)
-
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: plot_errorcloud.m 1 2016-01-04 16:07 todd $
 
 Q         = numel(y);
 if nargin==2
