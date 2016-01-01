@@ -94,8 +94,13 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             offset = parser.Results.offset;
             self.set_axes()
             for i = 1:self.nClusters
-                xy = self.clusters{i}.xy;
-                h = text(xy(1)+offset(1), xy(2)+offset(2), self.p2str(self.p(i)));
+                cluster = self.clusters{i};
+                if cluster.iswrapped
+                    h = self.plot_p_value_wrapped(cluster, offset);
+                else
+                    xy = cluster.xy;
+                    h = text(xy(1)+offset(1), xy(2)+offset(2), self.p2str(cluster.P));
+                end
             end
         end
         
@@ -133,6 +138,11 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             end
         end
         
+        
+        function [h] = plot_p_value_wrapped(self, cluster, offset)
+            xy = cluster.other.xy;
+            h = text(xy(1)+offset(1), xy(2)+offset(2), self.p2str(cluster.P));
+        end
         
         function [h] = plot_threshold(self)
             Q        = self.nNodes;
@@ -172,12 +182,13 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         
         function [h] = plot_cluster_patches(self)
             if self.nClusters==0
-                h = [];
+                h = {};
             else
-                h = zeros(1,self.nClusters);
+                h = cell(1,self.nClusters);
                 for i = 1:self.nClusters
-                    h(i) = self.clusters{i}.plot_patch();
+                    h{i} = self.clusters{i}.plot_patch();
                 end
+                h = horzcat(h{:});
                 set(h, 'FaceAlpha',0.5, 'EdgeColor','None')
             end
         end

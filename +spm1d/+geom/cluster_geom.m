@@ -5,10 +5,12 @@ function [clusters] = cluster_geom(Z, u, varargin)
 
 % parse inputs
 parser = inputParser;
-addOptional(parser, 'interp', false, @(x)islogical(x));
-addOptional(parser, 'csign', +1, @(x)isscalar(x));
+addOptional(parser, 'interp',   true, @(x)islogical(x) && isscalar(x));
+addOptional(parser, 'circular', true, @(x)islogical(x) && isscalar(x));
+addOptional(parser, 'csign',      +1, @(x)isscalar(x));
 parser.parse(varargin{:});
 interp   = parser.Results.interp;
+circular = parser.Results.circular;
 csign    = parser.Results.csign;
 
 
@@ -44,6 +46,26 @@ for i=1:n
     end
     clusters{i}   = spm1d.geom.Cluster(x, csign*z, csign*u, interp);
 end
+
+
+%merge clusters if necessary:
+if circular
+    xy  = zeros(n,2);
+    for i = 1:n
+        xy(i,:) = clusters{i}.endpoints;
+    end
+    [i0,i1] = deal( xy(:,1)==0,  xy(:,2)==Q-1 );
+    [ind0,ind1] = deal( find(i0,1), find(i1,1) );
+    if ~isempty(ind0) && ~isempty(ind1)
+        if (ind0~=ind1) && (clusters{ind0}.csign==clusters{ind1}.csign)
+            clusters{ind0} = clusters{ind0}.merge( clusters{ind1} );
+            clusters = clusters(~i1);
+        end
+    end
+end
+    
+
+
 
 
 

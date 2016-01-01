@@ -6,6 +6,8 @@
 classdef Cluster < matlab.mixin.CustomDisplay
     properties
         endpoints   %starting and ending points (interpolated to threshold)
+        csign       %cluster sign (+1: above +u, -1: below -u)
+        iswrapped   %true if the cluster wraps around the origin of a circular field
         extent      %breadth (units: nodes)
         extentR     %breadth (units: resels)
         h           %minimum height above threshold (usually zstar)
@@ -18,8 +20,14 @@ classdef Cluster < matlab.mixin.CustomDisplay
         Z           %height profile
         u           %threshold
         isinterp    %true if the cluster endpoints are interpolated to a threhsold
-        iswrapped   %not yet implemented
+        other       %a merged cluster
     end
+    
+%     properties (Access = private)
+%         other       %a merged cluster
+%     end
+    
+    
     
     methods
         
@@ -27,7 +35,9 @@ classdef Cluster < matlab.mixin.CustomDisplay
             self.X          = X;
             self.Z          = Z;
             self.u          = u;
+            self.csign      = sign(u);
             self.isinterp   = isinterp;
+            self.iswrapped  = false;
             self            = self.assemble();
         end
        
@@ -51,6 +61,10 @@ classdef Cluster < matlab.mixin.CustomDisplay
         end
        
         function h = plot_patch(self)
+            if self.iswrapped
+                h = self.plot_patch_wrapped();
+                return
+            end
             [x,z,u]  = deal(self.X, self.Z, self.u); %#ok<*PROP>
             if z(1) ~= u
                 x  = [x(1) x];
@@ -62,7 +76,18 @@ classdef Cluster < matlab.mixin.CustomDisplay
             end
             h = patch(x, z, 0.7*[1,1,1]);
         end
-       
+        
+        function self = merge(self, other)
+            self.iswrapped = true;
+            self.extent    = self.extent + other.extent;
+            self.extentR   = self.extentR + other.extentR;
+            self.endpoints = {other.endpoints self.endpoints};
+            self.h         = min(self.h, other.h);
+            self.xy        = {other.xy self.xy};
+            self.other     = other;
+        end
+
+
        
     end  %public methods
    
@@ -70,17 +95,28 @@ classdef Cluster < matlab.mixin.CustomDisplay
  
     methods (Access = protected)
         function self = assemble(self)
+            z = self.Z;
             if self.isinterp
                 self.endpoints  = [self.X(1) self.X(end)];
             else
                 self.endpoints  = [ceil(self.X(1)) floor(self.X(end))];
+                z               = z(2:end-1);
             end
             self.extent         = diff(self.endpoints);
             if self.extent ==0  %to reproduce results from previous versions, minimum extent must be one (when not interpolated)
                 self.extent = 1;
             end
-            self.h          = min(self.Z);
+            self.h          = min(z);
             self.xy         = [mean(self.X) mean(self.Z)];
+        end
+        
+        
+        function h = plot_patch_wrapped(self)
+            self.iswrapped = false;
+            h0 = self.plot_patch();
+            self.iswrapped = true;
+            h1 = self.other.plot_patch();
+            h  = [h0 h1];
         end
 
      

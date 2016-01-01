@@ -55,10 +55,12 @@ classdef SPM < matlab.mixin.CustomDisplay
             addOptional(parser, 'two_tailed', default2tailed, @islogical);
             addOptional(parser, 'withBonf', true, @islogical);
             addOptional(parser, 'interp', true, @islogical);
+            addOptional(parser, 'circular', false, @(x)islogical(x) && isscalar(x) );
             parser.parse(varargin{:});
             two_tailed     = parser.Results.two_tailed;
             withBonf       = parser.Results.withBonf;
             interp         = parser.Results.interp;
+            circular       = parser.Results.circular;
             %check: two-tailed and test statistic
             if two_tailed && ~isequal(self.STAT, 'T')
                 error('Two-tailed inference can only be used for t tests and regression.')
@@ -79,7 +81,7 @@ classdef SPM < matlab.mixin.CustomDisplay
                 pstar = alpha;
             end
             zstar        = self.get_critical_threshold(pstar, withBonf);
-            clusters     = self.get_clusters(zstar, check_neg, interp);  % supra-threshold clusters
+            clusters     = self.get_clusters(zstar, check_neg, interp, circular);  % supra-threshold clusters
             [clusters,p] = self.cluster_inference(clusters, two_tailed, withBonf);
             p_set        = self.set_inference(zstar, clusters, withBonf);
             spmi         = spm1d.stats.spm.SPMi(self, alpha, zstar, p_set, p, two_tailed, clusters);
@@ -109,10 +111,10 @@ classdef SPM < matlab.mixin.CustomDisplay
         end
         
         
-        function [clusters] = get_clusters(self, zstar, check_neg, interp)
-            clusters = spm1d.geom.cluster_geom(self.z, zstar, 'interp',interp, 'csign',+1);
+        function [clusters] = get_clusters(self, zstar, check_neg, interp, circular)
+            clusters = spm1d.geom.cluster_geom(self.z, zstar, interp, circular, 'csign',+1);
             if check_neg
-                clustersn = spm1d.geom.cluster_geom(-self.z, zstar, 'interp',interp, 'csign', -1);
+                clustersn = spm1d.geom.cluster_geom(-self.z, zstar, interp, circular, 'csign',-1);
                 clusters  = [clusters clustersn];
             end
         end        
