@@ -16,6 +16,13 @@ disp(spmi)
 
 %(2) Plot:
 close all
+%%% plot mean and SD:
+figure
+spm1d.plot.plot_meanSD(Y1, 'color','k')
+hold on
+spm1d.plot.plot_meanSD(Y2, 'color','r')
+%%% plot SPM results:
+figure
 spmi.plot()
 spmi.plot_threshold_label();
 spmi.plot_p_values();

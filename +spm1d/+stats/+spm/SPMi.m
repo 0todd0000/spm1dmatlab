@@ -77,7 +77,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             else
                 stat_label = self.STAT;
             end
-            xlabel('Continuum position')
             ylabel( sprintf('SPM %s %s %s', '\{', stat_label, '\}') )
             %tidy up:
             self.return2originalaxes()

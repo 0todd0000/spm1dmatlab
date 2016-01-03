@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load data:
-dataset = spm1d.data.uv1d.regress.SimulatedPataky2015c();
+% dataset = spm1d.data.uv1d.regress.SimulatedPataky2015c();
 dataset = spm1d.data.uv1d.regress.SpeedGRF();
 [Y,x]  = deal(dataset.Y, dataset.x);
 
@@ -12,7 +12,7 @@ dataset = spm1d.data.uv1d.regress.SpeedGRF();
 
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.regress(Y, x);
-spmi      = spm.inference(0.05, 'two_tailed', true);
+spmi      = spm.inference(0.05, 'two_tailed', false);
 
 
 

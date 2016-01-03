@@ -13,7 +13,7 @@ dataset = spm1d.data.uv1d.t1.Random();
 
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.ttest(Y - mu);
-spmi      = spm.inference(0.05, 'two_tailed',false, 'interp',true);
+spmi      = spm.inference(0.05, 'two_tailed',false);
 
 
 %(2) Plot:
