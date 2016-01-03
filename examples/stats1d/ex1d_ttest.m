@@ -4,9 +4,9 @@ clear;  clc
 
 
 %(0) Load data:
-% dataset = spm1d.data.uv1d.t1.Random();
+dataset = spm1d.data.uv1d.t1.Random();
 % dataset = spm1d.data.uv1d.t1.SimulatedPataky2015a();
-dataset = spm1d.data.uv1d.t1.SimulatedPataky2015b();
+% dataset = spm1d.data.uv1d.t1.SimulatedPataky2015b();
 [Y,mu]  = deal(dataset.Y, dataset.mu);
 
 

@@ -6,6 +6,8 @@
 
 classdef SPMi < matlab.mixin.CustomDisplay & handle
     properties
+        STAT        %test statistic ("T", "F", "X2" or "T2")
+        two_tailed
         df          %degrees of freedom
         nNodes      %number of continuum nodes
         z           %test statistic continuum
@@ -20,8 +22,6 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         clusters    %cluster objects
     end
     properties (Hidden)
-        STAT
-        two_tailed
         ax
         ax0
         centroids

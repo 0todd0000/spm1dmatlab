@@ -5,21 +5,21 @@
 
 classdef SPM < matlab.mixin.CustomDisplay
     properties
-        df          %degrees of freedom
-        nNodes      %number of continuum nodes
+        STAT        %test statistic ("T", "F", "X2" or "T2")
         z           %test statistic continuum
-        r           %correlation coefficient (regression only)
+        nNodes      %number of field nodes
+        df          %degrees of freedom
         fwhm        %field smoothness (full width at half maximum)
-        resels      %"resolution element" counts
-        isregress = false;
+        resels      %"resolution element" counts (equivalent to: [1 (nNodes-1)/fwhm] if the field is continuous across all nodes)
+        sigma2      %field variance
+        r           %correlation coefficient (regression only)
+        isregress   %boolean flag:  true if regression analysis
+        beta        %fitted model parameters (usually means or slopes)
+        R           %fitted model residuals
     end
     
     properties (Hidden)
-        STAT
-        beta
-        R
-        sigma2
-        roi
+        roi         %region of interest
     end
     
     methods
@@ -33,16 +33,17 @@ classdef SPM < matlab.mixin.CustomDisplay
             addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
             parser.parse(varargin{:});
             %assemble inputs:
-            self.STAT     = STAT;
-            self.z        = z;
-            self.df       = df;
-            self.fwhm     = fwhm;
-            self.resels   = resels;
-            self.nNodes   = numel(z);
-            self.beta     = parser.Results.beta;
-            self.R        = parser.Results.residuals;
-            self.sigma2   = parser.Results.sigma2;
-            self.roi      = parser.Results.roi;
+            self.STAT      = STAT;
+            self.z         = z;
+            self.df        = df;
+            self.fwhm      = fwhm;
+            self.resels    = resels;
+            self.nNodes    = numel(z);
+            self.beta      = parser.Results.beta;
+            self.isregress = false;
+            self.R         = parser.Results.residuals;
+            self.sigma2    = parser.Results.sigma2;
+            self.roi       = parser.Results.roi;
             if ~isempty(self.roi)
                 self.z(~self.roi) = nan;
             end
@@ -83,7 +84,7 @@ classdef SPM < matlab.mixin.CustomDisplay
             zstar        = self.get_critical_threshold(pstar, withBonf);
             clusters     = self.get_clusters(zstar, check_neg, interp, circular);  % supra-threshold clusters
             [clusters,p] = self.cluster_inference(clusters, two_tailed, withBonf);
-            p_set        = self.set_inference(zstar, clusters, withBonf);
+            p_set        = self.set_inference(zstar, clusters, two_tailed, withBonf);
             spmi         = spm1d.stats.spm.SPMi(self, alpha, zstar, p_set, p, two_tailed, clusters);
        end
        
@@ -134,7 +135,7 @@ classdef SPM < matlab.mixin.CustomDisplay
             end
         end
         
-        function [P] = set_inference(self, zstar, clusters, withBonf)
+        function [P] = set_inference(self, zstar, clusters, two_tailed, withBonf)
             [v,res,n] = deal(self.df, self.resels, self.nNodes);
             c = numel(clusters);
             k = inf;
@@ -144,7 +145,9 @@ classdef SPM < matlab.mixin.CustomDisplay
             switch self.STAT
                 case 'T'
                     P = spm1d.rft1d.t.p_set_resels(c, k, zstar, v(2), res, 'withBonf',withBonf, 'nNodes',n);
-                    
+                    if two_tailed
+                        P = min(1, 2*P);
+                    end
                 case 'X2'
                     P= spm1d.rft1d.chi2.p_set_resels(c, k, zstar, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'F'
