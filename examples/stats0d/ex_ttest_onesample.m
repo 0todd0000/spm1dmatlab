@@ -1,6 +1,6 @@
 
 
-clear all;  clc
+clear;  clc
 
 
 %(0) Load dataset:
@@ -21,7 +21,7 @@ disp(spmi)
 
 %(2) Compare to Statistics Toolbox result:
 v = ver;
-if any(strcmp('Statistics Toolbox', {v.Name}))
+if any(strncmp('Statistics', {v.Name}, 10))
     [h,p,ci,stats] = ttest(y-mu);
     [t,p] = deal(stats.tstat, 0.5*p);   %one-tailed test
     fprintf('Statistics Toolbox results:\n')

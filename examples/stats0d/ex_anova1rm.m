@@ -1,6 +1,6 @@
 
 
-clear all;  clc
+clear;  clc
 
 
 %(0) Load dataset:
@@ -16,26 +16,11 @@ fprintf('    p = %s\n', dataset.p)
 
 
 
-% 
+
 %(1) Conduct test using spm1d:
 spm  = spm1d.stats.anova1rm(y, A, SUBJ);
 spmi = spm.inference(0.05);
 disp(spmi)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

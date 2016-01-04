@@ -12,6 +12,7 @@ dataset    = spm1d.data.mv1d.hotellings_paired.Pataky2014cop();
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.hotellings_paired(YA, YB);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:

@@ -25,15 +25,15 @@ disp(spmi)
 
 
 
-% %(2) Compare to Statistics Toolbox result:
-% v = ver;
-% if any(strcmp('Statistics Toolbox', {v.Name}))
-%     [p,table] = anova1(y, A, 'off');
-%     F = table{2,5};
-%     fprintf('Statistics Toolbox results:\n')
-%     fprintf('    F = %s\n', F)
-%     fprintf('    p = %s\n', p)
-% end
+%(2) Compare to Statistics Toolbox result:
+v = ver;
+if any(strncmp('Statistics', {v.Name}, 10))
+    [p,table] = anova1(y, A, 'off');
+    F = table{2,5};
+    fprintf('Statistics Toolbox results:\n')
+    fprintf('    F = %s\n', F)
+    fprintf('    p = %s\n', p)
+end
 
 
 

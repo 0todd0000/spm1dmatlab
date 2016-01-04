@@ -11,6 +11,7 @@ dataset    = spm1d.data.mv1d.manova1.Dorn2012();
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.manova1(Y, A);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:

@@ -1,22 +1,25 @@
-
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: SPM.m 1 2016-01-04 16:07 todd $
 
 
 classdef SPM < matlab.mixin.CustomDisplay
     properties
-        df
-        nNodes
-        z
-        r
-        fwhm
-        resels
-        isregress = false;
+        STAT        %test statistic ("T", "F", "X2" or "T2")
+        z           %test statistic continuum
+        nNodes      %number of field nodes
+        df          %degrees of freedom
+        fwhm        %field smoothness (full width at half maximum)
+        resels      %"resolution element" counts (equivalent to: [1 (nNodes-1)/fwhm] if the field is continuous across all nodes)
+        sigma2      %field variance
+        r           %correlation coefficient (regression only)
+        isregress   %boolean flag:  true if regression analysis
+        beta        %fitted model parameters (usually means or slopes)
+        R           %fitted model residuals
     end
     
     properties (Hidden)
-        STAT
-        beta
-        R
-        sigma2
+        roi         %region of interest
     end
     
     methods
@@ -27,50 +30,62 @@ classdef SPM < matlab.mixin.CustomDisplay
             addOptional(parser, 'beta',      [], @(x)isnumeric(x));
             addOptional(parser, 'residuals', [], @(x)isnumeric(x) && ndims(x)>1 && ndims(x)<4 );
             addOptional(parser, 'sigma2',    [], @(x)isnumeric(x) && isvector(x) );
+            addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
             parser.parse(varargin{:});
             %assemble inputs:
-            self.STAT     = STAT;
-            self.z        = z;
-            self.df       = df;
-            self.fwhm     = fwhm;
-            self.resels   = resels;
-            self.nNodes   = numel(z);
-            self.beta     = parser.Results.beta;
-            self.R        = parser.Results.residuals;
-            self.sigma2   = parser.Results.sigma2;
-
+            self.STAT      = STAT;
+            self.z         = z;
+            self.df        = df;
+            self.fwhm      = fwhm;
+            self.resels    = resels;
+            self.nNodes    = numel(z);
+            self.beta      = parser.Results.beta;
+            self.isregress = false;
+            self.R         = parser.Results.residuals;
+            self.sigma2    = parser.Results.sigma2;
+            self.roi       = parser.Results.roi;
+            if ~isempty(self.roi)
+                self.z(~self.roi) = nan;
+            end
        end
        
        function spmi = inference(self, alpha, varargin)
             %parse inputs
             default2tailed = isequal(self.STAT,'T');
-            parser = inputParser;
+            parser         = inputParser;
             addOptional(parser, 'two_tailed', default2tailed, @islogical);
+            addOptional(parser, 'withBonf', true, @islogical);
+            addOptional(parser, 'interp', true, @islogical);
+            addOptional(parser, 'circular', false, @(x)islogical(x) && isscalar(x) );
             parser.parse(varargin{:});
-            two_tailed    = parser.Results.two_tailed;
-            %two-tailed check
+            two_tailed     = parser.Results.two_tailed;
+            withBonf       = parser.Results.withBonf;
+            interp         = parser.Results.interp;
+            circular       = parser.Results.circular;
+            %check: two-tailed and test statistic
             if two_tailed && ~isequal(self.STAT, 'T')
                 error('Two-tailed inference can only be used for t tests and regression.')
             end
+            check_neg      = two_tailed;
+            %check: two-tailed and ROI
+            if ~isempty(self.roi) && isnumeric(self.roi)
+                if two_tailed
+                    error('Two-tailed inference can only be used with logical ROIs. Use true and false to define the ROI rather than -1, 0 and +1')
+                else
+                    check_neg = any(self.roi==-1);
+                end
+            end
             %correct for two-tailed inference
             if two_tailed
-                pstar = alpha/2;
+                pstar = 0.5 * alpha;
             else
                 pstar = alpha;
             end
-            %compute critical threshold
-            zstar  = self.get_critical_threshold(pstar);
-            % compute supra-threshold cluster geometry:
-            [extents,heights] = spm1d.geom.cluster_geom(self.z, zstar);
-            if two_tailed
-                [extentsn,heightsn] = spm1d.geom.cluster_geom(-self.z, zstar);
-                extents = [extents extentsn];
-                heights = [heights heightsn];
-            end
-            % compute cluster-specific p values:
-            extentsR    = extents / self.fwhm;  %extents in resel units
-            p           = self.get_p_values(extentsR, heights, two_tailed);
-            spmi        = spm1d.stats.spm.SPMi(self, alpha, zstar, p, two_tailed);
+            zstar        = self.get_critical_threshold(pstar, withBonf);
+            clusters     = self.get_clusters(zstar, check_neg, interp, circular);  % supra-threshold clusters
+            [clusters,p] = self.cluster_inference(clusters, two_tailed, withBonf);
+            p_set        = self.set_inference(zstar, clusters, two_tailed, withBonf);
+            spmi         = spm1d.stats.spm.SPMi(self, alpha, zstar, p_set, p, two_tailed, clusters);
        end
        
        function plot(self)
@@ -82,50 +97,68 @@ classdef SPM < matlab.mixin.CustomDisplay
    
     
     methods (Access=private)
-        
 
-                
-                
-        function [zstar] = get_critical_threshold(self, alpha)
-            [v,Q,w] = deal(self.df, self.nNodes, self.fwhm);
+        function [clusters,p] = cluster_inference(self, clusters, two_tailed, withBonf)
+            n = numel(clusters);
+            if n==0
+                p = [];
+            else
+                p = zeros(1,n);
+                for i = 1:n
+                    clusters{i} = clusters{i}.inference(self.STAT, self.df, self.fwhm, self.resels, two_tailed, withBonf, self.nNodes);
+                    p(i) = clusters{i}.P;
+                end
+            end
+        end
+        
+        
+        function [clusters] = get_clusters(self, zstar, check_neg, interp, circular)
+            clusters = spm1d.geom.cluster_geom(self.z, zstar, interp, circular, 'csign',+1);
+            if check_neg
+                clustersn = spm1d.geom.cluster_geom(-self.z, zstar, interp, circular, 'csign',-1);
+                clusters  = [clusters clustersn];
+            end
+        end        
+
+        
+        function [zstar] = get_critical_threshold(self, a, withBonf)
+            [v,res,n] = deal(self.df, self.resels, self.nNodes);
             switch self.STAT
                 case 'T'
-                    zstar = spm1d.rft1d.t.isf(alpha, v(2), Q, w);
+                    zstar = spm1d.rft1d.t.isf_resels(a, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'X2'
-                    zstar = spm1d.rft1d.chi2.isf(alpha, v(2), Q, w);
+                    zstar = spm1d.rft1d.chi2.isf_resels(a, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'F'
-                    zstar = spm1d.rft1d.f.isf(alpha, v, Q, w);
+                    zstar = spm1d.rft1d.f.isf_resels(a, v, res, 'withBonf',withBonf, 'nNodes',n);
                 case 'T2'
-                    zstar = spm1d.rft1d.T2.isf(alpha, v, Q, w);
+                    zstar = spm1d.rft1d.T2.isf_resels(a, v, res, 'withBonf',withBonf, 'nNodes',n);
             end
         end
         
-        
-        function [p] = get_p_values(self, kk, uu, two_tailed)
-            n = numel(kk);
-            p = zeros(1,n);
-            for i = 1:n
-                p(i) = self.get_p_value(kk(i), uu(i), two_tailed);
+        function [P] = set_inference(self, zstar, clusters, two_tailed, withBonf)
+            [v,res,n] = deal(self.df, self.resels, self.nNodes);
+            c = numel(clusters);
+            k = inf;
+            for i = 1:c
+                k = min(k, clusters{i}.extentR);
             end
-        end
-        
-        
-        function [p] = get_p_value(self, k, u, two_tailed)
-            [v,Q,w] = deal(self.df, self.nNodes, self.fwhm);
             switch self.STAT
                 case 'T'
-                    p = spm1d.rft1d.t.p_cluster(k, abs(u), v(2), Q, w);
+                    P = spm1d.rft1d.t.p_set_resels(c, k, zstar, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                     if two_tailed
-                        p = min(1, 2*p);
+                        P = min(1, 2*P);
                     end
                 case 'X2'
-                    p = spm1d.rft1d.chi2.p_cluster(k, u, v(2), Q, w);
+                    P= spm1d.rft1d.chi2.p_set_resels(c, k, zstar, v(2), res, 'withBonf',withBonf, 'nNodes',n);
                 case 'F'
-                    p = spm1d.rft1d.f.p_cluster(k, u, v, Q, w);
+                    P = spm1d.rft1d.f.p_set_resels(c, k, zstar, v, res, 'withBonf',withBonf, 'nNodes',n);
                 case 'T2'
-                    p = spm1d.rft1d.T2.p_cluster(k, u, v, Q, w);
+                    P = spm1d.rft1d.T2.p_set_resels(c, k, zstar, v, res, 'withBonf',withBonf, 'nNodes',n);
             end
         end
+        
+  
+      
     end
             
  

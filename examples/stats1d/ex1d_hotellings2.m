@@ -11,6 +11,7 @@ dataset    = spm1d.data.mv1d.hotellings2.Besier2009muscleforces();
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.hotellings2(YA, YB);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 %(2) Plot:

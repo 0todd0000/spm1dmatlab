@@ -1,7 +1,7 @@
 function [rCounts] = resels(R, W)
-
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: resels.m 1 2016-01-04 16:07 todd $
 
 if ndims(R)==3
     a         = any( squeeze(any(abs(R)>0, 1)), 2)';

@@ -1,7 +1,9 @@
 function [dir0] = get_matfile_path()
 
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: get_matfile_path.m 1 2016-01-04 16:07 todd $
+
 
 
 dir0    = fileparts( mfilename('fullpath') );

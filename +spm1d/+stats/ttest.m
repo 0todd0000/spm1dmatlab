@@ -1,9 +1,9 @@
-function [SPM] = ttest(Y)
-
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
+function [SPM] = ttest(Y, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: ttest.m 1 2016-01-04 16:07 todd $
 
 [J,~]         = size(Y);
 X             = ones(J, 1);
 c             = 1;
-[SPM]         = spm1d.stats.glm(Y, X, c);
+[SPM]         = spm1d.stats.glm(Y, X, c, varargin{:});

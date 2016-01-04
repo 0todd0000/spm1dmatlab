@@ -4,8 +4,8 @@ clear;  clc
 
 
 %(0) Load data:
-dataset = spm1d.data.uv1d.regress.SimulatedPataky2015c();
-% dataset = spm1d.data.uv1d.regress.SpeedGRF();
+% dataset = spm1d.data.uv1d.regress.SimulatedPataky2015c();
+dataset = spm1d.data.uv1d.regress.SpeedGRF();
 [Y,x]  = deal(dataset.Y, dataset.x);
 
 

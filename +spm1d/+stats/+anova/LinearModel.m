@@ -1,3 +1,6 @@
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: LinearModel.m 1 2016-01-04 16:07 todd $
 
 
 
@@ -18,18 +21,25 @@ classdef LinearModel
         eij
         fwhm
         resels
+        roi
    end
    methods
-       function self = LinearModel(Y, X)
-           if isvector(Y)
-               self.dim = 0;
-           else
-               self.dim = 1;
-           end
-           self.Y   = Y;
-           self.X   = X;
-           self.J   = size(X,1);
-           self.Q   = size(Y,2);
+       function self = LinearModel(Y, X, varargin)
+            if isvector(Y)
+                self.dim = 0;
+            else
+                self.dim = 1;
+            end
+            %parse varargin for ROI:
+            parser   = inputParser;
+            addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
+            parser.parse(varargin{:});
+            self.roi = parser.Results.roi;
+            %assemble attributes:
+            self.Y   = Y;
+            self.X   = X;
+            self.J   = size(X,1);
+            self.Q   = size(Y,2);
        end
        
 
@@ -38,7 +48,7 @@ classdef LinearModel
             if nargin==2
                 approx_residuals = varargin{1};
             end
-            [Y,X,J]    = deal(self.Y, self.X, self.J);
+            [Y,X,J]    = deal(self.Y, self.X, self.J); %#ok<*PROPLC>
             Xi         = pinv(X);
             self.beta  = Xi*Y;
             
@@ -64,7 +74,13 @@ classdef LinearModel
                 self.resels = 0;
             else
                 self.fwhm     = mean( spm1d.geom.fwhm(self.eij) );
-                self.resels   = spm1d.geom.resels(self.eij, self.fwhm);
+                if isempty(self.roi)
+                    self.resels   = spm1d.geom.resels(self.eij, self.fwhm);
+                else
+                    B    = any(isnan(self.eij), 1);
+                    B    = ~B & self.roi;
+                    self.resels   = spm1d.geom.resels(B, self.fwhm);
+                end
             end
             
             [Q,~]    = qr(X, 0);
@@ -72,7 +88,6 @@ classdef LinearModel
        end
        
        function [SPM] = aov(self, contrasts, F_terms)
-            
             effects = self.QT * self.Y;
             
             
@@ -104,7 +119,7 @@ classdef LinearModel
                 if self.dim==0
                     spm = spm1d.stats.spm.SPM0DF(f, df, [ss0 ss1], [ms0 ms1]);
                 else
-                    spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels);
+                    spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels, 'roi', self.roi);
                 end
                 SPM{k} = spm;
            end

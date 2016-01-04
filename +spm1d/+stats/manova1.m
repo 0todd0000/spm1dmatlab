@@ -1,4 +1,14 @@
-function [SPM] = manova1(Y, A)
+function [SPM] = manova1(Y, A, varargin)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: manova1.m 1 2016-01-04 16:07 todd $
+
+
+parser = inputParser;
+addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
+parser.parse(varargin{:});
+roi          = parser.Results.roi;
+
 
 
 % create design matrix:
@@ -29,8 +39,14 @@ else
     [p,k]  = deal(I, nGroups);
     df     = [1 p*(k-1)];
     fwhm   = spm1d.geom.fwhmmv(R);
-    resels = spm1d.geom.resels(R, fwhm);
-    SPM    = spm1d.stats.spm.SPM('X2', X2, df, fwhm, resels);
+    if isempty(roi)
+        resels   = spm1d.geom.resels(R, fwhm);
+    else
+        B    = any(isnan(any(isnan(R), 1)), 3);
+        B    = ~B & roi;
+        resels   = spm1d.geom.resels(B, fwhm);
+    end
+    SPM    = spm1d.stats.spm.SPM('X2', X2, df, fwhm, resels, 'roi', roi);
 end
 end
 

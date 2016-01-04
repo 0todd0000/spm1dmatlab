@@ -1,7 +1,8 @@
 function [Ys] = spm1d_smooth(Y, w)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: spm1d_smooth.m 1 2016-01-04 16:07 todd $
 
-% Copyright (C) 2014  Todd Pataky
-% Version: M0.1 (2014/05/01)
 
 [J,Q]   = size(Y);                  %number of curves/nodes
 s       = w/sqrt(8*log(2)) + eps;   %st.dev. of Gaussian kernel

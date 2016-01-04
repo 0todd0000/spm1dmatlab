@@ -1,7 +1,8 @@
 function [FWHM] = fwhm(R)
+%__________________________________________________________________________
+% Copyright (C) 2016 Todd Pataky
+% $Id: fwhm.m 1 2016-01-04 16:07 todd $
 
-% Copyright (C) 2015  Todd Pataky
-% Version: M0.1 (2015/07/01)
 
 ssq     = sum(R.^2, 1);
 [dx,~]  = gradient(R);
