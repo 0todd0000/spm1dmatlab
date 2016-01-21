@@ -43,7 +43,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             self.zstar        = zstar;
             self.clusters     = clusters;
             if two_tailed
-                self.h0reject = abs( max(self.z) ) > self.zstar;
+                self.h0reject = max( abs(self.z) ) > self.zstar;
             else
                 self.h0reject = max(self.z) > self.zstar;
             end
