@@ -25,7 +25,8 @@ classdef LinearModel
    end
    methods
        function self = LinearModel(Y, X, varargin)
-            if isvector(Y)
+           Y         = spm1d.util.flatten(Y); 
+           if isvector(Y)
                 self.dim = 0;
             else
                 self.dim = 1;
