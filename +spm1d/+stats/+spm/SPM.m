@@ -108,6 +108,13 @@ classdef SPM < matlab.mixin.CustomDisplay
                     clusters{i} = clusters{i}.inference(self.STAT, self.df, self.fwhm, self.resels, two_tailed, withBonf, self.nNodes);
                     p(i) = clusters{i}.P;
                 end
+                %re-order clusters left-to-right:
+                x = zeros(1,n);
+                for i = 1:n
+                    x(i) = clusters{i}.xy(1);
+                end
+                [~,ind] = sort(x);
+                [clusters,p] = deal( clusters(ind), p(ind) );
             end
         end
         
