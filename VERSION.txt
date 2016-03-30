@@ -1,1 +1,1 @@
-spm1d version M.0.3.6 (2016.01.22)
+spm1d version M.0.3.7 (2016.03.30)

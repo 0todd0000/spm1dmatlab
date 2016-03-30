@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM.m 1 2016-01-04 16:07 todd $
+% $Id: SPM.m 2 2016-03-30 17:01 todd $
 
 
 classdef SPM < matlab.mixin.CustomDisplay
@@ -111,7 +111,11 @@ classdef SPM < matlab.mixin.CustomDisplay
                 %re-order clusters left-to-right:
                 x = zeros(1,n);
                 for i = 1:n
-                    x(i) = clusters{i}.xy(1);
+                    if iscell(clusters{i}.xy)
+                        x(i) = clusters{i}.xy{1}(1);
+                    else
+                        x(i) = clusters{i}.xy(1);
+                    end
                 end
                 [~,ind] = sort(x);
                 [clusters,p] = deal( clusters(ind), p(ind) );
