@@ -19,7 +19,7 @@ t            = (c'*b)'  ./  (sqrt(sigma2*(c'*(inv(X'*X))*c))  + eps);
 
 % create SPM object:
 if numel(t)==1
-    SPM      = spm1d.stats.spm.SPM0D('T', t', [1 df]);
+    SPM      = spm1d.stats.spm.SPM0D('T', t', [1 df], eij, 'beta',b, 'sigma2',sigma2);
 else
     fwhm     = mean( spm1d.geom.fwhm(eij) );
     if isempty(roi)

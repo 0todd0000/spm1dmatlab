@@ -7,17 +7,29 @@ classdef SPM0D < matlab.mixin.CustomDisplay
     properties
         STAT
         df
+        beta
+        sigma2
         z
         r
+        residuals
         isregress = false;
     end
     
     methods
         
-        function [self] = SPM0D(STAT, z, df)
-            self.STAT     = STAT;
-            self.z        = z;
-            self.df       = df;
+        function [self] = SPM0D(STAT, z, df, residuals, varargin)
+            %parse varargin
+            parser = inputParser;
+            addOptional(parser, 'beta',   [], @isnumeric);
+            addOptional(parser, 'sigma2', [], @isnumeric);
+            parser.parse(varargin{:});
+            %set attributes:
+            self.STAT      = STAT;
+            self.z         = z;
+            self.df        = df;
+            self.residuals = residuals;
+            self.beta      = parser.Results.beta;
+            self.sigma2    = parser.Results.sigma2;
        end
        
        function spmi = inference(self, alpha, varargin)

@@ -8,13 +8,15 @@ classdef SPMList
     properties
         SPMs
         n
+        residuals
     end
     
     methods
         
         function [self] = SPMList(SPMs)
-            self.SPMs = SPMs;
-            self.n    = numel(SPMs);
+            self.SPMs      = SPMs;
+            self.n         = numel(SPMs);
+            self.residuals = SPMs{1}.residuals;
        end
        
        function SPMis = inference(self, alpha, varargin)

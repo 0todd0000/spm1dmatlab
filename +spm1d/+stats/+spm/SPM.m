@@ -16,6 +16,7 @@ classdef SPM < matlab.mixin.CustomDisplay
         isregress   %boolean flag:  true if regression analysis
         beta        %fitted model parameters (usually means or slopes)
         R           %fitted model residuals
+        residuals   %fitted model residuals (same as R;  R also retained for legacy purposes)
     end
     
     properties (Hidden)
@@ -42,6 +43,7 @@ classdef SPM < matlab.mixin.CustomDisplay
             self.beta      = parser.Results.beta;
             self.isregress = false;
             self.R         = parser.Results.residuals;
+            self.residuals = self.R;
             self.sigma2    = parser.Results.sigma2;
             self.roi       = parser.Results.roi;
             if ~isempty(self.roi)

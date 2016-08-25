@@ -9,8 +9,8 @@ classdef SPM0DF < matlab.mixin.CustomDisplay & spm1d.stats.spm.SPM0D
         MS
     end
     methods
-        function [self] = SPM0DF(z, df, SS, MS)
-            self@spm1d.stats.spm.SPM0D('F', z, df)
+        function [self] = SPM0DF(z, df, SS, MS, residuals)
+            self@spm1d.stats.spm.SPM0D('F', z, df, residuals)
             self.SS       = SS;
             self.MS       = MS;
        end

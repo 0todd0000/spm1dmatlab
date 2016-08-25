@@ -14,18 +14,19 @@ classdef SPM_F < spm1d.stats.spm.SPM
         
         function [self] = SPM_F(z, df, fwhm, resels, X, beta, eij, X0)
             self@spm1d.stats.spm.SPM('F', z, df, fwhm, resels, 'beta',beta, 'residuals',eij)
-            self.X        = X;
-            self.X0       = X0;
+            self.X         = X;
+            self.X0        = X0;
             %assemble inputs:
-            self.STAT     = STAT;
-            self.z        = z;
-            self.df       = df;
-            self.fwhm     = fwhm;
-            self.resels   = resels;
-            self.nNodes   = numel(z);
-            self.beta     = parser.Results.beta;
-            self.R        = parser.Results.residuals;
-            self.sigma2   = parser.Results.sigma2;
+            self.STAT      = STAT;
+            self.z         = z;
+            self.df        = df;
+            self.fwhm      = fwhm;
+            self.resels    = resels;
+            self.nNodes    = numel(z);
+            self.beta      = parser.Results.beta;
+            self.R         = parser.Results.residuals;
+            self.residuals = R;
+            self.sigma2    = parser.Results.sigma2;
 
        end
        
