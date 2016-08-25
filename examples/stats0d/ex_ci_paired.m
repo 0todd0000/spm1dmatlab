@@ -27,7 +27,7 @@ ci1   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'difference', 2);
 % % ci2   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'datum','meanA', 'mu','meanB');
 % ci2   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'datum','meanA');
 % ci3   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'datum','meanA', 'mu','tailB');
-% disp(ci1)
+disp(ci1)
 % disp(ci2)
 % disp(ci3)
 

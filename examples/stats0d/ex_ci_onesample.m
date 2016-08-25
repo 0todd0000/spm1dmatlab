@@ -14,7 +14,7 @@ fprintf('    ci = (%.5f, %.5f)\n', dataset.ci)
 
 %(1) Compute confidence interval:
 alpha = 0.05;
-mu    = 0;
+mu    = 9;
 ci    = spm1d.stats.ci_onesample(y, alpha, 'mu',mu);
 disp(ci)
 
