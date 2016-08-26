@@ -7,9 +7,13 @@
 classdef SPMi < matlab.mixin.CustomDisplay & handle
     properties
         STAT        %test statistic ("T", "F", "X2" or "T2")
+        dim = 1;    %data dimensionality
         two_tailed
         df          %degrees of freedom
         nNodes      %number of continuum nodes
+        beta        %fitted model parameters (usually means or slopes)
+        sigma2      %field variance
+        residuals   %fitted model residuals
         z           %test statistic continuum
         fwhm        %field smoothness (full width at half maximum)
         resels      %"resolution element" counts
@@ -34,6 +38,9 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         function [self] = SPMi(spm, alpha, zstar, p_set, p, two_tailed, clusters)
             self.STAT         = spm.STAT;
             self.df           = spm.df;
+            self.beta         = spm.beta;
+            self.sigma2       = spm.sigma2;
+            self.residuals    = spm.residuals;
             self.z            = spm.z;
             self.nNodes       = spm.nNodes;
             self.fwhm         = spm.fwhm;
@@ -69,7 +76,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             %%% plot:
             h3       = self.plot_cluster_patches();
             h0       = plot(0:Q-1, zm, 'k-', 'linewidth',3);  %SPM
-            h1       = plot([0 Q-1], [0 0], 'k--');               %datum
+            h1       = plot([0 Q-1], [0 0], 'k:');               %datum
             h2       = self.plot_threshold();
             %labels
             if isequal(self.STAT, 'T')
@@ -146,9 +153,9 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
         function [h] = plot_threshold(self)
             Q        = self.nNodes;
             if isempty(self.roi)
-                h        = plot([0 Q-1], self.zstar*[1 1], 'r:');
+                h        = plot([0 Q-1], self.zstar*[1 1], 'r--');
                 if self.two_tailed
-                    ha =  plot([0 Q-1], -self.zstar*[1 1], 'r:');
+                    ha =  plot([0 Q-1], -self.zstar*[1 1], 'r--');
                     h  = [h ha];
                 end
             else

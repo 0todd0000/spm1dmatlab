@@ -27,7 +27,11 @@ classdef CISingleMean < matlab.mixin.CustomDisplay  & spm1d.stats.ci.CIbase
             self.criterion_value = mu;
             %confidence interval:
             self.hstar           = hstar;
-            self.ci              = [mn-hstar  mn+hstar];
+            if spmi.dim==0
+                self.ci          = [mn-hstar  mn+hstar];
+            else
+                self.ci          = [mn-hstar;  mn+hstar];
+            end
             self = self.assemble_datum_criterion_pairs();
         end
     end

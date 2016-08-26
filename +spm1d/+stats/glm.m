@@ -29,7 +29,7 @@ else
         B    = ~B & roi;
         resels   = spm1d.geom.resels(B, fwhm);
     end
-    SPM      = spm1d.stats.spm.SPM('T', t', [1 df], fwhm, resels, b, eij, sigma2, 'roi', roi);
+    SPM      = spm1d.stats.spm.SPM('T', t', [1 df], fwhm, resels, b, eij, sigma2', 'roi', roi);
 end
 
 

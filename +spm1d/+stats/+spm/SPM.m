@@ -6,6 +6,7 @@
 classdef SPM < matlab.mixin.CustomDisplay
     properties
         STAT        %test statistic ("T", "F", "X2" or "T2")
+        dim = 1;    %data dimensionality
         z           %test statistic continuum
         nNodes      %number of field nodes
         df          %degrees of freedom

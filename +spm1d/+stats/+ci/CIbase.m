@@ -7,7 +7,7 @@ classdef CIbase < matlab.mixin.CustomDisplay
     properties
         %summary attributes
         name
-        dim
+        dim = 0;
         kind
         nMeans
         %means, datum, and criteria
@@ -74,6 +74,9 @@ classdef CIbase < matlab.mixin.CustomDisplay
         function [self] = assemble_datum_criterion_pairs(self)
             self.datum     = {self.datum_type, self.datum_value};
             self.criterion = {self.criterion_type, self.criterion_value};
+            if (self.dim==1) && isequal(self.criterion_type,'tailB')
+                self.criterion{2} = '(CI divergence)';
+            end
         end
                 
                 

@@ -6,6 +6,7 @@
 
 classdef SPM0Di < matlab.mixin.CustomDisplay
     properties
+        dim = 0;    %data dimensionality
         df
         z
         beta
