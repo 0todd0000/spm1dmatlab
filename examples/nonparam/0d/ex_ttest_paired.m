@@ -10,6 +10,7 @@ yB        = [5.3, 8.2, 5.5, 6.1, 5.6]';
 
 
 %(1) Conduct non-parametric test:
+rng(0)
 alpha      = 0.05;
 two_tailed = true;
 snpm       = spm1d.stats.nonparam.ttest_paired(yA, yB);

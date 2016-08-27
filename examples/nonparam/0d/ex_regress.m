@@ -4,37 +4,27 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset  = spm1d.data.uv0d.regress.RSRegression();
-dataset  = spm1d.data.uv0d.regress.ColumbiaHeadCircumference();
-[y,x]  = deal(dataset.Y, dataset.x);
-disp(dataset)
-% fprintf('Expected results:\n')
-% fprintf('    t = %s\n', dataset.z)
-% fprintf('    df = (%s)\n', num2str(dataset.df))
-% fprintf('    p = %s\n', dataset.p)
-
-
-%(1) Conduct test using spm1d:
-spm = spm1d.stats.regress(y, x);
-spmi = spm.inference(0.05, 'two_tailed', true);
-disp(spmi)
-
-
-%(2) Compare to Statistics Toolbox result:
-v = ver;
-if any(strncmp('Statistics', {v.Name}, 10))
-    X = [x ones(numel(x),1)];
-    [b,bint,r,rint,stats] = regress(y,X);
-    [t,p] = deal( sqrt(stats(2)), stats(3) );
-    fprintf('Statistics Toolbox results:\n')
-    fprintf('    t = %s\n', t)
-    fprintf('    p = %s\n', p)
-end
+%'http://www.real-statistics.com/regression/hypothesis-testing-significance-regression-line-slope/'
+x    = [5, 23, 25, 48, 17, 8, 4, 26, 11, 19, 14, 35, 29, 4, 23]';
+y    = [80, 78, 60, 53, 85, 84, 73, 79, 81, 75, 68, 72, 58, 92, 65]';
 
 
 
 
+%(1) Conduct non-parametric test:
+rng(0)
+alpha      = 0.05;
+two_tailed = true;
+snpm       = spm1d.stats.nonparam.regress(y, x);
+snpmi      = snpm.inference(alpha, 'two_tailed', two_tailed, 'iterations',5000)
 
+
+
+%(2) Compare to parametric inference:
+spm        = spm1d.stats.regress(y, x);
+spmi       = spm.inference(alpha, 'two_tailed',two_tailed);
+disp('Parametric results')
+disp( spmi )
 
 
 

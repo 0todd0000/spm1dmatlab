@@ -5,25 +5,26 @@ clear;  clc
 
 %(0) Load dataset:
 dataset  = spm1d.data.mv0d.hotellings2.RSXLHotellings2();
-% dataset  = spm1d.data.mv0d.hotellings2.HELPHomeless();
+dataset  = spm1d.data.mv0d.hotellings2.HELPHomeless();
 [yA,yB]   = deal(dataset.YA, dataset.YB);
-fprintf('Expected results:\n')
-fprintf('    T2 = %s\n', dataset.z)
-fprintf('    df = (%s)\n', num2str(dataset.df))
-fprintf('    p  = %s\n', dataset.p)
-
-%(1) Conduct test using spm1d:
-spm  = spm1d.stats.hotellings2(yA, yB);
-spmi = spm.inference(0.05);
-disp(spmi)
 
 
 
+%(1) Conduct non-parametric test:
+rng(0)
+alpha      = 0.05;
+snpm       = spm1d.stats.nonparam.hotellings2(yA, yB);
+snpmi      = snpm.inference(alpha, 'iterations', 1000);
+disp('Non-parametric results')
+disp( snpmi )
 
 
 
-
-
+%(2) Compare to parametric inference:
+spm        = spm1d.stats.hotellings2(yA, yB);
+spmi       = spm.inference(alpha);
+disp('Parametric results')
+disp( spmi )
 
 
 

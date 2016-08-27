@@ -7,26 +7,20 @@ clear;  clc
 dataset  = spm1d.data.mv0d.cca.FitnessClub();
 % dataset  = spm1d.data.mv0d.cca.StackExchange();
 [y,x]  = deal(dataset.Y, dataset.x);
-fprintf('Expected results:\n')
-fprintf('    X2 = %s\n', dataset.z)
-fprintf('    df = (%s)\n', num2str(dataset.df))
-fprintf('    p  = %s\n', dataset.p)
 
 
 
-%(1) Conduct test using spm1d:
-spm = spm1d.stats.cca(y, x);
-spmi = spm.inference(0.05); 
-disp(spmi)
+%(1) Conduct non-parametric test:
+rng(0)
+alpha      = 0.05;
+snpm       = spm1d.stats.nonparam.cca(y, x);
+snpmi      = snpm.inference(alpha, 'iterations', 1000);
+disp('Non-parametric results')
+disp( snpmi )
 
 
-%(2) Compare to Statistics Toolbox result:
-v = ver;
-if any(strncmp('Statistics', {v.Name}, 10))
-    [A,B,R,U,V,STATS] = canoncorr(x, y);
-    [X2,p] = deal(STATS.chisq, STATS.p);
-    fprintf('Statistics Toolbox results:\n')
-    fprintf('    X2 = %s\n', X2)
-    fprintf('    p  = %s\n', p)
-end
-
+%(2) Compare to parametric inference:
+spm        = spm1d.stats.cca(y, x);
+spmi       = spm.inference(alpha);
+disp('Parametric results')
+disp( spmi )

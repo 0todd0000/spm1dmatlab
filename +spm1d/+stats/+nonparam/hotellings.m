@@ -1,4 +1,4 @@
-function [SnPM] = ttest(y, varargin)
+function [SnPM] = hotellings(y, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
 % $Id: ttest.m 1 2016-01-04 16:07 todd $
@@ -11,6 +11,6 @@ mu            = parser.Results.mu;
 % roi           = parser.Results.roi;
 
 y     = spm1d.util.flatten(y);
-perm  = spm1d.stats.nonparam.permuters.PermuterTtest0D(y, mu);
-SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T', perm);
+perm  = spm1d.stats.nonparam.permuters.PermuterHotellings0D(y, mu);
+SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T2', perm);
 

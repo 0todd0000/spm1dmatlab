@@ -13,7 +13,18 @@ switch STAT
         if dim==0
             snpm  = spm1d.stats.nonparam.snpm.SnPM0D_T(z, permuter);
         end
-       
+    case 'F'
+        if dim==0
+            snpm  = spm1d.stats.nonparam.snpm.SnPM0D_F(z, permuter);
+        end
+    case 'T2'
+        if dim==0
+            snpm  = spm1d.stats.nonparam.snpm.SnPM0D_T2(z, permuter);
+        end
+    case 'X2'
+        if dim==0
+            snpm  = spm1d.stats.nonparam.snpm.SnPM0D_X2(z, permuter);
+        end
 end
 
 

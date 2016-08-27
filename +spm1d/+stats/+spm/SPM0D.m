@@ -18,17 +18,18 @@ classdef SPM0D < matlab.mixin.CustomDisplay
     
     methods
         
-        function [self] = SPM0D(STAT, z, df, residuals, varargin)
+        function [self] = SPM0D(STAT, z, df, varargin)
             %parse varargin
             parser = inputParser;
-            addOptional(parser, 'beta',   [], @isnumeric);
-            addOptional(parser, 'sigma2', [], @isnumeric);
+            addOptional(parser, 'residuals', [], @isnumeric);
+            addOptional(parser, 'beta',      [], @isnumeric);
+            addOptional(parser, 'sigma2',    [], @isnumeric);
             parser.parse(varargin{:});
             %set attributes:
             self.STAT      = STAT;
             self.z         = z;
             self.df        = df;
-            self.residuals = residuals;
+            self.residuals = parser.Results.residuals;
             self.beta      = parser.Results.beta;
             self.sigma2    = parser.Results.sigma2;
        end
