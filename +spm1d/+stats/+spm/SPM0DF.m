@@ -7,6 +7,7 @@ classdef SPM0DF < matlab.mixin.CustomDisplay & spm1d.stats.spm.SPM0D
     properties
         SS
         MS
+        effect       = 'Main A';
     end
     methods
         function [self] = SPM0DF(z, df, SS, MS, residuals)
@@ -17,12 +18,13 @@ classdef SPM0DF < matlab.mixin.CustomDisplay & spm1d.stats.spm.SPM0D
     end
     methods (Access = protected)
         function propgrp = getPropertyGroups(self)
-            propList = struct(...
-                'SS', self.SS,...
-                'df', self.df,...
-                'MS', self.MS,...
-                'z', self.z);
-         propgrp = matlab.mixin.util.PropertyGroup(propList);
+            propList = struct;
+            propList.effect = self.effect;
+            propList.SS     = self.SS;
+            propList.df     = self.df;
+            propList.MS     = self.MS;
+            propList.z      = self.z;
+            propgrp         = matlab.mixin.util.PropertyGroup(propList);
         end
    end
 end

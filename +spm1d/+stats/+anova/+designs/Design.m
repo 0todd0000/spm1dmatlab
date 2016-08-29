@@ -10,6 +10,7 @@ classdef Design
          A
          J
          contrasts
+         effect_labels
          term_labels
          f_terms
     end

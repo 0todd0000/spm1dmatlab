@@ -12,12 +12,13 @@ classdef ANOVA2 < spm1d.stats.anova.designs.Design
     
     methods
         function self = ANOVA2(A, B)
-            self.A = spm1d.stats.anova.factors.Factor(A);
-            self.B = spm1d.stats.anova.factors.Factor(B);
-            self.J = self.A.J;
-            self.term_labels = {'Intercept', 'A', 'B', 'AB'};
-            self.f_terms = {{'A','Error'}, {'B','Error'}, {'AB','Error'}};
-            self   = assemble(self);
+            self.A             = spm1d.stats.anova.factors.Factor(A);
+            self.B             = spm1d.stats.anova.factors.Factor(B);
+            self.J             = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Interaction AB'};
+            self.term_labels   = {'Intercept', 'A', 'B', 'AB'};
+            self.f_terms       = {{'A','Error'}, {'B','Error'}, {'AB','Error'}};
+            self               = assemble(self);
             self.check_balanced()
         end
     end

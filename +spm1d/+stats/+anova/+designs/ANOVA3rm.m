@@ -19,6 +19,7 @@ classdef ANOVA3rm < spm1d.stats.anova.designs.Design
             self.B = spm1d.stats.anova.factors.Factor(B);
             self.C = spm1d.stats.anova.factors.Factor(C);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C', 'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
             self.term_labels = {'Intercept',  'A','B','C','S',  'AB','AC','BC',   'SA','SB','SC',   'SAB','SAC','SBC',  'ABC', 'SABC'};
             self.f_terms = {{'A','SA'}, {'B','SB'}, {'C','SC'},  {'AB','SAB'},{'AC','SAC'},{'BC','SBC'},  {'ABC','SABC'}};
             self   = assemble(self);

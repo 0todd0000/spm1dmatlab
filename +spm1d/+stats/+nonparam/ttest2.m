@@ -5,5 +5,5 @@ function [SnPM] = ttest2(yA, yB, varargin)
 
 
 [yA,yB] = deal( spm1d.util.flatten(yA), spm1d.util.flatten(yB) );
-perm    = spm1d.stats.nonparam.permuters.PermuterTtest20D(yA, yB);
+perm    = spm1d.stats.nonparam.permuters.PermuterTtest2_0D(yA, yB);
 SnPM    = spm1d.stats.nonparam.snpm.build_snpm('T', perm);

@@ -34,6 +34,7 @@ classdef SnPM0Dinference < spm1d.stats.nonparam.snpm.ASnPM0D
             self.zstar       = zstar;
             self.p           = p;
             self.h0reject    = self.check_null();
+            self.isanova     = snpm.isanova;
        end
        
        
@@ -63,6 +64,9 @@ classdef SnPM0Dinference < spm1d.stats.nonparam.snpm.ASnPM0D
         
         function propgrp = getPropertyGroups(self)
             propList = struct;
+            if self.isanova
+                propList.effect  = self.effect;
+            end
             propList.z           = self.z;
             propList.nPermUnique = self.nPermUnique;
             propList.nPermActual = self.nPermActual;

@@ -8,6 +8,6 @@ addOptional(parser, 'roi', [], @isnumeric);
 parser.parse(varargin{:});
 roi           = parser.Results.roi;
 
-perm  = spm1d.stats.nonparam.permuters.PermuterMANOVA10D(y, A);
+perm  = spm1d.stats.nonparam.permuters.PermuterMANOVA1_0D(y, A);
 SnPM  = spm1d.stats.nonparam.snpm.build_snpm('X2', perm);
 

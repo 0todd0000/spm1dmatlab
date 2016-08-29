@@ -10,6 +10,7 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
         B
         C
         SUBJ
+        nEffects = 1;
     end
     
     methods
@@ -36,17 +37,17 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
         function [self] = build_pdf(self, iterations)
             if iterations==-1
                 n        = self.nPermTotal;
-                Z        = zeros(n, 1);
+                Z        = zeros(n, self.nEffects);
                 IND      = perms( 1:self.J );
                 for i = 1:n
-                    Z(i) = self.get_test_stat( IND(i,:)' );
+                    Z(i,:) = self.get_test_stat( IND(i,:)' );
                 end
             else
                 n        = iterations;
-                Z        = zeros(n, 1);
+                Z        = zeros(n, self.nEffects);
                 for i = 1:n
                     ind  = randperm( self.J );
-                    Z(i) = self.get_test_stat( ind' );
+                    Z(i,:) = self.get_test_stat( ind' );
                 end
             end
             self.Z   = Z;

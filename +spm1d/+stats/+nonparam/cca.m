@@ -5,6 +5,6 @@ function [SnPM] = cca(y, x)
 
 
 x     = spm1d.util.flatten(x);
-perm  = spm1d.stats.nonparam.permuters.PermuterCCA0D(y, x);
+perm  = spm1d.stats.nonparam.permuters.PermuterCCA_0D(y, x);
 SnPM  = spm1d.stats.nonparam.snpm.build_snpm('X2', perm);
 

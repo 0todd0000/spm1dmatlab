@@ -4,6 +4,16 @@ function [x] = percentile(Z, perc)
 % $Id: flatten.m 1 2016-01-22 10:22 todd $
 
 
+if ~isvector(Z)
+    n = size(Z,2);
+    x  = zeros(1, n);
+    for i = 1:n
+        x(i) = spm1d.util.percentile( Z(:,i), perc );
+    end
+    return
+end
+
+
 Z              = sort(Z);
 n              = numel(Z);
 nperc          = numel(perc);

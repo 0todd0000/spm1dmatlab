@@ -15,7 +15,7 @@ classdef CalculatorTtest < spm1d.stats.nonparam.calculators.ACalculatorOneSample
         end
         
         function [z] = get_test_stat_mu_subtracted(self, y)
-            z = mean(y,1) / std(y,0,1) * self.sqrtJ;
+            z = mean(y,1) ./ std(y,0,1) * self.sqrtJ;
         end
         
     end

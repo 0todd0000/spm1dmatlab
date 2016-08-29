@@ -11,6 +11,6 @@ mu            = parser.Results.mu;
 % roi           = parser.Results.roi;
 
 y     = spm1d.util.flatten(y);
-perm  = spm1d.stats.nonparam.permuters.PermuterHotellings0D(y, mu);
+perm  = spm1d.stats.nonparam.permuters.PermuterHotellings_0D(y, mu);
 SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T2', perm);
 

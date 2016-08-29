@@ -15,7 +15,8 @@ else
     model  = model.fit();
 end
 SPM    = model.aov(design.contrasts, design.f_terms);
-SPM    = spm1d.stats.spm.SPMList(SPM);
+SPM    = spm1d.stats.spm.SPMFList(SPM);
+SPM    = spm1d.stats.anova.set_labels(SPM, design);
 
 
 

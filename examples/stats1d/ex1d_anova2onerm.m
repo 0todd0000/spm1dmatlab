@@ -16,17 +16,18 @@ dataset    = spm1d.data.uv1d.anova2onerm.SPM1D_ANOVA2ONERM_2x2();
 
 %(1) Conduct SPM analysis:
 spmlist   = spm1d.stats.anova2onerm(Y, A, B, SUBJ);
-spmlisti  = spmlist.inference(0.05);
+spmilist  = spmlist.inference(0.05);
+disp_summ(spmilist)
 
 
-%(2) Plot: 
+
+%(2) Plot:
 close all
-titles = {'Main effect A', 'Main effect B', 'Interaction AB'};
-for k = 1:spmlist.n
+for k = 1:spmilist.nEffects
     subplot(2,2,k)
-    spmi = spmlisti.SPMs{k};
-    plot(spmi)
-    title(titles{k})
+    spmi = spmilist(k);
+    spmi.plot()
+    title( spmi.effect )
 end
-    
+
 

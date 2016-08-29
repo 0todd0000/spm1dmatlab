@@ -110,7 +110,10 @@ classdef LinearModel
                 if self.dim==0
                     spm = spm1d.stats.spm.SPM0DF(f, df, [ss0 ss1], [ms0 ms1], self.eij);
                 else
-                    spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels, 'roi', self.roi, 'residuals', self.eij);
+                    spm = spm1d.stats.spm.SPM_F(f, df, self.fwhm, self.resels, self.X, self.beta, self.eij, self.roi);
+                    % spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels, 'roi', self.roi, 'residuals', self.eij);
+                    % spm = spm1d.stats.spm.SPM_F(f, df, self.fwhm, self.resels, 'roi', self.roi, 'residuals', self.eij);
+                    % z, df, fwhm, resels, X, beta, eij, X0
                 end
                 SPM{k} = spm;
            end

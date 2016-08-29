@@ -32,7 +32,7 @@ classdef CalculatorRegress
             eij    = y - self.X * b;
             R      = eij' * eij;
             sigma2 = R / self.df;
-            z      = (self.c' * b) / (sigma2 .* self.cXXc).^0.5;
+            z      = (self.c' * b) ./ (sigma2 .* self.cXXc).^0.5;
         end
     end
     

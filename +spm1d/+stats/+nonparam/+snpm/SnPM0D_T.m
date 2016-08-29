@@ -20,7 +20,8 @@ classdef SnPM0D_T < spm1d.stats.nonparam.snpm.ASnPM0D
             two_tailed       = parser.Results.two_tailed;
             iterations       = parser.Results.iterations;
             force_iterations = parser.Results.force_iterations;
-            self.check_iterations(alpha, iterations, force_iterations)
+            % self.check_iterations(alpha, iterations, force_iterations)
+            self.permuter.check_iterations(alpha, iterations, force_iterations)
             %build PDF:
             if two_tailed
                 alpha0       = 0.5 * alpha;

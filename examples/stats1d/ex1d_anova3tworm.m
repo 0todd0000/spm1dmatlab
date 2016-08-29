@@ -11,19 +11,18 @@ dataset    = spm1d.data.uv1d.anova3tworm.SPM1D_ANOVA3TWORM_2x2x2();
 
 %(1) Conduct SPM analysis:
 spmlist   = spm1d.stats.anova3tworm(Y, A, B, C, SUBJ);
-spmlisti  = spmlist.inference(0.05);
+spmilist  = spmlist.inference(0.05);
+disp_summ(spmilist)
 
 
-%(2) Plot: 
+
+%(2) Plot:
 close all
-titles = {'Main effect A', 'Main effect B', 'Main effect C',...
-    'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
-for k = 1:spmlist.n
+for k = 1:spmilist.nEffects
     subplot(3,3,k)
-    spmi = spmlisti.SPMs{k};
-    plot(spmi)
-    title(titles{k})
+    spmi = spmilist(k);
+    spmi.plot()
+    title( spmi.effect )
 end
-    
 
 

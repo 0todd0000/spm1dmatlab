@@ -13,16 +13,6 @@ dataset = spm1d.data.uv0d.anova1.RSUnequalSampleSizes();
 
 
 
-% calc = spm1d.stats.nonparam.calculators.CalculatorANOVA1(A);
-% calc.get_test_stat(y);
-
-% perm  = spm1d.stats.nonparam.permuters.PermuterANOVA10D(y, A);
-% perm.get_test_stat_original()
-% perm  = perm.build_pdf(100);
-
-
-
-
 %(1) Conduct non-parametric test:
 alpha      = 0.05;
 iterations = 500;

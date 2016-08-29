@@ -42,7 +42,35 @@ classdef (Abstract) APermuter
             end
             zstar       = spm1d.util.percentile(self.Z, perc);
         end
+
+
+
+        function [] = check_iterations(self, alpha, iterations, force_iterations)
+            N = self.nPermTotal;
+            
+            if iterations > N
+                error( '\nNumber of specified iterations (%d) exceeds the maximum possible number of iterations (%d)\n', iterations, N)
+            
+            elseif (((iterations == -1) && ( N > 1e4 )) || (iterations > 1e4)) && ~force_iterations
+                if iterations == -1
+                    n = N;
+                else
+                    n = iterations;
+                end
+                error( '\nThe total number of iterations (%d) is very large and may cause computational problems. In the call to "inference"...\n(1) Set "iterations" to a number between 10 and 10,000, or\n(2) set "force_iterations" to "true" to enable calculations for iterations > 10,000.\nNOTE: Setting "force_iterations" to "true" may require substantial computational resources and may cause crashes. USE WITH CAUTION.\n', n)
+                
+            elseif (iterations ~= -1) && ( iterations < 10)
+                error( '\nNumber of specified iterations (%d) must be at least 10\n', iterations)
+
+            elseif (iterations > 0) && ( iterations < 1/alpha)
+                error( '\nNumber of specified iterations (%d) must be at least %d to conduct inference at alpha=%0.5f\n', iterations, ceil(1/alpha), alpha)
+            end
+        end
+    
+    
     end
+    
+    
 end
 
 

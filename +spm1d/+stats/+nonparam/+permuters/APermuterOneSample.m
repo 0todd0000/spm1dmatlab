@@ -5,6 +5,7 @@
 
 classdef (Abstract) APermuterOneSample
     properties
+        Q = 1;       %number of field nodes
         J            %number of responses
         I            %number of vector components (1 if univariate)
         N            %number of permutable elements
@@ -17,23 +18,27 @@ classdef (Abstract) APermuterOneSample
         
         function [self] = build_pdf(self, iterations)
             if iterations==-1
-                n        = self.nPermTotal;
-                Z        = zeros(n, 1);
-                SIGNS    = spm1d.util.itertools_product([-1 1], self.N);
+                n          = self.nPermTotal;
+                Z          = zeros(n, self.Q);
+                SIGNS      = spm1d.util.itertools_product([-1 1], self.N);
                 for i = 1:n
-                    Z(i) = self.get_test_stat( SIGNS(i,:)' );
+                    Z(i,:) = self.get_test_stat( SIGNS(i,:)' )';
                 end
             else
-                n         = iterations;
-                Z         = zeros(n, 1);
-                signs0    = [-1*ones(self.J,1);   ones(self.J,1)];
+                n          = iterations;
+                Z          = zeros(n, self.Q);
+                signs0     = [-1*ones(self.J,1);   ones(self.J,1)];
                 for i = 1:n
-                    ind   = randperm( 2*self.J );
-                    signs = signs0( ind(1:self.J) );
-                    Z(i)  = self.get_test_stat( signs );
+                    ind    = randperm( 2*self.J );
+                    signs  = signs0( ind(1:self.J) );
+                    Z(i,:) = self.get_test_stat( signs );
                 end
             end
-            self.Z   = Z;
+            self.Z         = max(Z, [], 2);
+            if self.dim == 1
+                self.ZZ    = Z;
+            end
+                
         end
         
         

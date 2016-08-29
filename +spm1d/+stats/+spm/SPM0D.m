@@ -6,7 +6,8 @@
 classdef SPM0D < matlab.mixin.CustomDisplay
     properties
         STAT
-        dim = 1;    %data dimensionality
+        Q   = 1;    %number of field nodes
+        dim = 0;    %data dimensionality
         df
         beta
         sigma2
@@ -38,7 +39,8 @@ classdef SPM0D < matlab.mixin.CustomDisplay
             %parse inputs
             default2tailed = isequal(self.STAT,'T');
             parser = inputParser;
-            addOptional(parser, 'two_tailed', default2tailed, @islogical);
+            addOptional(parser, 'two_tailed', default2tailed,   @islogical   );
+            % addOptional(parser, 'two_tailed', default2tailed,   @(x)(islogical(x) || logical(ismember(x, [0,1])))   );
             parser.parse(varargin{:});
             two_tailed    = parser.Results.two_tailed;
             %two-tailed check

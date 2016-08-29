@@ -10,10 +10,10 @@ dataset  = spm1d.data.uv1d.anova1.SpeedGRFcategorical();
 
 
 
-
 %(1) Conduct SPM analysis:
 spm       = spm1d.stats.anova1(Y, A);
 spmi      = spm.inference(0.05);
+disp(spmi)
 
 
 

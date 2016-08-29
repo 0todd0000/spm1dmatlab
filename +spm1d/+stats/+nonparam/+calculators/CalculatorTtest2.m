@@ -18,7 +18,7 @@ classdef CalculatorTtest2 < spm1d.stats.nonparam.calculators.ACalculatorTwoSampl
             [mA,mB]  = deal( mean(yA,1), mean(yB,1) );
             [sA,sB]  = deal( std(yA,0,1), std(yB,0,1) );
             s        = ((self.JA1*sA*sA + self.JB1*sB*sB) / self.df) .^ 0.5;
-            z        = (mA - mB) / s / self.sqrtAB;
+            z        = (mA - mB) ./ s / self.sqrtAB;
         end
         
     end

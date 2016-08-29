@@ -212,18 +212,23 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             end
             header = sprintf('\nSPM{%s} inference',s);
         end
-        
+
+        function plist = get_property_list(self)
+            plist          = struct;
+            plist.z        = self.z;
+            plist.df       = self.df;
+            plist.fhwm     = self.fwhm;
+            plist.resels   = self.resels;
+            plist.alpha    = self.alpha;
+            plist.zstar    = self.zstar;
+            plist.h0reject = self.h0reject;
+            plist.p_set    = self.p_set;
+            plist.p        = self.p;
+        end
+
         function propgrp = getPropertyGroups(self)
-            propList = struct(...
-                'z', self.z,...
-                'df', self.df,...
-                'fwhm', self.fwhm,...
-                'resels', self.resels,...
-                'alpha', self.alpha,...
-                'zstar', self.zstar,...
-                'p_set', self.p_set,...
-                'p', self.p);
-         propgrp = matlab.mixin.util.PropertyGroup(propList);
+            plist   = self.get_property_list();
+            propgrp = matlab.mixin.util.PropertyGroup(plist);
         end
         
         function return2originalaxes(self)

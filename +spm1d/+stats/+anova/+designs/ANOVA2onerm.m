@@ -12,6 +12,7 @@ classdef ANOVA2onerm < spm1d.stats.anova.designs.ANOVA2rm
 %             self.B = spm1d.stats.anova.factors.Factor(B);
             self.S = spm1d.stats.anova.factors.FactorNested(SUBJ, self.A);
 %             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Interaction AB'};
             self.term_labels = {'Intercept', 'A', 'B', 'S', 'AB', 'SB'};
             self.f_terms = {{'A','S'}, {'B','SB'}, {'AB','SB'}};
             self   = assemble(self);

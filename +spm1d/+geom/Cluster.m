@@ -20,6 +20,7 @@ classdef Cluster < matlab.mixin.CustomDisplay
         Z           %height profile
         u           %threshold
         isinterp    %true if the cluster endpoints are interpolated to a threhsold
+        isparam = true;
         other       %a merged cluster
     end
     

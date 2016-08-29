@@ -17,6 +17,7 @@ classdef ANOVA3nested < spm1d.stats.anova.designs.Design
             self.B = spm1d.stats.anova.factors.FactorNested(B, self.A);
             self.C = spm1d.stats.anova.factors.FactorNested2(C, self.A, self.B);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C'};
             self.term_labels = {'Intercept', 'A', 'B', 'C'};
             self.f_terms = {{'A','B'}, {'B', 'C'}, {'C','Error'}};
             self   = assemble(self);

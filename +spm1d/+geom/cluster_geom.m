@@ -5,13 +5,15 @@ function [clusters] = cluster_geom(Z, u, varargin)
 
 % parse inputs
 parser = inputParser;
-addOptional(parser, 'interp',   true, @(x)islogical(x) && isscalar(x));
-addOptional(parser, 'circular', true, @(x)islogical(x) && isscalar(x));
-addOptional(parser, 'csign',      +1, @(x)isscalar(x));
+addOptional(parser, 'interp',    true, @(x)islogical(x) && isscalar(x));
+addOptional(parser, 'circular',  true, @(x)islogical(x) && isscalar(x));
+addOptional(parser, 'csign',       +1, @(x)isscalar(x));
+addOptional(parser, 'nonparam', false, @(x)islogical(x) && isscalar(x));
 parser.parse(varargin{:});
 interp   = parser.Results.interp;
 circular = parser.Results.circular;
 csign    = parser.Results.csign;
+nonparam = parser.Results.nonparam;
 
 
 
@@ -44,7 +46,11 @@ for i=1:n
         x       = [x  x(end)+dx]; %#ok<AGROW>
         z       = [z  u];         %#ok<AGROW>
     end
-    clusters{i}   = spm1d.geom.Cluster(x, csign*z, csign*u, interp);
+    if nonparam
+        clusters{i}   = spm1d.geom.ClusterNP(x, csign*z, csign*u, interp);
+    else
+        clusters{i}   = spm1d.geom.Cluster(x, csign*z, csign*u, interp);
+    end
 end
 
 

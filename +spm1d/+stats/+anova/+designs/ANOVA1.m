@@ -8,11 +8,12 @@ classdef ANOVA1 < spm1d.stats.anova.designs.Design
 
     methods
         function self = ANOVA1(A)
-            self.A = spm1d.stats.anova.factors.Factor(A);
-            self.J = self.A.J;
-            self.term_labels = {'Intercept', 'A'};
-            self.f_terms = {{'A','Error'}};
-            self   = assemble(self);
+            self.A             = spm1d.stats.anova.factors.Factor(A);
+            self.J             = self.A.J;
+            self.effect_labels = {'Main A'};
+            self.term_labels   = {'Intercept', 'A'};
+            self.f_terms       = {{'A','Error'}};
+            self               = assemble(self);
         end
     end
     

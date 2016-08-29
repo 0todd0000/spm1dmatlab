@@ -11,12 +11,13 @@ classdef ANOVA1rm < spm1d.stats.anova.designs.Design
 
     methods
         function self = ANOVA1rm(A, SUBJ)
-            self.S = spm1d.stats.anova.factors.Factor(SUBJ);
-            self.A = spm1d.stats.anova.factors.Factor(A);
-            self.J = self.A.J;
-            self.term_labels = {'Intercept', 'A', 'S', 'SA'};
-            self.f_terms = {{'A','SA'}};
-            self   = assemble(self);
+            self.S             = spm1d.stats.anova.factors.Factor(SUBJ);
+            self.A             = spm1d.stats.anova.factors.Factor(A);
+            self.J             = self.A.J;
+            self.effect_labels = {'Main A'};
+            self.term_labels   = {'Intercept', 'A', 'S', 'SA'};
+            self.f_terms       = {{'A','SA'}};
+            self               = assemble(self);
             check_balanced(self)
         end
         

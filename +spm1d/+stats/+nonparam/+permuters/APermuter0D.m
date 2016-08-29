@@ -41,22 +41,6 @@ classdef (Abstract) APermuter0D < spm1d.stats.nonparam.permuters.APermuter
             end
             %substitute with min/max p value if applicable
             p              = min( max(p, self.minp), self.maxp );
-            
-            
-            % minp       = 1 / numel(Z);
-            %
-            %     if (z < 0) && (z < zc0 ) && (p < alpha)
-            %         p  = minp;
-            %     elseif (z > 0) && (z > zc1 ) && (p < alpha)
-            %         p  = minp;
-            %     end
-            % else
-            %     if (z > 0) && (z > zstar) && (p < alpha)
-            %         p  = minp;
-            %     elseif (z < 0) && (z < zstar) && (p > alpha)
-            %         p  = 1 - minp;
-            %     end
-            % end
         end
 
     end

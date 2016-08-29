@@ -6,6 +6,7 @@
 classdef SPM < matlab.mixin.CustomDisplay
     properties
         STAT        %test statistic ("T", "F", "X2" or "T2")
+        Q           %number of field nodes
         dim = 1;    %data dimensionality
         z           %test statistic continuum
         nNodes      %number of field nodes
@@ -36,6 +37,7 @@ classdef SPM < matlab.mixin.CustomDisplay
             parser.parse(varargin{:});
             %assemble inputs:
             self.STAT      = STAT;
+            self.Q         = numel(z);
             self.z         = z;
             self.df        = df;
             self.fwhm      = fwhm;
@@ -88,7 +90,11 @@ classdef SPM < matlab.mixin.CustomDisplay
             clusters     = self.get_clusters(zstar, check_neg, interp, circular);  % supra-threshold clusters
             [clusters,p] = self.cluster_inference(clusters, two_tailed, withBonf);
             p_set        = self.set_inference(zstar, clusters, two_tailed, withBonf);
-            spmi         = spm1d.stats.spm.SPMi(self, alpha, zstar, p_set, p, two_tailed, clusters);
+            if self.STAT=='F'
+                spmi     = spm1d.stats.spm.SPMi_F(self, alpha, zstar, p_set, p, two_tailed, clusters);
+            else
+                spmi     = spm1d.stats.spm.SPMi(self, alpha, zstar, p_set, p, two_tailed, clusters);
+            end
        end
        
        function plot(self)
