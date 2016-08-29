@@ -6,41 +6,29 @@ clear;  clc
 %(0) Load dataset:
 dataset   = spm1d.data.uv0d.cipaired.FraminghamSystolicBloodPressure();
 [yA,yB]   = deal( dataset.YA, dataset.YB );
-fprintf('Expected results:\n')
-fprintf('    alpha = %s\n', dataset.alpha)
-fprintf('    ci = (%.5f, %.5f)\n', dataset.ci)
 
- 
-%(1) Compute three confidence intervals
-%{
-The three CIs below are equivalent, but they may seem different because
-each has a different datum-criterion combination.
 
->>  spm1d.stats.ci_pairedsample(yA, yB, alpha, datum, criterion)
+%(1) Compute parametric and non-parametric CIs:
+rng(0)
+alpha      = 0.05;
+[datum,mu] = deal( 'difference', 0 );
+[datum,mu] = deal( 'meanA', 'meanB' );
+[datum,mu] = deal( 'meanA', 'tailB' );
+iterations = 500;
+ci         = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'datum',datum, 'mu',mu);
+cin        = spm1d.stats.nonparam.ci_pairedsample(yA, yB, alpha, 'datum',datum, 'mu',mu, 'iterations',iterations);
+disp(ci)
+disp(cin)
 
-"datum" and "criterion" are optional;
-defaults are 'difference' and 0, respectively
-    
-"datum" must be either 'difference' or 'meanA'
 
-If "datum" is 'difference', "criterion" must be numerical
-
-If "datum" is 'meanA', "criterion" must be either:
-    'meanB' (default) or 'tailB'
-%}
-
-alpha = 0.05;
-ci1   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'difference', 0);
-ci2   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'meanA', 'meanB');
-ci3   = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'meanA', 'tailB');
-disp(ci1)
-disp(ci2)
-disp(ci3)
-%plot
+%(2) Plot:
 close all
-subplot(221);  ci1.plot();  title('datum = "difference", criterion = 0')
-subplot(223);  ci2.plot();  title('datum = "meanA", criterion = "meanB"')
-subplot(224);  ci3.plot();  title('datum = "meanA", criterion = "tailB"')
+ax1=subplot(121);  ci.plot();   title('Parametric CI')
+ax2=subplot(122);  cin.plot();  title('Non-parametric CI')
+%set the y limits
+[y1,y2] = deal( get(ax1, 'ylim'), get(ax2, 'ylim') );
+ylims   = [min(y1(1), y2(1))   max(y1(2), y2(2))];
+set([ax1 ax2], 'ylim', ylims)
 
 
 

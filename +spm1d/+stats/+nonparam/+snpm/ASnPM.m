@@ -15,6 +15,9 @@ classdef (Abstract) ASnPM < matlab.mixin.CustomDisplay
         isanova      = false;
         isinlist     = false;
         isparametric = false;
+        df           = nan;
+        fwhm         = nan;
+        resels       = nan;
     end
     
     
