@@ -5,6 +5,7 @@
 
 classdef (Abstract) APermuter
     properties
+        Q = 1;                %number of field nodes (Q=1 if 0D data)
         Y                     %original responses
         Z                     %primary permutation PDF
         calc                  %test statistic calulator

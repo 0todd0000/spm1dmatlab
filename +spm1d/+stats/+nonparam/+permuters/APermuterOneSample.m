@@ -5,7 +5,6 @@
 
 classdef (Abstract) APermuterOneSample
     properties
-        Q = 1;       %number of field nodes
         J            %number of responses
         I            %number of vector components (1 if univariate)
         N            %number of permutable elements
@@ -38,7 +37,6 @@ classdef (Abstract) APermuterOneSample
             if self.dim == 1
                 self.ZZ    = Z;
             end
-                
         end
         
         

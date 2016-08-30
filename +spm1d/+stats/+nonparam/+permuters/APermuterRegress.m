@@ -14,6 +14,7 @@ classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
     
         function [self] = APermuterRegress(y, x)
             self.Y          = y;
+            self.Q          = size(y, 2);
             self.x          = x;
             self.J          = numel(x);
             self.labels0    = (1 : self.J)';
@@ -24,20 +25,23 @@ classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
         function [self] = build_pdf(self, iterations)
             if iterations==-1
                 n        = self.nPermTotal;
-                Z        = zeros(n, 1);
+                Z        = zeros(n, self.Q);
                 IND      = perms( 1:self.J );
                 for i = 1:n
-                    Z(i) = self.get_test_stat( IND(i,:)' );
+                    Z(i,:) = self.get_test_stat( IND(i,:)' );
                 end
             else
-                n        = iterations;
-                Z        = zeros(n, 1);
+                n          = iterations;
+                Z          = zeros(n, self.Q);
                 for i = 1:n
-                    ind  = randperm( self.J );
-                    Z(i) = self.get_test_stat( ind' );
+                    ind    = randperm( self.J );
+                    Z(i,:) = self.get_test_stat( ind' );
                 end
             end
-            self.Z   = Z;
+            self.Z         = max(Z, [], 2);
+            if self.dim == 1
+                self.ZZ    = Z;
+            end
         end
         
         

@@ -16,6 +16,7 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
 
         function [self] = APermuterTwoSample(yA, yB)
             self.Y           = self.stack(yA, yB);
+            self.Q           = size(yA, 2);
             self.JA          = size(yA, 1);
             self.JB          = size(yB, 1);
             self.J           = self.JA + self.JB;
@@ -34,19 +35,22 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
             if iterations==-1
                 ONES     = nchoosek( 1:self.J, self.JA );
                 n        = self.nPermTotal;
-                Z        = zeros(n, 1);
+                Z        = zeros(n, self.Q);
                 for i = 1:n
-                    Z(i) = self.get_test_stat_ones( ONES(i,:)' );
+                    Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
                 end
             else
                 n        = iterations;
-                Z        = zeros(n, 1);
+                Z        = zeros(n, self.Q);
                 for i = 1:n
                     ONES = randperm(self.J, self.JA);
-                    Z(i) = self.get_test_stat_ones( ONES' );
+                    Z(i,:) = self.get_test_stat_ones( ONES' );
                 end
             end
-            self.Z   = Z;
+            self.Z         = max(Z, [], 2);
+            if self.dim == 1
+                self.ZZ    = Z;
+            end
         end
         
         

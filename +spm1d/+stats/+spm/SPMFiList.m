@@ -17,6 +17,22 @@ classdef SPMFiList < spm1d.stats.spm.ASPMFList
             self.isparametric        = spmlist.isparametric;
             self.residuals           = spmlist.residuals;
         end
+    
+        function [self] = plot(self)
+            figure
+            if self.nEffects <= 4
+                m = 2;
+            else
+                m = 3;
+            end
+            for k = 1:self.nEffects
+                subplot(m, m, k)
+                spm = self.SPMs{k};
+                spm.plot();
+                title( spm.effect )
+            end
+        end
+    
     end
     
     

@@ -19,6 +19,7 @@ classdef SPM < matlab.mixin.CustomDisplay
         beta        %fitted model parameters (usually means or slopes)
         R           %fitted model residuals
         residuals   %fitted model residuals (same as R;  R also retained for legacy purposes)
+        isparametric = true;
     end
     
     properties (Hidden)
@@ -97,8 +98,14 @@ classdef SPM < matlab.mixin.CustomDisplay
             end
        end
        
-       function plot(self)
-           plot(self.z, 'linewidth',3, 'color','k')
+       % function plot(self)
+       %     plot(self.z, 'linewidth',3, 'color','k')
+       % end
+       
+       function [varargout] = plot(self, varargin)
+           plotter   = spm1d.plot.Plotter(varargin{:});
+           h         = plotter.plot_spm(self);
+           varargout = {h};
        end
        
        

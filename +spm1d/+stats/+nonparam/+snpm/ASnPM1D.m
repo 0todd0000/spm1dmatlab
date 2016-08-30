@@ -59,16 +59,12 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
        end
        
        
-       function plot(self)
-           plot(self.z, 'linewidth',3, 'color','k')
+       function [varargout] = plot(self, varargin)
+           plotter   = spm1d.plot.Plotter(varargin{:});
+           h         = plotter.plot_spm(self);
+           varargout = {h};
        end
-       
-       
-       
 
-       
-       
-       
     end
     
 
@@ -79,14 +75,14 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
             if s == 'T'
                 s = 't';
             end
-            header = sprintf('\nSnPM{%s} (1D)',s);
+            header = sprintf('\nSnPM{%s} inference (1D)',s);
         end
         
         function propgrp = getPropertyGroups(self)
-            propList = struct;
-            propList.z           = self.z;
-            propList.nPermUnique = self.nPermUnique;
-            propgrp = matlab.mixin.util.PropertyGroup(propList);
+            plist = struct;
+            plist.z           = self.z;
+            plist.nPermUnique = self.nPermUnique;
+            propgrp = matlab.mixin.util.PropertyGroup(plist);
         end
         
         function [clusters] = get_clusters(self, zstar, two_tailed, interp, circular, iterations, cluster_metric)
@@ -98,6 +94,9 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
             for i = 1:numel(clusters)
                 clusters{i} = clusters{i}.set_metric(cluster_metric, iterations, self.nPermUnique, two_tailed);
             end
+            if two_tailed
+                clusters  = self.reorder_clusters(clusters);
+            end
         end
         
         function [clusters] = cluster_inference(self, clusters, two_tailed)
@@ -105,11 +104,27 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
                 clusters{i} = clusters{i}.inference(self.permuter.Z2, two_tailed);
             end
         end
+        
+        function [clusters] = reorder_clusters(self, clusters);
+            n = numel(clusters);
+            if n > 0
+                x = zeros(1, n);
+                for i = 1:n
+                    if iscell(clusters{i}.xy)
+                        x(i) = clusters{i}.xy{1}(1);
+                    else
+                        x(i) = clusters{i}.xy(1);
+                    end
+                end
+                [~,ind]      = sort(x);
+                clusters     = clusters(ind);
+            end
+        end
 
 
 
    end
-              
-   
-    
+
+
+
 end

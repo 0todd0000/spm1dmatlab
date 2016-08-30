@@ -28,11 +28,12 @@ classdef CalculatorRegress
         end
         
         function [z] = get_test_stat(self, y)
-            b   = self.Xi * y;
+            b      = self.Xi * y;
             eij    = y - self.X * b;
             R      = eij' * eij;
-            sigma2 = R / self.df;
-            z      = (self.c' * b) ./ (sigma2 .* self.cXXc).^0.5;
+            sigma2 = diag(R) / self.df;
+            z      = (self.c' * b)' ./ (sqrt(sigma2 * self.cXXc) + eps);
+            z      = z';
         end
     end
     
