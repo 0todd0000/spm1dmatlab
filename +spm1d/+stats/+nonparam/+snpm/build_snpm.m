@@ -42,10 +42,14 @@ switch STAT
     case 'T2'
         if dim==0
             snpm  = spm1d.stats.nonparam.snpm.SnPM0D_T2(z, permuter);
+        else
+            snpm  = spm1d.stats.nonparam.snpm.SnPM1D_T2(z, permuter);
         end
     case 'X2'
         if dim==0
             snpm  = spm1d.stats.nonparam.snpm.SnPM0D_X2(z, permuter);
+        else
+            snpm  = spm1d.stats.nonparam.snpm.SnPM1D_X2(z, permuter);
         end
 end
 

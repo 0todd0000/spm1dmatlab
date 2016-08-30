@@ -23,6 +23,7 @@ classdef CalculatorHotellings < spm1d.stats.nonparam.calculators.ACalculatorOneS
         end
         
         function [z] = T2_single_node(self, y)
+            
             m       = mean(y, 1);      %mean vector
             W       = cov(y);       %covariance
             z       = self.J * m * (W \ m');
@@ -35,7 +36,7 @@ classdef CalculatorHotellings < spm1d.stats.nonparam.calculators.ACalculatorOneS
             else
                 z   = zeros(1, self.Q);
                 for i = 1:self.Q
-                    z(i) = self.T2_single_node( y(:,i,:) );
+                    z(i) = self.T2_single_node( squeeze(y(:,i,:)) );
                 end
             end
         end

@@ -55,7 +55,11 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
         
         
         function [z] = get_test_stat(self, labels)
-            [yA,yB] = deal( self.Y(labels==0,:), self.Y(labels==1,:) );
+            if self.Q==1
+                [yA,yB] = deal( self.Y(labels==0,:), self.Y(labels==1,:) );
+            else
+                [yA,yB] = deal( self.Y(labels==0,:,:), self.Y(labels==1,:,:) );
+            end
             z       = self.calc.get_test_stat(yA, yB);
         end
 

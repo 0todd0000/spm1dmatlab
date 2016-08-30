@@ -8,8 +8,8 @@ clear classes;  clc
 % dataset = spm1d.data.uv1d.t1.SimulatedPataky2015a();
 dataset = spm1d.data.uv1d.t1.SimulatedPataky2015b();
 y       = dataset.Y;
-mu0     = 0;    %null criterion
-mu1     = 5 * sin( linspace(0, pi, size(y,2)) );  %arbitrary criterion
+mu      = 0;    %null criterion
+
 
 
 %(1) Compute confidence intervals:

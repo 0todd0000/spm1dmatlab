@@ -37,7 +37,7 @@ classdef CalculatorCCA
             else
                 z   = zeros(1, self.Q);
                 for i = 1:self.Q
-                    z(i) = self.get_test_stat_single_node( y(:,i,:) );
+                    z(i) = self.get_test_stat_single_node( squeeze(y(:,i,:)) );
                 end
             end
         end

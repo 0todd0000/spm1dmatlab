@@ -46,7 +46,11 @@ classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
         
         
         function [z] = get_test_stat(self, labels)
-            z       = self.calc.get_test_stat( self.Y(labels,:) );
+            if self.dim==1
+                z       = self.calc.get_test_stat( self.Y(labels,:,:) );
+            else
+                z       = self.calc.get_test_stat( self.Y(labels,:) );
+            end
         end
     end
     
