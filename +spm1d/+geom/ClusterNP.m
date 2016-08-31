@@ -52,7 +52,7 @@ classdef ClusterNP < spm1d.geom.Cluster
                 xx  = self.metric.get_single_cluster_metric_xz(self.other.X, self.other.Z, self.u, two_tailed);
                 x   = x + xx;
             end
-            self.metric_value  = x;
+            self.metric_value  = max(x, eps);
         end
        
 

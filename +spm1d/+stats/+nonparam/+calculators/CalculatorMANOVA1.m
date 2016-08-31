@@ -10,10 +10,12 @@ classdef CalculatorMANOVA1
         Xi
         X0
         X0i
+        Q
     end
     
     methods
-        function [self] = CalculatorMANOVA1(A, I)
+        function [self] = CalculatorMANOVA1(A, I, Q)
+            self.Q    = Q;
             J         = numel(A);
             u         = unique(A);
             nGroups   = numel(u);
@@ -30,6 +32,17 @@ classdef CalculatorMANOVA1
         end
         
         function [z] = get_test_stat(self, y)
+            if self.Q==1
+                z    = self.get_test_stat_single_node( y );
+            else
+                z       = zeros(1, self.Q);
+                for i = 1:self.Q
+                    z(i) = self.get_test_stat_single_node( squeeze( y(:,i,:) ) );
+                end
+            end
+        end
+
+        function [z] = get_test_stat_single_node(self, y)
             %SS for original design:
             b       = self.Xi * y;
             R       = y - self.X * b;

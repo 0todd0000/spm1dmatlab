@@ -10,7 +10,6 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
         B
         C
         SUBJ
-        nEffects = 1;
     end
     
     methods
@@ -32,32 +31,65 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
             self.J          = size(y, 1);
             self.nPermTotal = factorial( self.J );
             self.labels0    = (1 : self.J)';
+            if self.dim == 1
+                self.Q      = size(y, 2);
+            end
         end
 
         function [self] = build_pdf(self, iterations)
             if iterations==-1
                 n        = self.nPermTotal;
-                Z        = zeros(n, self.nEffects);
+                Z        = self.init_pdf(n);
                 IND      = perms( 1:self.J );
                 for i = 1:n
-                    Z(i,:) = self.get_test_stat( IND(i,:)' );
+                    z    = self.get_test_stat( IND(i,:)' );
+                    if (self.Q==1) || (self.nEffects==1)
+                        Z(i,:) = z;
+                    else
+                        Z(i,:,:) = z;
+                    end
                 end
             else
                 n        = iterations;
-                Z        = zeros(n, self.nEffects);
+                Z        = self.init_pdf(n);
                 for i = 1:n
                     ind  = randperm( self.J );
-                    Z(i,:) = self.get_test_stat( ind' );
+                    z = self.get_test_stat( ind' );
+                    if (self.Q==1) || (self.nEffects==1)
+                        Z(i,:) = z;
+                    else
+                        Z(i,:,:) = z;
+                    end
                 end
             end
-            self.Z   = Z;
+            self.Z         = squeeze( max(Z, [], 2) );
+            if self.dim == 1
+                self.ZZ    = Z;
+            end
         end
         
         function [z] = get_test_stat(self, ind)
-            z = self.calc.get_test_stat( self.Y(ind,:) );
+            if self.Q == 1
+                z = self.calc.get_test_stat( self.Y(ind,:) );
+            else
+                z = self.calc.get_test_stat( self.Y(ind,:,:) );
+            end
         end
 
     end
+    
+    methods (Access = private)
+        function [Z] = init_pdf(self, n)
+            if self.nEffects==1
+                Z   = zeros(n, self.Q);
+            else
+                Z   = zeros(n, self.Q, self.nEffects);
+            end
+        end
+    end
+    
+    
+    
 end
 
 

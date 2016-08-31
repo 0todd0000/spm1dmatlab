@@ -16,6 +16,7 @@ classdef (Abstract) APermuter
         nPermActual           %actual number of permutations performed
         minp = 0;             %minimum possible p value
         maxp = 1;             %maximum possible p value
+        nEffects = 1;         %number of test statistics (1 except for two- and three-way ANOVA/MANOVA)
     end
     
     methods(Abstract)

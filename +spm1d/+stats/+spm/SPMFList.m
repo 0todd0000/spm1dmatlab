@@ -22,8 +22,12 @@ classdef SPMFList < spm1d.stats.spm.ASPMFList
            spmilist = spm1d.stats.spm.SPMFiList(self, SPMis);
         end
         
-        function [self] = plot(self)
-            figure
+        function [self] = plot(self, varargin)
+            parser        = inputParser;
+            addParameter(parser, 'FigureName', '', @ischar);
+            parser.parse(varargin{:});
+            figurename    = parser.Results.FigureName;
+            figure('name', figurename)
             if self.nEffects <= 4
                 m = 2;
             else

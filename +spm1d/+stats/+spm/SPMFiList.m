@@ -18,8 +18,12 @@ classdef SPMFiList < spm1d.stats.spm.ASPMFList
             self.residuals           = spmlist.residuals;
         end
     
-        function [self] = plot(self)
-            figure
+        function [self] = plot(self, varargin)
+            parser        = inputParser;
+            addParameter(parser, 'FigureName', '', @ischar);
+            parser.parse(varargin{:});
+            figurename    = parser.Results.FigureName;
+            figure('name', figurename)
             if self.nEffects <= 4
                 m = 2;
             else

@@ -7,7 +7,7 @@ function [snpm] = build_snpm(STAT, permuter)
 
 z          = permuter.get_test_stat_original();
 dim        = permuter.dim;
-nz         = size(z,2);
+nz         = permuter.nEffects;
 
 
 switch STAT
@@ -23,18 +23,24 @@ switch STAT
             if dim==0
                 snpm  = spm1d.stats.nonparam.snpm.SnPM0D_F(z, permuter);
             elseif dim==1
-                snpm  = spm1d.stats.nonparam.snpm.SnPM_F(z, permuter);
+                snpm  = spm1d.stats.nonparam.snpm.SnPM1D_F(z, permuter);
             end
 
         else  %multiple F statistics
             SnPMs = cell(1, nz);
             for i = 1:nz
-                SnPMs{i}  = spm1d.stats.nonparam.snpm.SnPM0D_F(z(i), permuter);
+                if dim==0
+                    SnPMs{i}  = spm1d.stats.nonparam.snpm.SnPM0D_F(z(i), permuter);
+                else
+                    SnPMs{i}  = spm1d.stats.nonparam.snpm.SnPM1D_F(z(:,i)', permuter);
+                end
             end
             if dim==0
-                snpm  = spm1d.stats.nonparam.snpm.ASnPMFList(SnPMs, permuter);
-                snpm  = spm1d.stats.anova.set_labels(snpm, permuter.calc.design);
+                snpm  = spm1d.stats.nonparam.snpm.SnPM0D_FList(SnPMs, permuter);
+            else
+                snpm  = spm1d.stats.nonparam.snpm.SnPM1D_FList(SnPMs, permuter);
             end
+            snpm  = spm1d.stats.anova.set_labels(snpm, permuter.calc.design);
         end
 
 
