@@ -30,7 +30,8 @@ classdef SnPM1D_T < spm1d.stats.nonparam.snpm.ASnPM1D
             % build PDF:
             self.permuter    = self.permuter.build_pdf(iterations);
             % compute critical threshold and probability value
-            zstar            = self.permuter.get_z_critical(alpha);
+            zstar            = self.permuter.get_z_critical(alpha, 'two_tailed', two_tailed);
+            zstar            = max(zstar);
             % build secondary PDF:
             self.permuter    = self.permuter.set_metric( cluster_metric );
             self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
