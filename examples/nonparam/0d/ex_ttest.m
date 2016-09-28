@@ -23,15 +23,15 @@ alpha      = 0.05;
 two_tailed = false;
 snpm       = spm1d.stats.nonparam.ttest(y, mu);
 snpmi      = snpm.inference(alpha, 'two_tailed', two_tailed, 'iterations', -1);
-disp('Non-parametric results')
+disp(snpm)
 disp( snpmi )
-
-
-%(2) Compare to parametric inference:
-spm        = spm1d.stats.ttest(y, mu);
-spmi       = spm.inference(alpha, 'two_tailed',two_tailed);
-disp('Parametric results')
-disp( spmi )
+% 
+% 
+% %(2) Compare to parametric inference:
+% spm        = spm1d.stats.ttest(y, mu);
+% spmi       = spm.inference(alpha, 'two_tailed',two_tailed);
+% disp('Parametric results')
+% disp( spmi )
 
 
 

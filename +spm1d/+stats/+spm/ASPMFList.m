@@ -14,6 +14,7 @@ classdef ASPMFList  < matlab.mixin.CustomDisplay
         effect_labels = {};
         isparametric  = true;
         residuals
+        Q
     end
     
     properties (Hidden)
@@ -72,7 +73,7 @@ classdef ASPMFList  < matlab.mixin.CustomDisplay
                     error('Only round-bracket indexing is supported, for example: "  spm_list(1) " )')
                 
                 
-                end
+            end
         end
 
 
@@ -104,10 +105,27 @@ classdef ASPMFList  < matlab.mixin.CustomDisplay
 
     methods (Access = protected)
         
+        function [s] = n2str(~, n)
+            if n>1e6
+                s = sprintf('%e', n);
+            else
+                s = sprintf('%d', n);
+            end
+        end
+        
+        
         function disp_summ_header(self)
             fprintf('%s (%dD)\n', self.name, self.dim)
             fprintf('   design    : %s\n', self.design)
             fprintf('   nEffects  : %d\n', self.nEffects)
+            if ~self.isparametric
+                nU    = self.n2str( self.nPermUnique );
+                fprintf('   nPermUnique  : %s\n', nU)
+                if self.isinference
+                    nA    = self.n2str( self.nPermActual );
+                    fprintf('   nPermActual  : %s\n', nA)
+                end
+            end
         end
         
         function disp_summ_table(self)
@@ -122,9 +140,9 @@ classdef ASPMFList  < matlab.mixin.CustomDisplay
                     end
                 else
                     if self.isparametric
-                        fprintf('   %3s     F = [(1x%d) array]    df = (%d, %d)\n', self.effect_labels_short{i}, numel(spm.z), spm.df(1), spm.df(2))
+                        fprintf('   %3s     F = (1x%d) array    df = (%d, %d)\n', self.effect_labels_short{i}, numel(spm.z), spm.df(1), spm.df(2))
                     else
-                        continue
+                        fprintf('   %3s     F = (1x%d) array\n', self.effect_labels_short{i}, numel(spm.z))
                     end
                 end
             end

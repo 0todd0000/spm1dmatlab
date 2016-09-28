@@ -7,6 +7,8 @@
 classdef ASnPMFList < spm1d.stats.spm.ASPMFList
     properties
         permuter
+        nPermUnique
+        isinference = false;
     end
 
 
@@ -16,6 +18,8 @@ classdef ASnPMFList < spm1d.stats.spm.ASPMFList
             self.name         = 'SnPM{F} list';
             self.permuter     = perm;
             self.isparametric = false;
+            self.nPermUnique  = perm.nPermTotal;
+            self.Q            = SnPMs{1}.Q;
         end
         
         

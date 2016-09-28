@@ -16,4 +16,19 @@ classdef SnPM0D_F < spm1d.stats.nonparam.snpm.ASnPM0D
             self.isanova = true;
         end
     end
+    
+    
+    methods (Access = protected)
+        
+        function propgrp = getPropertyGroups(self)
+            plist = struct;
+            plist.effect      = self.effect;
+            plist.dim         = self.dim;
+            plist.z           = self.z;
+            plist.nPermUnique = self.nPermUnique;
+            propgrp           = matlab.mixin.util.PropertyGroup(plist);
+        end
+        
+   end
+    
 end

@@ -23,12 +23,7 @@ spmilist.plot();
 
 
 
-% %(2) Plot:
-% close all
-% for k = 1:spmilist.nEffects
-%     subplot(2,2,k)
-%     spmi = spmilist(k);
-%     spmi.plot();
-%     title( spmi.effect )
-% end
+%(2) Plot:
+close all
+spmilist.plot('plot_threshold_label',false, 'plot_p_values',true, 'autoset_ylim',true);
 

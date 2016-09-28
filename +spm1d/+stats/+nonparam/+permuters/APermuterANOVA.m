@@ -66,6 +66,7 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
             if self.dim == 1
                 self.ZZ    = Z;
             end
+            self.nPermActual = size(Z, 1);
         end
         
         function [z] = get_test_stat(self, ind)

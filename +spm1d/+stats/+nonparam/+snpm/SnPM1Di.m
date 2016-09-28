@@ -11,6 +11,7 @@ classdef SnPM1Di < spm1d.stats.nonparam.snpm.ASnPM1D
         zstar
         clusters
         nClusters
+        nPermActual
         two_tailed
         h0reject
         nNodes
@@ -22,17 +23,18 @@ classdef SnPM1Di < spm1d.stats.nonparam.snpm.ASnPM1D
     methods
         function [self] = SnPM1Di(snpm, alpha, zstar, two_tailed, clusters)
             self @ spm1d.stats.nonparam.snpm.ASnPM1D(snpm.z, snpm.permuter)
-            self.STAT       = snpm.STAT;
-            self.alpha      = alpha;
-            self.zstar      = zstar;
-            self.clusters   = clusters;
-            self.nClusters  = numel(clusters);
-            self.PDF0       = snpm.permuter.Z;
-            self.PDF1       = snpm.permuter.Z2;
-            self.two_tailed = two_tailed;
-            self.h0reject   = self.nClusters > 0;
-            self.nNodes     = numel( self.z );
-            self.p          = self.get_p_values();
+            self.STAT        = snpm.STAT;
+            self.alpha       = alpha;
+            self.zstar       = zstar;
+            self.clusters    = clusters;
+            self.nClusters   = numel(clusters);
+            self.nPermActual = numel( self.permuter.Z );
+            self.PDF0        = snpm.permuter.Z;
+            self.PDF1        = snpm.permuter.Z2;
+            self.two_tailed  = two_tailed;
+            self.h0reject    = self.nClusters > 0;
+            self.nNodes      = numel( self.z );
+            self.p           = self.get_p_values();
         end
         
         
@@ -80,6 +82,7 @@ classdef SnPM1Di < spm1d.stats.nonparam.snpm.ASnPM1D
             plist = struct;
             plist.z           = self.z;
             plist.nPermUnique = self.nPermUnique;
+            plist.nPermActual = self.nPermActual;
             plist.alpha       = self.alpha;
             plist.zstar       = self.zstar;
             plist.h0reject    = self.h0reject;

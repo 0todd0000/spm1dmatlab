@@ -72,7 +72,7 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
     end
     
     methods (Access = protected)
-        function [y] = stack(self, yA, yB)
+        function [y] = stack(~, yA, yB)
             y   = [yA; yB];
         end
     end

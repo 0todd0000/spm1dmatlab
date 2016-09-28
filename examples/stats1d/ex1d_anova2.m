@@ -11,7 +11,7 @@ clear;  clc
 
 
 %(0) Load data:
-dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_2x2();
+% dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_2x2();
 dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_2x3();
 % dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_3x3();
 % dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_3x4();
@@ -31,7 +31,7 @@ disp_summ(spmilist)
 
 %(2) Plot:
 close all
-spmilist.plot();
+spmilist.plot('plot_threshold_label',true, 'plot_p_values',true, 'autoset_ylim',true);
 
 %MANUALLY construct the same plot:
 % for k = 1:spmilist.nEffects

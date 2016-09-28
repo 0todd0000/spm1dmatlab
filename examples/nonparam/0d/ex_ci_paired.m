@@ -11,8 +11,8 @@ dataset   = spm1d.data.uv0d.cipaired.FraminghamSystolicBloodPressure();
 %(1) Compute parametric and non-parametric CIs:
 rng(0)
 alpha      = 0.05;
-[datum,mu] = deal( 'difference', 0 );
-[datum,mu] = deal( 'meanA', 'meanB' );
+% [datum,mu] = deal( 'difference', 0 );
+% [datum,mu] = deal( 'meanA', 'meanB' );
 [datum,mu] = deal( 'meanA', 'tailB' );
 iterations = 500;
 ci         = spm1d.stats.ci_pairedsample(yA, yB, alpha, 'datum',datum, 'mu',mu);

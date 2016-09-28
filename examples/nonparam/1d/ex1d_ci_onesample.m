@@ -21,7 +21,7 @@ disp(cinp)
 
 
 %(2) Plot:
-figure('position',[0 0 1000 400])
+figure('position',[0 0 900 300])
 subplot(121);  ci.plot();  xlim([0 100])
 subplot(122);  cinp.plot();  xlim([0 100])
 

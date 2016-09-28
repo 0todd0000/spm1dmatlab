@@ -6,9 +6,9 @@ function [SnPM] = manova1(y, A, varargin)
 parser        = inputParser;
 addOptional(parser, 'roi', [], @isnumeric);
 parser.parse(varargin{:});
-roi           = parser.Results.roi;
+% roi           = parser.Results.roi;
 
-if ndims(y)==2
+if ndims(y)==2 %#ok<ISMAT>
     perm  = spm1d.stats.nonparam.permuters.PermuterMANOVA1_0D(y, A);
 else
     perm  = spm1d.stats.nonparam.permuters.PermuterMANOVA1_1D(y, A);

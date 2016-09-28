@@ -7,7 +7,7 @@ classdef PermuterMANOVA1_1D < spm1d.stats.nonparam.permuters.APermuterANOVA & sp
     methods
         function [self] = PermuterMANOVA1_1D(y, A)
             self@spm1d.stats.nonparam.permuters.APermuterANOVA(y, A)
-            [J,Q,I]             = size(y);
+            [~,Q,I]             = size(y);
             self.calc           = spm1d.stats.nonparam.calculators.CalculatorMANOVA1(self.A, I, Q);
             self.ismultivariate = true;
         end

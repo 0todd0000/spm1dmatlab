@@ -5,7 +5,7 @@ function [SnPM] = cca(y, x)
 
 
 x     = spm1d.util.flatten(x);
-if ndims(y)==2
+if ndims(y)==2 %#ok<ISMAT>
     perm  = spm1d.stats.nonparam.permuters.PermuterCCA_0D(y, x);
 else
     perm  = spm1d.stats.nonparam.permuters.PermuterCCA_1D(y, x);

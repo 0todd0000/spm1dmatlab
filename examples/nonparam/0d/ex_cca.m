@@ -19,6 +19,7 @@ disp('Non-parametric results')
 disp( snpmi )
 
 
+
 %(2) Compare to parametric inference:
 spm        = spm1d.stats.cca(y, x);
 spmi       = spm.inference(alpha);

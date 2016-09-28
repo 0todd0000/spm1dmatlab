@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset  = spm1d.data.mv0d.hotellings1.RSXLHotellings1();
+% dataset  = spm1d.data.mv0d.hotellings1.RSXLHotellings1();
 dataset  = spm1d.data.mv0d.hotellings1.Sweat();
 [y,mu]   = deal(dataset.Y, dataset.mu);
 

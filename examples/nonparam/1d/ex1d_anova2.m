@@ -1,6 +1,6 @@
     
 
-clear;  clc
+clear classes;  clc
 
 
 %(0) Load data:
@@ -14,39 +14,29 @@ dataset    = spm1d.data.uv1d.anova2.SPM1D_ANOVA2_2x2();
 [y,A,B] = deal(dataset.Y, dataset.A, dataset.B);
 
 
-% calc = spm1d.stats.nonparam.calculators.CalculatorANOVA2(A, B);
-% z    = calc.get_test_stat(y);
-% % close all;  plot(z)
-
-
-% perm  = spm1d.stats.nonparam.permuters.PermuterANOVA2_1D(y, A, B);
-% z = perm.get_test_stat_original();
-% % % % close all;  plot(z)
-% perm  = perm.build_pdf(100);
-
-
 
 
 %(1) Conduct non-parametric test:
-rng(0)
+rng(0)     %set the random number generator seed
 alpha      = 0.05;
 iterations = 100;
-snpm       = spm1d.stats.nonparam.anova2(y, A, B);
-snpmi      = snpm.inference(alpha, 'iterations', iterations);
-% disp('Non-Parametric results')
-% disp( snpmi )
+FFn        = spm1d.stats.nonparam.anova2(y, A, B);
+FFni       = FFn.inference(alpha, 'iterations', iterations);
+disp_summ(FFni)
 
 
 
-% %(2) Compare to parametric inference:
-% spmlist    = spm1d.stats.anova2(y, A, B);
-% spmilist   = spmlist.inference(alpha);
-% disp('Parametric results')
-% disp( spmilist )
-% % plot:
-% close all
-% spmilist.plot('FigureName', 'Parametric results')
-% % subplot(122);  snpmi.plot(); snpmi.plot_threshold_label(); snpmi.plot_p_values();
-%
-
+%(2) Plot:
+close all;
+FFni.plot('plot_threshold_label',false, 'plot_p_values',false, 'autoset_ylim',true);
+FFi        = spm1d.stats.anova2(y, A, B).inference(alpha);
+%%% compare to parametric results by plotting the parametric thresholds:
+for i = 1:FFi.nEffects
+    Fi = FFi(i);
+    subplot(2,2,i);
+    hold on
+    plot([0 numel(Fi.z)], Fi.zstar*[1 1], 'color','c', 'linestyle','--')
+    hold off
+    text(5, Fi.zstar, 'Parametric', 'color','k', 'backgroundcolor','c')
+end
 

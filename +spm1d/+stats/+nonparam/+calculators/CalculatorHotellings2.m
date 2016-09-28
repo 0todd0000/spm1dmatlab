@@ -28,8 +28,6 @@ classdef CalculatorHotellings2 < spm1d.stats.nonparam.calculators.ACalculatorTwo
 
 
         function [z] = get_test_stat(self, yA, yB)
-            % size(yA)
-            % size(yB)
             if self.Q==1
                 z   = self.T2_single_node(yA, yB);
             else

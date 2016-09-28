@@ -16,7 +16,8 @@ rng(0)
 alpha      = 0.05;
 two_tailed = true;
 snpm       = spm1d.stats.nonparam.regress(y, x);
-snpmi      = snpm.inference(alpha, 'two_tailed', two_tailed, 'iterations',5000)
+snpmi      = snpm.inference(alpha, 'two_tailed', two_tailed, 'iterations',5000);
+disp(snpmi)
 
 
 

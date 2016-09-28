@@ -6,7 +6,7 @@ function [SnPM] = anova2(y, A, B, varargin)
 parser        = inputParser;
 addOptional(parser, 'roi', [], @isnumeric);
 parser.parse(varargin{:});
-roi           = parser.Results.roi;
+% roi           = parser.Results.roi;
 
 y         = spm1d.util.flatten(y);
 if isvector(y)

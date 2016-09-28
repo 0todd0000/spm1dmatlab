@@ -61,20 +61,10 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            % p                = self.permuter.get_p_value( self.z, zstar, alpha );
            %return an SnPM object:
            if self.STAT=='F'
-               snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, two_tailed, clusters);
+               snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, clusters);
            else
                snpmi = spm1d.stats.nonparam.snpm.SnPM1Di(self, alpha, zstar, two_tailed, clusters);
            end
-           % snpmi            = spm1d.stats.nonparam.snpm.build_snpmi(self, alpha, zstar, clusters);
-
-           % if self.STAT=='F'
-           %     snpmi = spm1d.stats.nonparam.snpm.SnPM1Dinference_F(self, alpha, zstar, clusters);
-           % else
-           %     snpmi = spm1d.stats.nonparam.snpm.SnPM1Dinference(self, alpha, zstar, clusters);
-           % end
-
-           % spmi = nan;
-          
        end
        
        
@@ -83,11 +73,35 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            h         = plotter.plot_spm(self);
            varargout = {h};
        end
+       
+       
+        function [clusters] = get_clusters(self, zstar, two_tailed, interp, circular, iterations, cluster_metric)
+            clusters = spm1d.geom.cluster_geom(self.z, zstar, interp, circular, 'csign',+1, 'nonparam',true);
+            if two_tailed
+                clustersn = spm1d.geom.cluster_geom(-self.z, zstar, interp, circular, 'csign',-1, 'nonparam',true);
+                clusters  = [clusters clustersn];
+            end
+            for i = 1:numel(clusters)
+                clusters{i} = clusters{i}.set_metric(cluster_metric, iterations, self.nPermUnique, two_tailed);
+            end
+            if two_tailed
+                clusters  = self.reorder_clusters(clusters);
+            end
+        end
+        
+        
+        function [clusters] = cluster_inference(self, clusters, two_tailed)
+            for i = 1:numel(clusters)
+                clusters{i} = clusters{i}.inference(self.permuter.Z2, two_tailed);
+            end
+        end
+       
 
     end
     
-
- 
+    
+    
+    
     methods (Access = protected)
         function header = getHeader(self)
             s = self.STAT;
@@ -104,27 +118,8 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
             propgrp = matlab.mixin.util.PropertyGroup(plist);
         end
         
-        function [clusters] = get_clusters(self, zstar, two_tailed, interp, circular, iterations, cluster_metric)
-            clusters = spm1d.geom.cluster_geom(self.z, zstar, interp, circular, 'csign',+1, 'nonparam',true);
-            if two_tailed
-                clustersn = spm1d.geom.cluster_geom(-self.z, zstar, interp, circular, 'csign',-1, 'nonparam',true);
-                clusters  = [clusters clustersn];
-            end
-            for i = 1:numel(clusters)
-                clusters{i} = clusters{i}.set_metric(cluster_metric, iterations, self.nPermUnique, two_tailed);
-            end
-            if two_tailed
-                clusters  = self.reorder_clusters(clusters);
-            end
-        end
         
-        function [clusters] = cluster_inference(self, clusters, two_tailed)
-            for i = 1:numel(clusters)
-                clusters{i} = clusters{i}.inference(self.permuter.Z2, two_tailed);
-            end
-        end
-        
-        function [clusters] = reorder_clusters(self, clusters);
+        function [clusters] = reorder_clusters(self, clusters) %#ok<INUSL>
             n = numel(clusters);
             if n > 0
                 x = zeros(1, n);

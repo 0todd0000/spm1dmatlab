@@ -7,7 +7,7 @@ classdef PermuterCCA_1D < spm1d.stats.nonparam.permuters.APermuterRegress & spm1
     methods
         function [self] = PermuterCCA_1D(y, x)
             self@spm1d.stats.nonparam.permuters.APermuterRegress(y, x)
-            [J,Q,I]     = size(y);
+            [~,Q,I]     = size(y);
             self.calc   = spm1d.stats.nonparam.calculators.CalculatorCCA(x, I, Q);
             self.ismultivariate = true;
         end

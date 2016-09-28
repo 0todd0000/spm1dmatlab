@@ -11,7 +11,7 @@ mu            = parser.Results.mu;
 % roi           = parser.Results.roi;
 
 y     = spm1d.util.flatten(y);
-if ndims(y)==2
+if ndims(y)==2 %#ok<ISMAT>
     perm  = spm1d.stats.nonparam.permuters.PermuterHotellings_0D(y, mu);
 else
     perm  = spm1d.stats.nonparam.permuters.PermuterHotellings_1D(y, mu);

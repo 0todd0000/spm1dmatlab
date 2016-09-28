@@ -25,6 +25,7 @@ switch STAT
             elseif dim==1
                 snpm  = spm1d.stats.nonparam.snpm.SnPM1D_F(z, permuter);
             end
+            
 
         else  %multiple F statistics
             SnPMs = cell(1, nz);

@@ -16,6 +16,7 @@ classdef (Abstract) ASnPM0D < spm1d.stats.nonparam.snpm.ASnPM
        end
         
        function snpmi = inference(self, alpha, varargin)
+            %conduct inference
             %parse varargin
             parser           = inputParser;
             addOptional(parser, 'iterations',  -1, @isscalar);

@@ -40,8 +40,8 @@ disp( spmi )
 % plot:
 close all
 figure('position', [0 0 1000 300])
-subplot(121);  spmi.plot();  spmi.plot_threshold_label();  spmi.plot_p_values();
-subplot(122);  snpmi.plot(); snpmi.plot_threshold_label(); snpmi.plot_p_values();
+subplot(121);  spmi.plot();  spmi.plot_threshold_label();  spmi.plot_p_values();  title('Parametric')
+subplot(122);  snpmi.plot(); snpmi.plot_threshold_label(); snpmi.plot_p_values();  title('Non-parametric')
 
 
 

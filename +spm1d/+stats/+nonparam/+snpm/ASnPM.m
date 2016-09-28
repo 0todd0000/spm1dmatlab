@@ -46,6 +46,18 @@ classdef (Abstract) ASnPM < matlab.mixin.CustomDisplay
        
     end
     
+    
+    methods (Access = protected)
+        
+        function header = getHeader(self)
+            s = self.STAT;
+            if s == 'T'
+                s = 't';
+            end
+            header = sprintf('\nSnPM{%s} (%dD)', s, self.dim);
+        end
+        
+   end
 
 
     

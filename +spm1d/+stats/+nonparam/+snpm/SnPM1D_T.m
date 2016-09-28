@@ -45,16 +45,6 @@ classdef SnPM1D_T < spm1d.stats.nonparam.snpm.ASnPM1D
             else
                 snpmi = spm1d.stats.nonparam.snpm.SnPM1Di(self, alpha, zstar, two_tailed, clusters);
             end
-            % snpmi            = spm1d.stats.nonparam.snpm.build_snpmi(self, alpha, zstar, clusters);
-
-            % if self.STAT=='F'
-            %     snpmi = spm1d.stats.nonparam.snpm.SnPM1Dinference_F(self, alpha, zstar, clusters);
-            % else
-            %     snpmi = spm1d.stats.nonparam.snpm.SnPM1Dinference(self, alpha, zstar, clusters);
-            % end
-
-            % spmi = nan;
-           
         end
        
        

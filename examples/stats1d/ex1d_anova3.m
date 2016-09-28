@@ -14,18 +14,9 @@ dataset    = spm1d.data.uv1d.anova3.SPM1D_ANOVA3_2x2x2();
 spmlist   = spm1d.stats.anova3(Y, A, B, C);
 spmilist  = spmlist.inference(0.05);
 disp_summ(spmilist)
+
+
+%(2) Plot:
 close all
-spmilist.plot();
-
-
-
-% %(2) Plot:
-% close all
-% for k = 1:spmilist.nEffects
-%     subplot(3,3,k)
-%     spmi = spmilist(k);
-%     spmi.plot()
-%     title( spmi.effect )
-% end
-
+spmilist.plot('plot_threshold_label',false, 'plot_p_values',true, 'autoset_ylim',true);
 
