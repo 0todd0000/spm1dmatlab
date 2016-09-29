@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA1rm.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -11,16 +11,17 @@ classdef ANOVA1rm < spm1d.stats.anova.designs.Design
 
     methods
         function self = ANOVA1rm(A, SUBJ)
-            self.S = spm1d.stats.anova.factors.Factor(SUBJ);
-            self.A = spm1d.stats.anova.factors.Factor(A);
-            self.J = self.A.J;
-            self.term_labels = {'Intercept', 'A', 'S', 'SA'};
-            self.f_terms = {{'A','SA'}};
-            self   = assemble(self);
+            self.S             = spm1d.stats.anova.factors.Factor(SUBJ);
+            self.A             = spm1d.stats.anova.factors.Factor(A);
+            self.J             = self.A.J;
+            self.effect_labels = {'Main A'};
+            self.term_labels   = {'Intercept', 'A', 'S', 'SA'};
+            self.f_terms       = {{'A','SA'}};
+            self               = assemble(self);
             check_balanced(self)
         end
         
-        function [only_single] = check_for_single_responses(self)
+        function [only_single] = check_for_single_responses(self, dim)
             [A,S] = deal(self.A.A, self.S.A); %#ok<*PROP>
             only_single = false;
             for iA = 1:self.A.n
@@ -28,7 +29,9 @@ classdef ANOVA1rm < spm1d.stats.anova.designs.Design
                 s = S( (A==a) );
                 if numel(unique(s)) == numel(s)
                     only_single = true;
-                    warning('Only one observation per subject found.  Residuals and inference will be approximate. To avoid approximate residuals: (a) Add multiple observations per subject and per condition, and (b) ensure that all subjects and conditions have the same number of observations.')
+                    if dim==1
+                        warning('Only one observation per subject found.  Residuals and inference will be approximate. To avoid approximate residuals: (a) Add multiple observations per subject and per condition, and (b) ensure that all subjects and conditions have the same number of observations.')
+                    end
                     return
                 end
             end

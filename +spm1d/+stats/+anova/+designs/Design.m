@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: Design.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -10,6 +10,7 @@ classdef Design
          A
          J
          contrasts
+         effect_labels
          term_labels
          f_terms
     end

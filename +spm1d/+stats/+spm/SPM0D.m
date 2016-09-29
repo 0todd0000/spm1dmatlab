@@ -1,30 +1,45 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM0D.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef SPM0D < matlab.mixin.CustomDisplay
     properties
         STAT
+        Q   = 1;    %number of field nodes
+        dim = 0;    %data dimensionality
         df
+        beta
+        sigma2
         z
         r
+        residuals
         isregress = false;
     end
     
     methods
         
-        function [self] = SPM0D(STAT, z, df)
-            self.STAT     = STAT;
-            self.z        = z;
-            self.df       = df;
+        function [self] = SPM0D(STAT, z, df, varargin)
+            %parse varargin
+            parser = inputParser;
+            addOptional(parser, 'residuals', [], @isnumeric);
+            addOptional(parser, 'beta',      [], @isnumeric);
+            addOptional(parser, 'sigma2',    [], @isnumeric);
+            parser.parse(varargin{:});
+            %set attributes:
+            self.STAT      = STAT;
+            self.z         = z;
+            self.df        = df;
+            self.residuals = parser.Results.residuals;
+            self.beta      = parser.Results.beta;
+            self.sigma2    = parser.Results.sigma2;
        end
        
        function spmi = inference(self, alpha, varargin)
             %parse inputs
             default2tailed = isequal(self.STAT,'T');
             parser = inputParser;
-            addOptional(parser, 'two_tailed', default2tailed, @islogical);
+            addOptional(parser, 'two_tailed', default2tailed,   @islogical   );
             parser.parse(varargin{:});
             two_tailed    = parser.Results.two_tailed;
             %two-tailed check

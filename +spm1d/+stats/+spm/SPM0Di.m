@@ -1,18 +1,22 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM0Di.m 1 2016-01-04 16:07 todd $
+
 
 
 
 classdef SPM0Di < matlab.mixin.CustomDisplay
     properties
+        dim = 0;    %data dimensionality
         df
         z
+        beta
+        sigma2
         alpha
         zstar
         h0reject
         p
         r
+        residuals
         isregress
     end
     properties (Hidden)
@@ -23,8 +27,11 @@ classdef SPM0Di < matlab.mixin.CustomDisplay
         function [self] = SPM0Di(spm, alpha, zstar, p, two_tailed)
             self.STAT         = spm.STAT;
             self.df           = spm.df;
+            self.beta         = spm.beta;
+            self.sigma2       = spm.sigma2;
             self.z            = spm.z;
             self.r            = spm.r;
+            self.residuals    = spm.residuals;
             self.isregress    = spm.isregress;
             self.alpha        = alpha;
             self.zstar        = zstar;

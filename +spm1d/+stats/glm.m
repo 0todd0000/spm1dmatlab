@@ -1,7 +1,7 @@
 function [SPM] = glm(Y, X, c, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: glm.m 1 2016-01-04 16:07 todd $
+
 
 parser = inputParser;
 addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
@@ -19,7 +19,7 @@ t            = (c'*b)'  ./  (sqrt(sigma2*(c'*(inv(X'*X))*c))  + eps);
 
 % create SPM object:
 if numel(t)==1
-    SPM      = spm1d.stats.spm.SPM0D('T', t', [1 df]);
+    SPM      = spm1d.stats.spm.SPM0D('T', t', [1 df], eij, 'beta',b, 'sigma2',sigma2);
 else
     fwhm     = mean( spm1d.geom.fwhm(eij) );
     if isempty(roi)
@@ -29,7 +29,7 @@ else
         B    = ~B & roi;
         resels   = spm1d.geom.resels(B, fwhm);
     end
-    SPM      = spm1d.stats.spm.SPM('T', t', [1 df], fwhm, resels, b, eij, sigma2, 'roi', roi);
+    SPM      = spm1d.stats.spm.SPM('T', t', [1 df], fwhm, resels, b, eij, sigma2', 'roi', roi);
 end
 
 

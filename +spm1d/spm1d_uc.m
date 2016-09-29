@@ -2,7 +2,7 @@ function [u] = spm1d_uc(a,df,STAT,R,n,S)
 % interface to spm_uc from spm8 for Hotelling's T2 statistic
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: spm1d_uc.m 1 2016-01-04 16:07 todd $
+
 
 
 if STAT=='T2'

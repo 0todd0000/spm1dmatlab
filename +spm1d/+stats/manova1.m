@@ -1,7 +1,7 @@
 function [SPM] = manova1(Y, A, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: manova1.m 1 2016-01-04 16:07 todd $
+
 
 
 parser = inputParser;

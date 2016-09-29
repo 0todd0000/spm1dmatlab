@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA3onerm.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -13,6 +13,7 @@ classdef ANOVA3onerm < spm1d.stats.anova.designs.ANOVA3rm
             self.C = spm1d.stats.anova.factors.Factor(C);
             self.S = spm1d.stats.anova.factors.FactorNestedTwoWay(SUBJ, self.A, self.B);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C', 'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
             self.term_labels = {'Intercept',  'A','B','C', 'AB','AC','BC',    'ABC', 'S', 'SC'};
             self.f_terms = {{'A','S'}, {'B','S'}, {'C','SC'},  {'AB','S'},{'AC','SC'},{'BC','SC'},  {'ABC','SC'}};
             self      = assemble(self);

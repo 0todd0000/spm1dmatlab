@@ -1,7 +1,7 @@
 function [SPM] = hotellings(Y, mu, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: hotellings.m 1 2016-01-04 16:07 todd $
+
 
 
 parser = inputParser;
@@ -61,13 +61,4 @@ m          = mean(Y, 1);
 R          = Y - repmat(m, [J 1 1]);
 end
 
-% function [W] = here_estimate_fwhm(R)
-% nComp = size(R,3);
-% W     = 0;  
-% for i = 1:nComp
-%     r = R(:,:,i);
-%     fwhm     = mean( spm1d.geom.fwhm(r) );
-%     W = W + fwhm;
-% end
-% W = W/nComp;
-% end
+

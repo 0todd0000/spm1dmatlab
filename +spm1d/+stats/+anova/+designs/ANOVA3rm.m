@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA3rm.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -19,6 +19,7 @@ classdef ANOVA3rm < spm1d.stats.anova.designs.Design
             self.B = spm1d.stats.anova.factors.Factor(B);
             self.C = spm1d.stats.anova.factors.Factor(C);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C', 'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
             self.term_labels = {'Intercept',  'A','B','C','S',  'AB','AC','BC',   'SA','SB','SC',   'SAB','SAC','SBC',  'ABC', 'SABC'};
             self.f_terms = {{'A','SA'}, {'B','SB'}, {'C','SC'},  {'AB','SAB'},{'AC','SAC'},{'BC','SBC'},  {'ABC','SABC'}};
             self   = assemble(self);
@@ -26,7 +27,7 @@ classdef ANOVA3rm < spm1d.stats.anova.designs.Design
         end
         
         
-        function [only_single] = check_for_single_responses(self)
+        function [only_single] = check_for_single_responses(self, dim)
             [A,B,C,S] = deal(self.A.A, self.B.A, self.C.A, self.S.A); %#ok<*PROP>
             only_single = false;
             for iA = 1:self.A.n
@@ -36,7 +37,9 @@ classdef ANOVA3rm < spm1d.stats.anova.designs.Design
                         s = S( (A==a) & (B==b) & (C==c) );
                         if numel(unique(s)) == numel(s)
                             only_single = true;
-                            warning('Only one observation per subject found.  Residuals and inference will be approximate. To avoid approximate residuals: (a) Add multiple observations per subject and per condition, and (b) ensure that all subjects and conditions have the same number of observations.')
+                            if dim==1
+                                warning('Only one observation per subject found.  Residuals and inference will be approximate. To avoid approximate residuals: (a) Add multiple observations per subject and per condition, and (b) ensure that all subjects and conditions have the same number of observations.')
+                            end
                             return
                         end
                     end

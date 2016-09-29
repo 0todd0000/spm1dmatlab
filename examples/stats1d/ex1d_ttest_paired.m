@@ -16,17 +16,19 @@ disp(spmi)
 
 %(2) Plot:
 close all
+figure('position', [0 0 1000 300])
 %%% plot mean and SD:
-figure
-spm1d.plot.plot_meanSD(YA, 'color','k')
+subplot(121)
+spm1d.plot.plot_meanSD(YA, 'color','k');
 hold on
-spm1d.plot.plot_meanSD(YB, 'color','r')
+spm1d.plot.plot_meanSD(YB, 'color','r');
+title('Mean and SD')
 %%% plot SPM results:
-figure
-spmi.plot()
+subplot(122)
+spmi.plot();
 spmi.plot_threshold_label();
 spmi.plot_p_values();
-
+title('Hypothesis test')
 
 
 

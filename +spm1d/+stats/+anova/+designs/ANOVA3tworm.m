@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA3tworm.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -13,6 +13,7 @@ classdef ANOVA3tworm < spm1d.stats.anova.designs.ANOVA3rm
             self.C = spm1d.stats.anova.factors.Factor(C);
             self.S = spm1d.stats.anova.factors.FactorNested(SUBJ, self.A);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C', 'Interaction AB', 'Interaction AC', 'Interaction BC', 'Interaction ABC'};
             self.term_labels = {'Intercept',  'A','B','C','S',  'AB','AC','BC',   'SB','SC',   'ABC', 'SBC'};
             self.f_terms = {{'A','S'}, {'B','SB'}, {'C','SC'},  {'AB','SB'},{'AC','SC'},{'BC','SBC'},  {'ABC','SBC'}};
             self      = assemble(self);

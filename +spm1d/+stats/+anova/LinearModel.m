@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: LinearModel.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -32,9 +32,7 @@ classdef LinearModel
                 self.dim = 1;
             end
             %parse varargin for ROI:
-            parser   = inputParser;
-            addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
-            parser.parse(varargin{:});
+            parser   = spm1d.stats.anova.parseargs(varargin{:});
             self.roi = parser.Results.roi;
             %assemble attributes:
             self.Y   = Y;
@@ -62,7 +60,7 @@ classdef LinearModel
             end
             
             if nargin==1
-                self.eij   = Y - X*self.beta;  %residuals
+                self.eij    = Y - X*self.beta;  %residuals
             else %approximate residuals based on a reduced design
                 C           = approx_residuals;
                 A           = X * C';
@@ -90,15 +88,7 @@ classdef LinearModel
        
        function [SPM] = aov(self, contrasts, F_terms)
             effects = self.QT * self.Y;
-            
-            
-            
-%             effects = dot(self.QT, self.Y', 1);
-            
-            
-            
             SS = contrasts.C * effects.^2;
-            
             DF = sum(contrasts.C, 2);
             nTerms = numel(F_terms);
             SPM = cell(1,nTerms);
@@ -118,9 +108,12 @@ classdef LinearModel
                 f  = (ms0 ./ ms1)';
                 df = [df0 df1];
                 if self.dim==0
-                    spm = spm1d.stats.spm.SPM0DF(f, df, [ss0 ss1], [ms0 ms1]);
+                    spm = spm1d.stats.spm.SPM0DF(f, df, [ss0 ss1], [ms0 ms1], self.eij);
                 else
-                    spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels, 'roi', self.roi);
+                    spm = spm1d.stats.spm.SPM_F(f, df, self.fwhm, self.resels, self.X, self.beta, self.eij, self.roi);
+                    % spm = spm1d.stats.spm.SPM('F', f, df, self.fwhm, self.resels, 'roi', self.roi, 'residuals', self.eij);
+                    % spm = spm1d.stats.spm.SPM_F(f, df, self.fwhm, self.resels, 'roi', self.roi, 'residuals', self.eij);
+                    % z, df, fwhm, resels, X, beta, eij, X0
                 end
                 SPM{k} = spm;
            end

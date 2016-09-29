@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA2nested.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -14,6 +14,7 @@ classdef ANOVA2nested < spm1d.stats.anova.designs.Design
             self.A = spm1d.stats.anova.factors.Factor(A);
             self.B = spm1d.stats.anova.factors.FactorNested(B, self.A);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B'};
             self.term_labels = {'Intercept', 'A', 'B'};
             self.f_terms = {{'A','B'}, {'B','Error'}};
             self   = assemble(self);

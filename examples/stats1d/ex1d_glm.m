@@ -26,7 +26,7 @@ spmi      = spm.inference(0.05, 'two_tailed', false);
 
 %(2) Plot:
 close all
-spmi.plot()
+spmi.plot();
 spmi.plot_threshold_label();
 spmi.plot_p_values();
 

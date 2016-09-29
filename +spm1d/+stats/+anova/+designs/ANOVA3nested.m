@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ANOVA3nested.m 1 2016-01-04 16:07 todd $
+
 
 
 
@@ -17,6 +17,7 @@ classdef ANOVA3nested < spm1d.stats.anova.designs.Design
             self.B = spm1d.stats.anova.factors.FactorNested(B, self.A);
             self.C = spm1d.stats.anova.factors.FactorNested2(C, self.A, self.B);
             self.J = self.A.J;
+            self.effect_labels = {'Main A', 'Main B', 'Main C'};
             self.term_labels = {'Intercept', 'A', 'B', 'C'};
             self.f_terms = {{'A','B'}, {'B', 'C'}, {'C','Error'}};
             self   = assemble(self);
@@ -46,8 +47,6 @@ classdef ANOVA3nested < spm1d.stats.anova.designs.Design
         function check_balanced(self)
             if ~(self.A.balanced && self.B.balanced && self.C.balanced)
                 error('Design must be balanced.')
-%             elseif ~self.A.check_balanced_nested3(self.B, self.C)
-%                 error('Design must be balanced.')
             end
         end
         

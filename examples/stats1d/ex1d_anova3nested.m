@@ -11,25 +11,11 @@ dataset    = spm1d.data.uv1d.anova3nested.SPM1D_ANOVA3NESTED_2x4x2();
 
 %(1) Conduct SPM analysis:
 spmlist   = spm1d.stats.anova3nested(Y, A, B, C);
-spmlisti  = spmlist.inference(0.05);
+spmilist  = spmlist.inference(0.05);
+disp_summ(spmilist)
 
 
-%(2) Plot: 
+%(2) Plot:
 close all
-titles = {'Main effect A', 'Main effect B', 'Main effect C'};
-for k = 1:spmlist.n
-    subplot(2,2,k)
-    spmi = spmlisti.SPMs{k};
-    plot(spmi)
-    title(titles{k})
-end
-    
-
-
-
-
-
-
-
-
+spmilist.plot('plot_threshold_label',false, 'plot_p_values',true, 'autoset_ylim',true);
 
