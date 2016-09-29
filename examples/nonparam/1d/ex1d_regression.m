@@ -10,20 +10,6 @@ dataset = spm1d.data.uv1d.regress.SpeedGRF();
 
 
 
-% J = size(y,1);
-% calc = spm1d.stats.nonparam.calculators.CalculatorRegress(x);
-% z    = calc.get_test_stat(y);
-% close all;  plot(z)
-
-
-% perm  = spm1d.stats.nonparam.permuters.PermuterRegress_1D(y, x);
-% z = perm.get_test_stat_original();
-% close all;  plot(z)
-% perm  = perm.build_pdf(100);
-
-
-
-
 %(1) Conduct non-parametric test:
 rng(0)
 alpha      = 0.05;

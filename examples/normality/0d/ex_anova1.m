@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset = spm1d.data.uv0d.anova1.Cars();
+% dataset = spm1d.data.uv0d.anova1.Cars();
 % dataset = spm1d.data.uv0d.anova1.Sound();
 % dataset = spm1d.data.uv0d.anova1.Southampton1();
 dataset = spm1d.data.uv0d.anova1.ConstructionUnequalSampleSizes();

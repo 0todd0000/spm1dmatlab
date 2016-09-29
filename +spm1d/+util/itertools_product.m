@@ -1,7 +1,7 @@
 function [A] = itertools_product(a, n)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: flatten.m 1 2016-01-22 10:22 todd $
+
 
 %%% create sign permutations:
 N     = 2^n;

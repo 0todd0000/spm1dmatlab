@@ -13,8 +13,6 @@ dataset = spm1d.data.uv0d.anova2.Detergent();
 
 
 
-
-
 %(1) Conduct normality test:
 spm   = spm1d.stats.normality.anova2(y, A, B);
 spmi  = spm.inference(0.05);

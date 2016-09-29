@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM.m 2 2016-03-30 17:01 todd $
+
 
 
 classdef CalculatorRegress

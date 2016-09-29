@@ -1,7 +1,7 @@
 function [Ys] = spm1d_smooth(Y, w)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: spm1d_smooth.m 1 2016-01-04 16:07 todd $
+% Smooth data Y using a Gaussian kernel with FWHM=w
 
 
 [J,Q]   = size(Y);                  %number of curves/nodes

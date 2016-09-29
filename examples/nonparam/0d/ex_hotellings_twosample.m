@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset  = spm1d.data.mv0d.hotellings2.RSXLHotellings2();
+% dataset  = spm1d.data.mv0d.hotellings2.RSXLHotellings2();
 dataset  = spm1d.data.mv0d.hotellings2.HELPHomeless();
 [yA,yB]   = deal(dataset.YA, dataset.YB);
 

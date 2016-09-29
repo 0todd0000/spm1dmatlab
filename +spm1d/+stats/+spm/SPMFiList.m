@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPMiList.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef SPMFiList < spm1d.stats.spm.ASPMFList
@@ -8,7 +8,6 @@ classdef SPMFiList < spm1d.stats.spm.ASPMFList
     methods
         function [self] = SPMFiList(spmlist, SPMs)
             self @ spm1d.stats.spm.ASPMFList(SPMs)
-            % self.SPMs      = SPMs;
             self.name                = 'SPM{F} inference list';
             self.dim                 = spmlist.dim;
             self.Q                   = spmlist.Q;

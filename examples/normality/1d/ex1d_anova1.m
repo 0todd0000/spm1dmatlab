@@ -4,12 +4,9 @@ clear;  clc
 
 
 %(0) Load data:
-% dataset  = spm1d.data.uv1d.anova1.SpeedGRFcategorical();
-dataset  = spm1d.data.uv1d.anova1.Weather();
+dataset  = spm1d.data.uv1d.anova1.SpeedGRFcategorical();
+% dataset  = spm1d.data.uv1d.anova1.Weather();
 [y,A]    = deal(dataset.Y, dataset.A);
-
-
-% spm       = spm1d.stats.anova1(y, A);
 
 
 %(1) Conduct normality test:

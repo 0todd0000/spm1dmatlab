@@ -12,9 +12,9 @@ dataset   = spm1d.data.uv0d.ci2.AnimalsInResearch();
 %(1) Compute parametric and non-parametric CIs:
 rng(0)
 alpha      = 0.05;
-[datum,mu] = deal( 'difference', 1 );
-% [datum,mu] = deal( 'meanA', 'meanB' );
-% [datum,mu] = deal( 'meanA', 'tailB' );
+[datum,mu] = deal( 'difference', 1 );   %OPTION 1:  'difference', mu
+% [datum,mu] = deal( 'meanA', 'meanB' );   %OPTION 2:  'meanA', 'meanB'
+% [datum,mu] = deal( 'meanA', 'tailB' );   %OPTION 3:  'meanA', 'tailB'
 iterations = 500;
 ci         = spm1d.stats.ci_twosample(yA, yB, alpha, 'datum',datum, 'mu',mu);
 cin        = spm1d.stats.nonparam.ci_twosample(yA, yB, alpha, 'datum',datum, 'mu',mu, 'iterations',iterations);

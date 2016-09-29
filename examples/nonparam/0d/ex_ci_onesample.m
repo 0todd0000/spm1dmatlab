@@ -1,6 +1,6 @@
 
 
-clear classes;  clc
+clear;  clc
 
 
 %(0) Load dataset:

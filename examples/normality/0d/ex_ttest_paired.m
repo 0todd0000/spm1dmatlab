@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset   = spm1d.data.uv0d.tpaired.RSWeightClinic();
+% dataset   = spm1d.data.uv0d.tpaired.RSWeightClinic();
 dataset   = spm1d.data.uv0d.tpaired.ColumbiaMileage();
 [yA,yB]  = deal(dataset.YA, dataset.YB);
 

@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM1D_Dataset.m 1 2016-01-04 16:07 todd $
+
 
 classdef SPM1D_Dataset
     properties
@@ -25,7 +25,4 @@ classdef SPM1D_Dataset
             a = 1;
         end
     end
-       
-
-    
 end

@@ -1,7 +1,58 @@
 function [k2] = k2_single_node(x)
-%__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
-% $Id: ttest.m 1 2016-01-04 16:07 todd $
+%{
+Copyright (C) 2016 Todd Pataky
+
+Compute the D'Agostino-Pearson K2 test statistic at a single node.
+
+This code is modified from "DagosPtest.m" by Antonio Trujillo-Ortiz available at:
+https://mathworks.com/matlabcentral/fileexchange/3954-dagosptest/content/DagosPtest.m
+and is based on the methods described in the paper below:
+
+D'Agostino, Ralph B.; Albert Belanger; Ralph B. D'Agostino, Jr (1990)
+"A suggestion for using powerful and informative tests of normality"
+The American Statistician 44(4): 316-321.  doi:10.2307/2684359
+
+See also:
+https://en.wikipedia.org/wiki/D%27Agostino%27s_K-squared_test
+
+"DagosPtest.m" authors:
+
+A. Trujillo-Ortiz and R. Hernandez-Walls
+Facultad de Ciencias Marinas
+Universidad Autonoma de Baja California
+Apdo. Postal 453
+Ensenada, Baja California
+Mexico.
+atrujo@uabc.mx
+
+
+------------ LICENSE -------------------------------------------
+
+Copyright (c) 2015, Antonio Trujillo-Ortiz
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the distribution
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+%}
 
 
 n   = numel(x);

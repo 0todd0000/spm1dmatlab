@@ -8,18 +8,6 @@ dataset    = spm1d.data.uv1d.anova1rm.SpeedGRFcategoricalRM();
 [y,A,SUBJ] = deal(dataset.Y, dataset.A, dataset.SUBJ);
 
 
-% calc = spm1d.stats.nonparam.calculators.CalculatorANOVA1rm(A, SUBJ);
-% z    = calc.get_test_stat(y);
-% close all;  plot(z)
-
-
-% perm  = spm1d.stats.nonparam.permuters.PermuterANOVA1rm_1D(y, A, SUBJ);
-% z = perm.get_test_stat_original();
-% % % close all;  plot(z)
-% % perm  = perm.build_pdf(100);
-
-
-
 
 %(1) Conduct non-parametric test:
 rng(0)

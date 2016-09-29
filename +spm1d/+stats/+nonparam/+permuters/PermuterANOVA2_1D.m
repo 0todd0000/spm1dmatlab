@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM.m 2 2016-03-30 17:01 todd $
+
 
 
 classdef PermuterANOVA2_1D < spm1d.stats.nonparam.permuters.APermuterANOVA1DmultiF

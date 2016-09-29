@@ -1,7 +1,7 @@
 function [SPM] = anova3onerm(Y, A, B, C, SUBJ, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: anova3onerm.m 1 2016-01-04 16:07 todd $
+
 
 parser         = spm1d.stats.anova.parseargs(varargin{:});
 force_approx0D = parser.Results.force_approx0D;

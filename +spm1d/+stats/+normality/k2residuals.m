@@ -1,7 +1,9 @@
 function [SPM] = k2residuals(x)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ttest.m 1 2016-01-04 16:07 todd $
+
+
+
 
 
 J   = size(x, 1);

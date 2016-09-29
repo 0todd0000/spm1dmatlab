@@ -1,4 +1,5 @@
 function [results] = parse_args(testname, varargin)
+% Copyright (C) 2016 Todd Pataky
 
 
 

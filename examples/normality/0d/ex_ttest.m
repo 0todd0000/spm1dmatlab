@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset   = spm1d.data.uv0d.normality.ZarBiostatisticalAnalysis68();
+% dataset   = spm1d.data.uv0d.normality.ZarBiostatisticalAnalysis68();
 dataset   = spm1d.data.uv0d.normality.KendallRandomNumbers();
 y         = dataset.Y;
 fprintf('Expected results:\n')

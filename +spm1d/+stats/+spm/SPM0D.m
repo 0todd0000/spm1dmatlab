@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM0D.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef SPM0D < matlab.mixin.CustomDisplay
@@ -40,7 +40,6 @@ classdef SPM0D < matlab.mixin.CustomDisplay
             default2tailed = isequal(self.STAT,'T');
             parser = inputParser;
             addOptional(parser, 'two_tailed', default2tailed,   @islogical   );
-            % addOptional(parser, 'two_tailed', default2tailed,   @(x)(islogical(x) || logical(ismember(x, [0,1])))   );
             parser.parse(varargin{:});
             two_tailed    = parser.Results.two_tailed;
             %two-tailed check

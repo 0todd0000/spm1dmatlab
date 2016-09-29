@@ -1,7 +1,7 @@
 function [SnPM] = anova3nested(y, A, B, C, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ttest.m 1 2016-01-04 16:07 todd $
+
 
 parser        = inputParser;
 addOptional(parser, 'roi', [], @isnumeric);

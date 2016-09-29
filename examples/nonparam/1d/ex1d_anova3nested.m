@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load data:
-dataset    = spm1d.data.uv1d.anova3nested.SPM1D_ANOVA3NESTED_2x2x2();
+% dataset    = spm1d.data.uv1d.anova3nested.SPM1D_ANOVA3NESTED_2x2x2();
 dataset    = spm1d.data.uv1d.anova3nested.SPM1D_ANOVA3NESTED_2x4x2();
 [y,A,B,C]  = deal(dataset.Y, dataset.A, dataset.B, dataset.C);
 

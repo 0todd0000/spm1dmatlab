@@ -4,7 +4,7 @@ clear;  clc
 
 
 %(0) Load dataset:
-dataset    = spm1d.data.uv0d.anova1rm.Abdi2010();
+% dataset    = spm1d.data.uv0d.anova1rm.Abdi2010();
 % dataset    = spm1d.data.uv0d.anova1rm.Groceries();
 % dataset    = spm1d.data.uv0d.anova1rm.Imacelebrity();
 dataset    = spm1d.data.uv0d.anova1rm.Southampton1rm();

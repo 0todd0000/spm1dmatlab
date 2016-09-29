@@ -12,6 +12,3 @@ classdef CIOneSample1D < spm1d.stats.ci.CISingleMean & spm1d.stats.ci.CI1D
     end
 end
 
-
-        
-

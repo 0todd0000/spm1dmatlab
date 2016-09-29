@@ -1,7 +1,7 @@
 function [SPM] = ttest2(yA, yB, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: ttest2.m 1 2016-01-04 16:07 todd $
+
 
 [yA,yB]       = deal(spm1d.util.flatten(yA), spm1d.util.flatten(yB));
 [nA,nB]       = deal(size(yA,1), size(yB,1));

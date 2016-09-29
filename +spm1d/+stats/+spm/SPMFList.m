@@ -1,7 +1,7 @@
 
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPMList.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef SPMFList < spm1d.stats.spm.ASPMFList

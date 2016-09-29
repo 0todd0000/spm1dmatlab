@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM0DF.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef SPM0DF < matlab.mixin.CustomDisplay & spm1d.stats.spm.SPM0D

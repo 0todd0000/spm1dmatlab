@@ -2,7 +2,7 @@ function [snpm] = build_snpm(STAT, permuter)
 
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM.m 2 2016-03-30 17:01 todd $
+
 
 
 z          = permuter.get_test_stat_original();

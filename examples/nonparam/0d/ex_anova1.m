@@ -1,6 +1,6 @@
 
 
-clear all;  clc
+clear;  clc
 
 
 %(0) Load dataset:
@@ -17,16 +17,16 @@ dataset = spm1d.data.uv0d.anova1.RSUnequalSampleSizes();
 alpha      = 0.05;
 iterations = 500;
 snpm       = spm1d.stats.nonparam.anova1(y, A);
-disp(snpm)
 snpmi      = snpm.inference(alpha, 'iterations', iterations);
+disp('Non-parametric results')
 disp(snpmi)
 
-% 
-% 
-% %(2) Compare to parametric inference:
-% spmi     = spm1d.stats.anova1(y, A).inference(alpha);
-% disp('Parametric results')
-% disp( spmi )
+
+
+%(2) Compare to parametric inference:
+spmi     = spm1d.stats.anova1(y, A).inference(alpha);
+disp('Parametric results')
+disp( spmi )
 
 
 

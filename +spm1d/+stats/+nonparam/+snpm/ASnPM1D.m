@@ -1,6 +1,6 @@
 %__________________________________________________________________________
 % Copyright (C) 2016 Todd Pataky
-% $Id: SPM0D.m 1 2016-01-04 16:07 todd $
+
 
 
 classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
@@ -48,17 +48,20 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            force_iterations = parser.Results.force_iterations;
            cluster_metric   = parser.Results.cluster_metric;
            self.permuter.check_iterations(alpha, iterations, force_iterations)
+           if two_tailed && ~isequal(self.STAT, 'T')
+               error('Two-tailed inference is only possible with the T statistic (univariate t tests and regression). Set "two_tailed" to false or remove the "two_tailed" keyword from the function call.')
+           end
            % build PDF:
            self.permuter    = self.permuter.build_pdf(iterations);
            % compute critical threshold and probability value
-           zstar            = self.permuter.get_z_critical(alpha);
+           zstar            = self.permuter.get_z_critical(alpha, 'two_tailed', two_tailed);
+           zstar            = max(zstar);
            % build secondary PDF:
            self.permuter    = self.permuter.set_metric( cluster_metric );
            self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
            % assemble clusters:
            clusters         = self.get_clusters(zstar, two_tailed, interp, circular, iterations, cluster_metric);
            clusters         = self.cluster_inference(clusters, two_tailed);
-           % p                = self.permuter.get_p_value( self.z, zstar, alpha );
            %return an SnPM object:
            if self.STAT=='F'
                snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, clusters);
