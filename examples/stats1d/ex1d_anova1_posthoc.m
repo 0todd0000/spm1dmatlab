@@ -21,9 +21,9 @@ t31        = spm1d.stats.ttest2(Y3, Y1);
 alpha      = 0.05;
 nTests     = 3;
 p_critical = spm1d.util.p_critical_bonf(alpha, nTests);
-t21i       = t21.inference(0.05, 'two_tailed',true);
-t32i       = t32.inference(0.05, 'two_tailed',true);
-t31i       = t31.inference(0.05, 'two_tailed',true);
+t21i       = t21.inference(p_critical, 'two_tailed',true);
+t32i       = t32.inference(p_critical, 'two_tailed',true);
+t31i       = t31.inference(p_critical, 'two_tailed',true);
 
 
 
