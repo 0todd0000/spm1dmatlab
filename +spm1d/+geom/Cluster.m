@@ -107,7 +107,11 @@ classdef Cluster < matlab.mixin.CustomDisplay
             if self.extent ==0  %to reproduce results from previous versions, minimum extent must be one (when not interpolated)
                 self.extent = 1;
             end
-            self.h          = min(z);
+            if self.csign == -1
+                self.h      = max(z);
+            elseif self.csign == 1
+                self.h      = min(z);
+            end
             self.xy         = [mean(self.X) mean(self.Z)];
         end
         

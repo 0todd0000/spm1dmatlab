@@ -1,3 +1,1 @@
-spm1d version M.0.4 (2016.10.01)
-
-pre-release available 2016.09.29
+spm1d version M.0.4.1 (2016.10.15)
