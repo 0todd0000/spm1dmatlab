@@ -93,9 +93,16 @@ classdef ASPMFList  < matlab.mixin.CustomDisplay
         end
         
         function [z] = get_test_stats(self)
-            z = zeros(1, self.nEffects);
-            for i = 1:self.nEffects
-                z(i) = self.SPMs{i}.z;
+            if self.dim == 0
+                z = zeros(1, self.nEffects);
+                for i = 1:self.nEffects
+                    z(i) = self.SPMs{i}.z;
+                end
+            else
+                z = zeros(self.nEffects, self.Q);
+                for i = 1:self.nEffects
+                    z(i,:) = self.SPMs{i}.z;
+                end
             end
         end
         
