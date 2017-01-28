@@ -5,7 +5,7 @@ function [SPM] = ttest(Y, varargin)
 
 parser        = inputParser;
 addOptional(parser, 'mu',  0,   @(x)isnumeric(x) );
-addOptional(parser, 'roi', [],  @(x)isnumeric(x) );
+addOptional(parser, 'roi', [],  @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );
 parser.parse(varargin{:});
 mu            = parser.Results.mu;
 roi           = parser.Results.roi;

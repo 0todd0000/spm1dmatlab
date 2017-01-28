@@ -15,18 +15,12 @@ roi(81:end) = true;
 
 %(1) Conduct SPM analysis:
 spmlist   = spm1d.stats.anova3nested(Y, A, B, C, 'roi', roi);
-spmlisti  = spmlist.inference(0.05);
+spmilist  = spmlist.inference(0.05);
 
 
 %(2) Plot: 
 close all
-titles = {'Main effect A', 'Main effect B', 'Main effect C'};
-for k = 1:spmlist.n
-    subplot(2,2,k)
-    spmi = spmlisti.SPMs{k};
-    plot(spmi)
-    title(titles{k})
-end
+spmilist.plot('plot_threshold_label',true, 'plot_p_values',true, 'autoset_ylim',true);
     
 
 
