@@ -42,6 +42,7 @@ classdef Factor
                         N = n;
                     else
                         balanced = n==N;
+                        break
                     end
                 end
             end
