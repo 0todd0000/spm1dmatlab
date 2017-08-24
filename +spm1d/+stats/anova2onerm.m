@@ -1,6 +1,28 @@
 function [SPM] = anova2onerm(Y, A, B, SUBJ, varargin)
+% Two-way ANOVA with one repeated-measures factor
+% (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.anova2onerm(y, A, B, SUBJ)
+% [spm] = spm1d.stats.anova2onerm(y, A, B, SUBJ, roi)
+% [spm] = spm1d.stats.anova2onerm(y, A, B, SUBJ, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - total number of responses
+%         Q - number of continuum nodes
+% A     - (J x 1) array of group labels for Factor A {integers}
+% B     - (J x 1) array of group labels for Factor B {integers}
+% SUBJ  - (J x 1) array of subject labels {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
+%
+% NOTE:
+% - Factor B is the repeated-measures factor (i.e. repeated measurements
+% are made over the different levels of Factor B, and not over the
+% different levels of Factor A)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 parser         = spm1d.stats.anova.parseargs(varargin{:});

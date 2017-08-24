@@ -1,6 +1,21 @@
 function [SPM] = manova1(Y, A, varargin)
+% One-way MANOVA (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.manova1(y, A)
+% [spm] = spm1d.stats.manova1(y, A, roi)
+% [spm] = spm1d.stats.manova1(y, A, 'roi', roi)
+%
+% y     - (J x Q x I) data array
+%         J - number of responses
+%         Q - number of continuum nodes
+%         I - number of vector components
+% A     - (J x 1) array of group labels {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

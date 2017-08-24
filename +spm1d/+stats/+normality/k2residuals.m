@@ -1,6 +1,16 @@
 function [SPM] = k2residuals(x)
+% D'Agostino-Pearson K2 test (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.normality.k2residuals(x)
+%
+% x     - (J x Q) array of model residuals
+%         J - number of responses
+%         Q - number of continuum nodes
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

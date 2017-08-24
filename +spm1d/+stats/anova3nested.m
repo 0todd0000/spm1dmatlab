@@ -1,6 +1,26 @@
 function [SPM] = anova3nested(Y, A, B, C, varargin)
+% Three-way nested ANOVA (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.anova3nested(y, A, B, C)
+% [spm] = spm1d.stats.anova3nested(y, A, B, C, roi)
+% [spm] = spm1d.stats.anova3nested(y, A, B, C, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - total number of responses
+%         Q - number of continuum nodes
+% A     - (J x 1) array of group labels for Factor A {integers}
+% B     - (J x 1) array of group labels for Factor B {integers}
+% C     - (J x 1) array of group labels for Factor C {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
+%
+% NOTE:
+% - Factor C is nested within levels of Factor B, which are in turn nested
+% within levels of Factor A
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

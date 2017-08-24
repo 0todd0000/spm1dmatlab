@@ -1,6 +1,21 @@
 function [SPM] = cca(Y, x, varargin)
+% Canonical correlation analysis (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.cca(y, x)
+% [spm] = spm1d.stats.cca(y, x, roi)
+% [spm] = spm1d.stats.cca(y, x, 'roi', roi)
+%
+% y     - (J x Q x I) data array
+%         J - number of responses
+%         Q - number of continuum nodes
+%         I - number of vector components
+% x     - (J x 1) array {independent variable}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

@@ -1,6 +1,21 @@
 function [SPM] = anova1rm(Y, A, SUBJ, varargin)
+% One-way repeated-measures ANOVA (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.anova1rm(y, A, SUBJ)
+% [spm] = spm1d.stats.anova1rm(y, A, SUBJ, roi)
+% [spm] = spm1d.stats.anova1rm(y, A, SUBJ, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - total number of responses
+%         Q - number of continuum nodes
+% A     - (J x 1) array of group labels {integers}
+% SUBJ  - (J x 1) array of subject labels {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

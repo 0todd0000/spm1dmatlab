@@ -11,7 +11,6 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
     methods
         
         function [self] = ASnPM1D(z, perm, varargin)
-            %parse varargin
             parser = inputParser;
             addOptional(parser, 'isinlist',   false, @islogical);
             parser.parse(varargin{:});

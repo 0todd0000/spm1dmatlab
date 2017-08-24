@@ -1,6 +1,24 @@
 function [SPM] = anova2nested(Y, A, B, varargin)
+% Two-way nested ANOVA (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.anova2(y, A, B)
+% [spm] = spm1d.stats.anova2(y, A, B, roi)
+% [spm] = spm1d.stats.anova2(y, A, B, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - total number of responses
+%         Q - number of continuum nodes
+% A     - (J x 1) array of group labels for Factor A {integers}
+% B     - (J x 1) array of group labels for Factor B {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
+%
+% NOTE:
+% - Factor B is nested within levels of Factor A
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 design = spm1d.stats.anova.designs.ANOVA2nested(A, B);

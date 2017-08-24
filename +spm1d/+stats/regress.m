@@ -1,6 +1,20 @@
 function [SPM] = regress(Y, x, varargin)
+% Simple linear regression (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.regress(y, x)
+% [spm] = spm1d.stats.regress(y, x, roi)
+% [spm] = spm1d.stats.regress(y, x, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - number of responses
+%         Q - number of continuum nodes
+% x     - (J x 1) array {independent variable}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 Y             = spm1d.util.flatten(Y);

@@ -1,6 +1,31 @@
 function [ci] = ci_onesample(y, alpha, varargin)
+% Confidence interval for a one-sample design
+% 
+% FORMATS
+% [ci] = spm1d.stats.ci_onesample(y, alpha)
+% [ci] = spm1d.stats.ci_onesample(y, alpha, mu)
+% [ci] = spm1d.stats.ci_onesample(y, alpha, 'mu', mu)
+%
+% y     - (J x Q) data array
+%         J - number of responses
+%         Q - number of continuum nodes
+% alpha - Type I error rate {use 0.05 for a 95% CI}
+% mu    - (1 x Q) datum {default: zeros(1,Q)}
+%
+% ci    - confidence interval object
+%
+% NOTE:  CI results are equivalent to two-tailed t test results, but
+% interpreting CI results can be difficult because the datum and/or
+% thresholds are often ambiguous. See the paper below for more details.
+%
+% Pataky, T. C., Vanrenterghem, J., & Robinson, M. A. (2015). Zero- vs.
+% one-dimensional, parametric vs. non-parametric, and confidence interval
+% vs. hypothesis testing procedures in one-dimensional biomechanical
+% trajectory analysis. Journal of Biomechanics, 48(7), 1277?1285.
+% http://doi.org/10.1016/j.jbiomech.2015.02.051
+%
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 

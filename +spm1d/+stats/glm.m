@@ -1,6 +1,22 @@
 function [SPM] = glm(Y, X, c, varargin)
+% General linear model (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.glm(y, X, c)
+% [spm] = spm1d.stats.glm(y, X, c, roi)
+% [spm] = spm1d.stats.glm(y, X, c, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - number of responses
+%         Q - number of continuum nodes
+% X     - (J x M) design matrix
+%         M - number of modeled terms
+% c     - (1 x M) contrast vector
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 parser = inputParser;

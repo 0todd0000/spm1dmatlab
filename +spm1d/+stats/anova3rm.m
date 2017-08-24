@@ -1,6 +1,23 @@
 function [SPM] = anova3rm(Y, A, B, C, SUBJ, varargin)
+% Three-way repeated-measures ANOVA (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.anova3rm(y, A, B, C, SUBJ)
+% [spm] = spm1d.stats.anova3rm(y, A, B, C, SUBJ, roi)
+% [spm] = spm1d.stats.anova3rm(y, A, B, C, SUBJ, 'roi', roi)
+%
+% y     - (J x Q) data array
+%         J - total number of responses
+%         Q - number of continuum nodes
+% A     - (J x 1) array of group labels for Factor A {integers}
+% B     - (J x 1) array of group labels for Factor B {integers}
+% C     - (J x 1) array of group labels for Factor C {integers}
+% SUBJ  - (J x 1) array of subject labels {integers}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 parser         = spm1d.stats.anova.parseargs(varargin{:});

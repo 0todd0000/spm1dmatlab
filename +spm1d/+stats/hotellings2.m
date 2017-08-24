@@ -1,6 +1,23 @@
 function [SPM] = hotellings2(YA, YB, varargin)
+% Two-sample Hotelling's T2 test (test statistic computation only)
+% 
+% FORMATS
+% [spm] = spm1d.stats.hotellings2(yA, yB)
+% [spm] = spm1d.stats.hotellings2(yA, yB, roi)
+% [spm] = spm1d.stats.hotellings2(yA, yB, 'roi', roi)
+%
+% yA    - (JA x Q x I) data array
+%         JA - number of responses in Group A
+%         Q - number of continuum nodes
+%         I - number of vector components
+% yB    - (JB x Q x I) data array
+%         JB - number of responses in Group B
+% mu    - (1 x Q x I) datum {default: zeros(1,Q)}
+% roi   - (1 x Q) region of interest {1D data only}
+%
+% spm   - statistical parametric map object
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2017 Todd Pataky
 
 
 
