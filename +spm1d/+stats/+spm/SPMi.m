@@ -96,7 +96,7 @@ classdef SPMi < matlab.mixin.CustomDisplay & handle
             plist          = struct;
             plist.z        = self.z;
             plist.df       = self.df;
-            plist.fhwm     = self.fwhm;
+            plist.fwhm     = self.fwhm;
             plist.resels   = self.resels;
             plist.alpha    = self.alpha;
             plist.zstar    = self.zstar;
