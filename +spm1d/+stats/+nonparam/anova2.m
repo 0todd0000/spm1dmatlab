@@ -3,9 +3,9 @@ function [SnPM] = anova2(y, A, B, varargin)
 % Copyright (C) 2016 Todd Pataky
 
 
-parser        = inputParser;
-addOptional(parser, 'roi', [], @isnumeric);
-parser.parse(varargin{:});
+% parser        = inputParser;
+% addOptional(parser, 'roi', [], @isnumeric);
+% parser.parse(varargin{:});
 % roi           = parser.Results.roi;
 
 y         = spm1d.util.flatten(y);
