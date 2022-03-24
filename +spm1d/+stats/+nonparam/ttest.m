@@ -1,6 +1,6 @@
 function [SnPM] = ttest(y, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 parser        = inputParser;

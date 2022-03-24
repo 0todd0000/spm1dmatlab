@@ -1,6 +1,6 @@
 function [SPM] = ttest(Y, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 parser        = inputParser;
@@ -12,6 +12,7 @@ roi           = parser.Results.roi;
 
 
 Y             = spm1d.util.flatten(Y);
+spm1d.util.check_zero_var(Y);
 [J,~]         = size(Y);
 if numel(mu)>1
     mu        = repmat(mu, [J 1]);

@@ -1,8 +1,9 @@
 function [ci] = ci_onesample(y, alpha, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
+spm1d.util.check_zero_var(y);
 
 %parse varargin
 results = spm1d.stats.ci.parse_args('onesample', varargin{:});

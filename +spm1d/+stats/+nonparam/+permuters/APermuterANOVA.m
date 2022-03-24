@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 
@@ -14,6 +14,7 @@ classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
     
     methods
         function [self] = APermuterANOVA(y, varargin)
+            spm1d.util.check_zero_var(y);
             parser          = inputParser;
             addOptional(parser, 'A', [], @isnumeric);
             addOptional(parser, 'B', [], @isnumeric);

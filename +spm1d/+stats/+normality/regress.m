@@ -1,6 +1,6 @@
 function [SPM] = regress(y, x)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 spm = spm1d.stats.regress(y, x);

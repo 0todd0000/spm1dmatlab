@@ -1,6 +1,6 @@
 function [SnPM] = hotellings2(yA, yB, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 

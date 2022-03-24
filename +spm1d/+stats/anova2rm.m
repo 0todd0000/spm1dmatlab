@@ -1,6 +1,6 @@
 function [SPM] = anova2rm(Y, A, B, SUBJ, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 parser         = spm1d.stats.anova.parseargs(varargin{:});

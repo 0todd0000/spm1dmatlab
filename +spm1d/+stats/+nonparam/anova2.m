@@ -1,6 +1,6 @@
 function [SnPM] = anova2(y, A, B, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 % parser        = inputParser;

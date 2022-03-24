@@ -1,8 +1,9 @@
 function [SPM] = hotellings(Y, mu, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
+spm1d.util.check_zero_var(Y);
 
 parser = inputParser;
 addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );

@@ -1,6 +1,6 @@
 function [SPM] = cca(Y, x, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 
@@ -9,6 +9,7 @@ addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeri
 parser.parse(varargin{:});
 roi          = parser.Results.roi;
 
+spm1d.util.check_zero_var(Y);
 
 if ismatrix(Y)
     [x2,df]    = cca_single_node(Y, x);

@@ -1,6 +1,6 @@
 function [SPM] = anova3(Y, A, B, C, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 design = spm1d.stats.anova.designs.ANOVA3(A, B, C);

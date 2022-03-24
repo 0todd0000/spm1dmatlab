@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 
@@ -25,7 +25,8 @@ classdef LinearModel
    end
    methods
        function self = LinearModel(Y, X, varargin)
-           Y         = spm1d.util.flatten(Y); 
+           Y         = spm1d.util.flatten(Y);
+           spm1d.util.check_zero_var(Y);
            if isvector(Y)
                 self.dim = 0;
             else

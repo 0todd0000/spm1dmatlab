@@ -1,8 +1,10 @@
 function [ci] = ci_pairedsample(yA, yB, alpha, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
+spm1d.util.check_zero_var(yA);
+spm1d.util.check_zero_var(yB);
 
 %parse varargin
 results   = spm1d.stats.ci.parse_args('pairedsample', varargin{:});

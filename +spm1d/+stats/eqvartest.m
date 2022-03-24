@@ -33,6 +33,9 @@ function [f,fcrit] = eqvartest(y0, y1, varargin)
 %	- f --- (Q,) array containing the test statistic.
 %	- fcrit --- random field theory-corrrected critical f value (NaN if alpha=0)
 
+    spm1d.util.check_zero_var(y0);
+    spm1d.util.check_zero_var(y1);
+
     % parse input arguments:
     parser = inputParser;
     addOptional(parser, 'alt', 'unequal', @(x)ischar(x) && ismember( upper(x), {'UNEQUAL','GREATER'}  ) );

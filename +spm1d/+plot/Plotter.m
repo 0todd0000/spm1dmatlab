@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 % $Id: plot_meanSD.m 1 2016-01-04 16:07 todd $
 
 

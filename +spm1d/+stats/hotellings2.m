@@ -1,8 +1,10 @@
 function [SPM] = hotellings2(YA, YB, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
+spm1d.util.check_zero_var(YA);
+spm1d.util.check_zero_var(YB);
 
 parser = inputParser;
 addOptional(parser, 'roi',       [], @(x)isempty(x) || ((islogical(x)|| isnumeric(x)) && isvector(x))   );

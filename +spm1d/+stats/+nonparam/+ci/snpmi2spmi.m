@@ -1,5 +1,5 @@
 function [spmi] = snpmi2spmi(snpmi)
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 spmi        = snpmi;
 spmi.zstar  = max(snpmi.zstar);

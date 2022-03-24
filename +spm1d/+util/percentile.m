@@ -1,6 +1,6 @@
 function [x] = percentile(Z, perc)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 

@@ -1,7 +1,7 @@
 function [u] = spm1d_uc(a,df,STAT,R,n,S)
 % interface to spm_uc from spm8 for Hotelling's T2 statistic
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 

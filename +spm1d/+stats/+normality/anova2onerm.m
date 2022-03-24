@@ -1,6 +1,6 @@
 function [SPM] = anova2onerm(y, A, B, SUBJ)
 %__________________________________________________________________________
-% Copyright (C) 2016 Todd Pataky
+% Copyright (C) 2022 Todd Pataky
 
 
 spm   = spm1d.stats.anova2onerm(y, A, B, SUBJ, 'force_approx0D', true);
