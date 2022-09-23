@@ -102,7 +102,7 @@ classdef FactorNested
                    for kkk = 1:nC-1
                         uuC = uC(kkk+1);
                         for kkkk = 1:nS-1
-                            uuS = uS(kkk+1);
+                            uuS = uS(kkkk+1);
                             x = zeros(self.J,1);
                             x((A==uuA)&(B==uuB)&(C==uuC)&(S==uuS)) = 1;
                             X = [X x]; %#ok<AGROW>
