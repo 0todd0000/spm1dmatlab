@@ -31,7 +31,7 @@ classdef ASnPMFList < spm1d.stats.spm.ASPMFList
              parser.parse(varargin{:});
              iterations       = parser.Results.iterations;
              force_iterations = parser.Results.force_iterations;
-             self.permuter.check_iterations(alpha, iterations, force_iterations)
+             self.permuter.check_iterations(alpha, iterations, force_iterations, self.permuter.nPermTotal)
              %build PDF:
              self.permuter = self.permuter.build_pdf(iterations);
              %compute critical threshold and probability value

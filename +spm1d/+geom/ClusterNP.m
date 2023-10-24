@@ -20,9 +20,9 @@ classdef ClusterNP < spm1d.geom.Cluster
             self.isparam  = false;
         end
        
-        function self = inference(self, pdf, two_tailed)
+        function self = inference(self, alpha, pdf, two_tailed)
             p       = mean( pdf >= self.metric_value );
-            p       = max(p, 1 / self.nPerm);
+            p       = min(alpha, max(p, 1 / self.nPerm));
             self.P  = p;
         end
         

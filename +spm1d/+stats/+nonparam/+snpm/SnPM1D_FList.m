@@ -27,7 +27,7 @@ classdef SnPM1D_FList < spm1d.stats.nonparam.snpm.ASnPMFList
             iterations       = parser.Results.iterations;
             force_iterations = parser.Results.force_iterations;
             cluster_metric   = parser.Results.cluster_metric;
-            self.permuter.check_iterations(alpha, iterations, force_iterations)
+            self.permuter.check_iterations(alpha, iterations, force_iterations, self.permuter.nPermTotal)
              
             %build primary PDF:
             self.permuter = self.permuter.build_pdf(iterations);
@@ -44,7 +44,7 @@ classdef SnPM1D_FList < spm1d.stats.nonparam.snpm.ASnPMFList
             for i = 1:self.nEffects
                 snpm         = self.SPMs{i};
                 clusters     = snpm.get_clusters(zzstar(i), two_tailed, interp, circular, iterations, cluster_metric);  % supra-threshold clusters
-                clusters     = snpm.cluster_inference(clusters, two_tailed);
+                clusters     = snpm.cluster_inference(alpha, clusters, two_tailed);
                 SnPMs{i}     = spm1d.stats.nonparam.snpm.SnPM1DiF(snpm, alpha, zzstar(i), clusters);
             end
 

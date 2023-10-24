@@ -47,7 +47,11 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            iterations       = parser.Results.iterations;
            force_iterations = parser.Results.force_iterations;
            cluster_metric   = parser.Results.cluster_metric;
-           self.permuter.check_iterations(alpha, iterations, force_iterations)
+           self.permuter.check_iterations(alpha, iterations, force_iterations, self.permuter.nPermTotal)
+           % if alpha < 1/self.permuter.nPermTotal
+           %     n = self.permuter.nPermTotal;
+           %     error( 'alpha must be greater than 1/nPermTotal;  for this dataset nPermTotal=%d so minimum alpha is %.5f; user-input alpha = %f', n, 1/n, alpha )
+           % end
            if two_tailed && ~isequal(self.STAT, 'T')
                error('Two-tailed inference is only possible with the T statistic (univariate t tests and regression). Set "two_tailed" to false or remove the "two_tailed" keyword from the function call.')
            end
@@ -61,7 +65,7 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
            % assemble clusters:
            clusters         = self.get_clusters(zstar, two_tailed, interp, circular, iterations, cluster_metric);
-           clusters         = self.cluster_inference(clusters, two_tailed);
+           clusters         = self.cluster_inference(alpha, clusters, two_tailed);
            %return an SnPM object:
            if self.STAT=='F'
                snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, clusters);
@@ -93,9 +97,9 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
         end
         
         
-        function [clusters] = cluster_inference(self, clusters, two_tailed)
+        function [clusters] = cluster_inference(self, alpha, clusters, two_tailed)
             for i = 1:numel(clusters)
-                clusters{i} = clusters{i}.inference(self.permuter.Z2, two_tailed);
+                clusters{i} = clusters{i}.inference(alpha, self.permuter.Z2, two_tailed);
             end
         end
        

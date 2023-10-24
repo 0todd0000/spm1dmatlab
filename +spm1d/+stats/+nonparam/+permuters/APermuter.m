@@ -47,12 +47,18 @@ classdef (Abstract) APermuter
 
 
 
-        function [] = check_iterations(self, alpha, iterations, force_iterations)
+        function [] = check_iterations(self, alpha, iterations, force_iterations, nPermTotal)
             N = self.nPermTotal;
+            
+            % disp([alpha, nPermTotal, 1/nPermTotal, alpha < 1/nPermTotal])
             
             if iterations > N
                 error( '\nNumber of specified iterations (%d) exceeds the maximum possible number of iterations (%d)\n', iterations, N)
             
+            elseif alpha < 1/nPermTotal
+                n = nPermTotal;
+                error( 'alpha must be greater than 1/nPermTotal;  for this dataset nPermTotal=%d so minimum alpha is %.5f; user-input alpha = %f', n, 1/n, alpha )
+
             elseif (((iterations == -1) && ( N > 1e4 )) || (iterations > 1e4)) && ~force_iterations
                 if iterations == -1
                     n = N;
@@ -64,8 +70,12 @@ classdef (Abstract) APermuter
             elseif (iterations ~= -1) && ( iterations < 10)
                 error( '\nNumber of specified iterations (%d) must be at least 10\n', iterations)
 
+            % elseif (iterations == -1) && ( iterations > nPermTotal)
+            %     error( '\nNumber of specified iterations (%d) cannot exceed nPermTotal: %d\n', iterations, nPermTotal )
+
             elseif (iterations > 0) && ( iterations < 1/alpha)
                 error( '\nNumber of specified iterations (%d) must be at least %d to conduct inference at alpha=%0.5f\n', iterations, ceil(1/alpha), alpha)
+            
             end
         end
     
