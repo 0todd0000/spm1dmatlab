@@ -1,6 +1,6 @@
 function [k2] = k2_single_node(x)
 %{
-Copyright (C) 2016 Todd Pataky
+Copyright (C) 2024 Todd Pataky
 
 Compute the D'Agostino-Pearson K2 test statistic at a single node.
 
@@ -88,3 +88,10 @@ Zg2  = (1-(2/(9*K))-L^(1/3)) / (2/(9*K))^0.5;           %transformed kurtosis
 
 %D'Agostino-Pearson test statistic:
 k2   = Zg1^2 + Zg2^2;
+
+% hack 2024-07-19 to compensate for non-real results
+% this is only necessary for very large k2 values approaching inf
+% so this may be regarded as a convenience hack for numerical stability
+if ~isreal(k2)  
+    k2 = abs( real(k2) );
+end
