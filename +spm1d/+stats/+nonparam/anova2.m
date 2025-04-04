@@ -3,10 +3,11 @@ function [SnPM] = anova2(y, A, B, varargin)
 % Copyright (C) 2022 Todd Pataky
 
 
-% parser        = inputParser;
-% addOptional(parser, 'roi', [], @isnumeric);
-% parser.parse(varargin{:});
-% roi           = parser.Results.roi;
+roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+if roi_found
+    error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+end
+
 
 y         = spm1d.util.flatten(y);
 if isvector(y)

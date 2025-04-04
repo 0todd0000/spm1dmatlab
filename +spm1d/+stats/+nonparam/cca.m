@@ -2,6 +2,11 @@ function [SnPM] = cca(y, x)
 %__________________________________________________________________________
 % Copyright (C) 2022 Todd Pataky
 
+roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+if roi_found
+    error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+end
+
 
 spm1d.util.check_zero_var(y);
 x     = spm1d.util.flatten(x);

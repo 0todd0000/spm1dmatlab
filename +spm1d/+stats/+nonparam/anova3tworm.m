@@ -2,7 +2,10 @@ function [SnPM] = anova3tworm(y, A, B, C, SUBJ, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2022 Todd Pataky
 
-
+roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+if roi_found
+    error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+end
 % parser        = inputParser;
 % addOptional(parser, 'roi', [], @isnumeric);
 % parser.parse(varargin{:});

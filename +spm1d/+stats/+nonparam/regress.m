@@ -3,6 +3,12 @@ function [SnPM] = regress(y, x)
 % Copyright (C) 2022 Todd Pataky
 
 
+roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+if roi_found
+    error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+end
+
+
 [y,x] = deal( spm1d.util.flatten(y), spm1d.util.flatten(x));
 
 spm1d.util.check_zero_var(y);
