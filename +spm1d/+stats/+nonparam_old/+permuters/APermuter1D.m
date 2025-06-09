@@ -25,25 +25,6 @@ classdef (Abstract) APermuter1D < spm1d.stats.nonparam.permuters.APermuter
         end
         
         
-        function [zstar] = get_z_critical(self, alpha, varargin)
-            %parse varargin
-            parser      = inputParser;
-            addOptional(parser, 'two_tailed', false, @islogical);
-            parser.parse(varargin{:});
-            two_tailed  = parser.Results.two_tailed;
-            %compute critical threshold
-            if two_tailed
-                % perc    = [100*0.5*alpha   100*(1 - 0.5*alpha)];
-                perc    = 100*(1 - alpha);
-                zstar   = spm1d.util.percentile( abs(self.Z), perc);
-            else
-                perc    = 100*(1 - alpha);
-                zstar   = spm1d.util.percentile(self.Z, perc);
-            end
-            
-        end
-        
-        
         function [self] = set_metric(self, metric)
             switch metric
             case 'MaxClusterExtent'

@@ -56,7 +56,7 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
                error('Two-tailed inference is only possible with the T statistic (univariate t tests and regression). Set "two_tailed" to false or remove the "two_tailed" keyword from the function call.')
            end
            % build PDF:
-           self.permuter    = self.permuter.build_pdf(iterations, 'two_tailed', two_tailed);
+           self.permuter    = self.permuter.build_pdf(iterations);
            % compute critical threshold and probability value
            zstar            = self.permuter.get_z_critical(alpha, 'two_tailed', two_tailed);
            zstar            = max(zstar);

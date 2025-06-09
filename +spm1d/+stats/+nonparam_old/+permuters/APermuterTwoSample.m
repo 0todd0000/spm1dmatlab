@@ -31,25 +31,13 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
             self.nPermTotal  = nPerm;
         end
 
-        function [self] = build_pdf(self, iterations, varargin)
-            %parse varargin
-            parser      = inputParser;
-            addOptional(parser, 'two_tailed', false, @islogical);
-            parser.parse(varargin{:});
-            two_tailed  = parser.Results.two_tailed;
+        function [self] = build_pdf(self, iterations)
             if iterations==-1
                 ONES     = nchoosek( 1:self.J, self.JA );
                 n        = self.nPermTotal;
-                if two_tailed
-                    Z    = zeros(n/2, self.Q);
-                    for i = 1:n/2
-                        Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
-                    end
-                else
-                    Z    = zeros(n, self.Q);
-                    for i = 1:n
-                        Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
-                    end
+                Z        = zeros(n, self.Q);
+                for i = 1:n
+                    Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
                 end
             else
                 n        = iterations;
