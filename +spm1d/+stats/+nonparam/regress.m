@@ -1,6 +1,6 @@
 function [SnPM] = regress(y, x)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );

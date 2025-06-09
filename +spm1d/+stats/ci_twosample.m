@@ -1,6 +1,6 @@
 function [ci] = ci_twosample(yA, yB, alpha, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 spm1d.util.check_zero_var(yA);

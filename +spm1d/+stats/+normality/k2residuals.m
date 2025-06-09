@@ -1,6 +1,6 @@
 function [SPM] = k2residuals(x)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 

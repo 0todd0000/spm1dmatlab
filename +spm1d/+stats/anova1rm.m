@@ -1,6 +1,6 @@
 function [SPM] = anova1rm(Y, A, SUBJ, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 
