@@ -42,7 +42,7 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
                 n        = self.nPermTotal;
                 if two_tailed
                     Z    = zeros(n/2, self.Q);
-                    for i = 1:n/2
+                    for i = 1:(n/2)
                         Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
                     end
                 else
@@ -59,7 +59,11 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
                     Z(i,:) = self.get_test_stat_ones( ONES' );
                 end
             end
-            self.Z         = max(Z, [], 2);
+            if two_tailed
+                self.Z         = max(abs(Z), [], 2);
+            else
+                self.Z         = max(Z, [], 2);
+            end
             if self.dim == 1
                 self.ZZ    = Z;
             end

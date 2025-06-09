@@ -35,6 +35,7 @@ classdef (Abstract) APermuter1D < spm1d.stats.nonparam.permuters.APermuter
             if two_tailed
                 % perc    = [100*0.5*alpha   100*(1 - 0.5*alpha)];
                 perc    = 100*(1 - alpha);
+                % perc    =  100*(1 - 0.5*alpha);
                 zstar   = spm1d.util.percentile( abs(self.Z), perc);
             else
                 perc    = 100*(1 - alpha);
