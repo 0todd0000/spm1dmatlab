@@ -1,18 +1,20 @@
-function [SnPM] = ttest(y, varargin)
+function [SnPM] = ttest(y, mu, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2025 Todd Pataky
 
-roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
-if roi_found
-    error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+if nargin > 2
+    roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+    if roi_found
+        error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
+    end
 end
 
-parser        = inputParser;
-addOptional(parser, 'mu',  0,   @(x)isnumeric(x) );
-% addOptional(parser, 'roi', [],  @(x)isnumeric(x) );
-parser.parse(varargin{:});
-mu            = parser.Results.mu;
-% roi           = parser.Results.roi;
+% parser        = inputParser;
+% addOptional(parser, 'mu',  0,   @(x)isnumeric(x) );
+% % addOptional(parser, 'roi', [],  @(x)isnumeric(x) );
+% parser.parse(varargin{:});
+% mu            = parser.Results.mu;
+% % roi           = parser.Results.roi;
 
 y     = spm1d.util.flatten(y);
 if isvector(y)
