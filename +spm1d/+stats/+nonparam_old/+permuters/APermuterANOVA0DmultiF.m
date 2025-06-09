@@ -3,10 +3,10 @@
 
 
 
-classdef APermuterANOVA0DmultiF < spm1d.stats.nonparam.permuters.APermuterANOVA & spm1d.stats.nonparam.permuters.APermuter0D
+classdef APermuterANOVA0DmultiF < spm1d.stats.nonparam_old.permuters.APermuterANOVA & spm1d.stats.nonparam_old.permuters.APermuter0D
     methods
         function [self] = APermuterANOVA0DmultiF(y, varargin)
-            self@spm1d.stats.nonparam.permuters.APermuterANOVA(y, varargin{:})
+            self@spm1d.stats.nonparam_old.permuters.APermuterANOVA(y, varargin{:})
         end
         
         function [pp] = get_p_value_list(self, zz, zzstar, alpha)

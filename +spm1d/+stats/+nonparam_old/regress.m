@@ -14,9 +14,9 @@ end
 spm1d.util.check_zero_var(y);
 
 if isvector(y)
-    perm  = spm1d.stats.nonparam.permuters.PermuterRegress_0D(y, x);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterRegress_0D(y, x);
 else
-    perm  = spm1d.stats.nonparam.permuters.PermuterRegress_1D(y, x);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterRegress_1D(y, x);
 end
-SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T', perm);
+SnPM  = spm1d.stats.nonparam_old.snpm.build_snpm('T', perm);
 

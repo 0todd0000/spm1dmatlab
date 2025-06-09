@@ -3,7 +3,7 @@
 
 
 
-classdef CalculatorHotellings2 < spm1d.stats.nonparam.calculators.ACalculatorTwoSample
+classdef CalculatorHotellings2 < spm1d.stats.nonparam_old.calculators.ACalculatorTwoSample
     properties
         I
         Q
@@ -12,7 +12,7 @@ classdef CalculatorHotellings2 < spm1d.stats.nonparam.calculators.ACalculatorTwo
     
     methods
         function [self] = CalculatorHotellings2(JA, JB, I, Q)
-            self@spm1d.stats.nonparam.calculators.ACalculatorTwoSample(JA, JB)
+            self@spm1d.stats.nonparam_old.calculators.ACalculatorTwoSample(JA, JB)
             self.JABAB  = (JA*JB) / (JA+JB);
             self.I  = I;
             self.Q  = Q;

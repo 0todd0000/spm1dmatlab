@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) APermuterOneSample1D < spm1d.stats.nonparam.permuters.APermuterOneSample & spm1d.stats.nonparam.permuters.APermuter1D
+classdef (Abstract) APermuterOneSample1D < spm1d.stats.nonparam_old.permuters.APermuterOneSample & spm1d.stats.nonparam_old.permuters.APermuter1D
 
     
     methods

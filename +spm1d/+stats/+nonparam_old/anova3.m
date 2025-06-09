@@ -14,8 +14,8 @@ end
 
 y         = spm1d.util.flatten(y);
 if isvector(y)
-    perm  = spm1d.stats.nonparam.permuters.PermuterANOVA3_0D(y, A, B, C);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterANOVA3_0D(y, A, B, C);
 else
-    perm  = spm1d.stats.nonparam.permuters.PermuterANOVA3_1D(y, A, B, C);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterANOVA3_1D(y, A, B, C);
 end
-SnPM      = spm1d.stats.nonparam.snpm.build_snpm('F', perm);
+SnPM      = spm1d.stats.nonparam_old.snpm.build_snpm('F', perm);

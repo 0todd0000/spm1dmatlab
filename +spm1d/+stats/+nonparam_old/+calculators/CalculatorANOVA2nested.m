@@ -3,7 +3,7 @@
 
 
 
-classdef CalculatorANOVA2nested < spm1d.stats.nonparam.calculators.ACalculatorANOVAmultiF
+classdef CalculatorANOVA2nested < spm1d.stats.nonparam_old.calculators.ACalculatorANOVAmultiF
     methods
         function [self] = CalculatorANOVA2nested(A, B)
             self.design   = spm1d.stats.anova.designs.ANOVA2nested(A, B);

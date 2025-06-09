@@ -3,7 +3,7 @@
 
 
 
-classdef MaxClusterExtent < spm1d.stats.nonparam.metrics.AMetric
+classdef MaxClusterExtent < spm1d.stats.nonparam_old.metrics.AMetric
 
     methods
 

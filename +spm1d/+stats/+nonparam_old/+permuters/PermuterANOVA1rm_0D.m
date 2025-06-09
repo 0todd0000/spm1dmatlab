@@ -3,11 +3,11 @@
 
 
 
-classdef PermuterANOVA1rm_0D < spm1d.stats.nonparam.permuters.APermuterANOVA & spm1d.stats.nonparam.permuters.APermuter0D
+classdef PermuterANOVA1rm_0D < spm1d.stats.nonparam_old.permuters.APermuterANOVA & spm1d.stats.nonparam_old.permuters.APermuter0D
     methods
         function [self] = PermuterANOVA1rm_0D(y, A, SUBJ)
-            self@spm1d.stats.nonparam.permuters.APermuterANOVA(y, A, 'SUBJ',SUBJ)
-            self.calc           = spm1d.stats.nonparam.calculators.CalculatorANOVA1rm(self.A, self.SUBJ);
+            self@spm1d.stats.nonparam_old.permuters.APermuterANOVA(y, A, 'SUBJ',SUBJ)
+            self.calc           = spm1d.stats.nonparam_old.calculators.CalculatorANOVA1rm(self.A, self.SUBJ);
         end
     end
 end

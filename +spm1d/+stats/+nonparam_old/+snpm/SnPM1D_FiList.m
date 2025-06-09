@@ -3,11 +3,11 @@
 
 
 
-classdef SnPM1D_FiList < spm1d.stats.nonparam.snpm.ASnPMFiList
+classdef SnPM1D_FiList < spm1d.stats.nonparam_old.snpm.ASnPMFiList
 
     methods
         function [self] = SnPM1D_FiList(SnPMs, perm, varargin)
-            self @ spm1d.stats.nonparam.snpm.ASnPMFiList(SnPMs, perm, varargin)
+            self @ spm1d.stats.nonparam_old.snpm.ASnPMFiList(SnPMs, perm, varargin)
             self.dim         = 1;
             self.isinference = true;
             self.nPermActual = perm.nPermActual;

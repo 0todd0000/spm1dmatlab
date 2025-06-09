@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
+classdef (Abstract) APermuterRegress < spm1d.stats.nonparam_old.permuters.APermuter
     properties
         J            %number of responses
         x            %independent variable

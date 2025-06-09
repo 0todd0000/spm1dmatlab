@@ -3,14 +3,14 @@
 
 
 
-classdef ASnPMFiList < spm1d.stats.nonparam.snpm.ASnPMFList
+classdef ASnPMFiList < spm1d.stats.nonparam_old.snpm.ASnPMFList
     properties
         nPermActual
     end
 
     methods
         function [self] = ASnPMFiList(SnPMs, perm, varargin)
-            self @ spm1d.stats.nonparam.snpm.ASnPMFList(SnPMs, perm)
+            self @ spm1d.stats.nonparam_old.snpm.ASnPMFList(SnPMs, perm)
             self.name         = 'SnPM{F} inference list';
             self.nPermActual  = perm.nPermActual;
         end

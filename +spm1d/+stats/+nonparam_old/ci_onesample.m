@@ -11,11 +11,11 @@ end
 spm1d.util.check_zero_var(y);
 
 %parse varargin
-results     = spm1d.stats.nonparam.ci.parse_args('onesample', varargin{:});
+results     = spm1d.stats.nonparam_old.ci.parse_args('onesample', varargin{:});
 mu          = results.mu;
 iterations  = results.iterations;
 
-snpm        = spm1d.stats.nonparam.ttest(y, mu);
+snpm        = spm1d.stats.nonparam_old.ttest(y, mu);
 snpmi       = snpm.inference(alpha, 'two_tailed',true, 'iterations', iterations);
 snpmi.zstar = max(snpmi.zstar);
 
@@ -24,7 +24,7 @@ snpmi.zstar = max(snpmi.zstar);
 hstar       = snpmi.zstar .* s / size(y,1)^0.5;   %CI height
 
 if snpmi.dim==0
-    ci = spm1d.stats.nonparam.ci.CIOneSample0DNP(snpmi, mn, hstar, mu);
+    ci = spm1d.stats.nonparam_old.ci.CIOneSample0DNP(snpmi, mn, hstar, mu);
 else
-    ci = spm1d.stats.nonparam.ci.CIOneSample1DNP(snpmi, mn, hstar, mu);
+    ci = spm1d.stats.nonparam_old.ci.CIOneSample1DNP(snpmi, mn, hstar, mu);
 end

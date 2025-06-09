@@ -3,7 +3,7 @@
 
 
 
-classdef CalculatorHotellings < spm1d.stats.nonparam.calculators.ACalculatorOneSample
+classdef CalculatorHotellings < spm1d.stats.nonparam_old.calculators.ACalculatorOneSample
     properties
         I
         Q
@@ -17,7 +17,7 @@ classdef CalculatorHotellings < spm1d.stats.nonparam.calculators.ACalculatorOneS
                 end
                 mu = repmat(mu', [J,1]);
             end
-            self@spm1d.stats.nonparam.calculators.ACalculatorOneSample(J, mu)
+            self@spm1d.stats.nonparam_old.calculators.ACalculatorOneSample(J, mu)
             self.I  = I;
             self.Q  = Q;
         end

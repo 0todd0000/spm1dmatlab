@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam.permuters.APermuter
+classdef (Abstract) APermuterANOVA < spm1d.stats.nonparam_old.permuters.APermuter
     properties
         J
         A

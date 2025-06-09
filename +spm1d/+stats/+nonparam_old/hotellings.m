@@ -16,9 +16,9 @@ mu            = parser.Results.mu;
 
 y     = spm1d.util.flatten(y);
 if ndims(y)==2 %#ok<ISMAT>
-    perm  = spm1d.stats.nonparam.permuters.PermuterHotellings_0D(y, mu);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterHotellings_0D(y, mu);
 else
-    perm  = spm1d.stats.nonparam.permuters.PermuterHotellings_1D(y, mu);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterHotellings_1D(y, mu);
 end
-SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T2', perm);
+SnPM  = spm1d.stats.nonparam_old.snpm.build_snpm('T2', perm);
 

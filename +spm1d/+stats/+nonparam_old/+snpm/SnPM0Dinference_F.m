@@ -3,7 +3,7 @@
 
 
 
-classdef SnPM0Dinference_F < spm1d.stats.nonparam.snpm.SnPM0Dinference
+classdef SnPM0Dinference_F < spm1d.stats.nonparam_old.snpm.SnPM0Dinference
     properties
         effect
     end
@@ -12,7 +12,7 @@ classdef SnPM0Dinference_F < spm1d.stats.nonparam.snpm.SnPM0Dinference
     methods
 
         function [self] = SnPM0Dinference_F(snpm, alpha, zstar, p, varargin)
-            self @ spm1d.stats.nonparam.snpm.SnPM0Dinference(snpm, alpha, zstar, p, varargin{:});
+            self @ spm1d.stats.nonparam_old.snpm.SnPM0Dinference(snpm, alpha, zstar, p, varargin{:});
             self.effect   = snpm.effect;
         end
        

@@ -7,4 +7,4 @@ if roi_found
     error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
 end
 
-SnPM = spm1d.stats.nonparam.ttest(yA - yB, 0, varargin{:});
+SnPM = spm1d.stats.nonparam_old.ttest(yA - yB, 0, varargin{:});

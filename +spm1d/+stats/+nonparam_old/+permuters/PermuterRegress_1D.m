@@ -3,11 +3,11 @@
 
 
 
-classdef PermuterRegress_1D < spm1d.stats.nonparam.permuters.APermuterRegress & spm1d.stats.nonparam.permuters.APermuter1D
+classdef PermuterRegress_1D < spm1d.stats.nonparam_old.permuters.APermuterRegress & spm1d.stats.nonparam_old.permuters.APermuter1D
     methods
         function [self] = PermuterRegress_1D(y, x)
-            self@spm1d.stats.nonparam.permuters.APermuterRegress(y, x)
-            self.calc = spm1d.stats.nonparam.calculators.CalculatorRegress(x);
+            self@spm1d.stats.nonparam_old.permuters.APermuterRegress(y, x)
+            self.calc = spm1d.stats.nonparam_old.calculators.CalculatorRegress(x);
         end
     end
 end

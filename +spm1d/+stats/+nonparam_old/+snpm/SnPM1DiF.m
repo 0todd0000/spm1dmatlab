@@ -3,7 +3,7 @@
 
 
 
-classdef SnPM1DiF < spm1d.stats.nonparam.snpm.SnPM1Di
+classdef SnPM1DiF < spm1d.stats.nonparam_old.snpm.SnPM1Di
     properties
         effect = 'Main A';
     end
@@ -12,7 +12,7 @@ classdef SnPM1DiF < spm1d.stats.nonparam.snpm.SnPM1Di
     methods
         function [self] = SnPM1DiF(snpm, alpha, zstar, clusters)
             two_tailed = false;
-            self @ spm1d.stats.nonparam.snpm.SnPM1Di(snpm, alpha, zstar, two_tailed, clusters)
+            self @ spm1d.stats.nonparam_old.snpm.SnPM1Di(snpm, alpha, zstar, two_tailed, clusters)
         end
 
     end

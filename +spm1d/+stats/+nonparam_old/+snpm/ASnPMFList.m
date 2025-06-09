@@ -41,10 +41,10 @@ classdef ASnPMFList < spm1d.stats.spm.ASPMFList
              %return an SnPM inference list object:
              SnPMs  = cell(1, self.nEffects);
              for i = 1:self.nEffects
-                 snpm      = spm1d.stats.nonparam.snpm.SnPM0D_F(zz(i), self.permuter);
-                 SnPMs{i}  = spm1d.stats.nonparam.snpm.SnPM0Dinference_F(snpm, alpha, zzstar(i), pp(i));
+                 snpm      = spm1d.stats.nonparam_old.snpm.SnPM0D_F(zz(i), self.permuter);
+                 SnPMs{i}  = spm1d.stats.nonparam_old.snpm.SnPM0Dinference_F(snpm, alpha, zzstar(i), pp(i));
              end
-             snpmilist = spm1d.stats.nonparam.snpm.ASnPMFiList(SnPMs, self.permuter);
+             snpmilist = spm1d.stats.nonparam_old.snpm.ASnPMFiList(SnPMs, self.permuter);
              snpmilist = spm1d.stats.anova.set_labels(snpmilist, self.permuter.calc.design);
          end
         

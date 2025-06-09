@@ -3,14 +3,14 @@
 
 
 
-classdef CalculatorTtest2 < spm1d.stats.nonparam.calculators.ACalculatorTwoSample
+classdef CalculatorTtest2 < spm1d.stats.nonparam_old.calculators.ACalculatorTwoSample
     properties
         sqrtAB
     end
     
     methods
         function [self] = CalculatorTtest2(JA, JB)
-            self@spm1d.stats.nonparam.calculators.ACalculatorTwoSample(JA, JB);
+            self@spm1d.stats.nonparam_old.calculators.ACalculatorTwoSample(JA, JB);
             self.sqrtAB = (1/JA + 1/JB) ^ 0.5;
         end
         

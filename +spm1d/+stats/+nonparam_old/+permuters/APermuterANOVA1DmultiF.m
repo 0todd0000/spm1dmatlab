@@ -3,10 +3,10 @@
 
 
 
-classdef APermuterANOVA1DmultiF < spm1d.stats.nonparam.permuters.APermuterANOVA & spm1d.stats.nonparam.permuters.APermuter1D
+classdef APermuterANOVA1DmultiF < spm1d.stats.nonparam_old.permuters.APermuterANOVA & spm1d.stats.nonparam_old.permuters.APermuter1D
     methods
         function [self] = APermuterANOVA1DmultiF(y, varargin)
-            self@spm1d.stats.nonparam.permuters.APermuterANOVA(y, varargin{:})
+            self@spm1d.stats.nonparam_old.permuters.APermuterANOVA(y, varargin{:})
         end
         
         function [self] = build_secondary_pdfs(self, zzstar, circular)

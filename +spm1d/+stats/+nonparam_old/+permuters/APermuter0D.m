@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) APermuter0D < spm1d.stats.nonparam.permuters.APermuter
+classdef (Abstract) APermuter0D < spm1d.stats.nonparam_old.permuters.APermuter
 
     methods
         function [self] = APermuter0D()

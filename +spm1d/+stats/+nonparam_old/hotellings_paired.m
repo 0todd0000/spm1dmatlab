@@ -7,5 +7,5 @@ if roi_found
     error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
 end
 
-SnPM  = spm1d.stats.nonparam.hotellings(yA - yB);
+SnPM  = spm1d.stats.nonparam_old.hotellings(yA - yB);
 

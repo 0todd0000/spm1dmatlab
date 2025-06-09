@@ -3,11 +3,11 @@
 
 
 
-classdef SnPM1D_FList < spm1d.stats.nonparam.snpm.ASnPMFList
+classdef SnPM1D_FList < spm1d.stats.nonparam_old.snpm.ASnPMFList
 
     methods
         function [self] = SnPM1D_FList(SnPMs, perm, varargin)
-            self @ spm1d.stats.nonparam.snpm.ASnPMFList(SnPMs, perm, varargin)
+            self @ spm1d.stats.nonparam_old.snpm.ASnPMFList(SnPMs, perm, varargin)
             self.dim  = 1;
         end
         
@@ -45,10 +45,10 @@ classdef SnPM1D_FList < spm1d.stats.nonparam.snpm.ASnPMFList
                 snpm         = self.SPMs{i};
                 clusters     = snpm.get_clusters(zzstar(i), two_tailed, interp, circular, iterations, cluster_metric);  % supra-threshold clusters
                 clusters     = snpm.cluster_inference(alpha, clusters, two_tailed);
-                SnPMs{i}     = spm1d.stats.nonparam.snpm.SnPM1DiF(snpm, alpha, zzstar(i), clusters);
+                SnPMs{i}     = spm1d.stats.nonparam_old.snpm.SnPM1DiF(snpm, alpha, zzstar(i), clusters);
             end
 
-             snpmilist = spm1d.stats.nonparam.snpm.SnPM1D_FiList(SnPMs, self.permuter);
+             snpmilist = spm1d.stats.nonparam_old.snpm.SnPM1D_FiList(SnPMs, self.permuter);
              snpmilist = spm1d.stats.anova.set_labels(snpmilist, self.permuter.calc.design);
          end
          

@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) APermuter1D < spm1d.stats.nonparam.permuters.APermuter
+classdef (Abstract) APermuter1D < spm1d.stats.nonparam_old.permuters.APermuter
     properties
         ZZ           %all permutation test statistic continua
         Z2           %secondary perumtation PDF
@@ -28,11 +28,11 @@ classdef (Abstract) APermuter1D < spm1d.stats.nonparam.permuters.APermuter
         function [self] = set_metric(self, metric)
             switch metric
             case 'MaxClusterExtent'
-                self.metric   = spm1d.stats.nonparam.metrics.MaxClusterExtent();
+                self.metric   = spm1d.stats.nonparam_old.metrics.MaxClusterExtent();
             case 'MaxClusterHeight'
-                self.metric   = spm1d.stats.nonparam.metrics.MaxClusterHeight();
+                self.metric   = spm1d.stats.nonparam_old.metrics.MaxClusterHeight();
             case 'MaxClusterIntegral'
-                self.metric   = spm1d.stats.nonparam.metrics.MaxClusterIntegral();
+                self.metric   = spm1d.stats.nonparam_old.metrics.MaxClusterIntegral();
             end
         end
         

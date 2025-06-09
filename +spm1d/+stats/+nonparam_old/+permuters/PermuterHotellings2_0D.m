@@ -3,14 +3,14 @@
 
 
 
-classdef PermuterHotellings2_0D < spm1d.stats.nonparam.permuters.APermuterTwoSample & spm1d.stats.nonparam.permuters.APermuter0D
+classdef PermuterHotellings2_0D < spm1d.stats.nonparam_old.permuters.APermuterTwoSample & spm1d.stats.nonparam_old.permuters.APermuter0D
     methods
         function [self] = PermuterHotellings2_0D(yA, yB)
-            self@spm1d.stats.nonparam.permuters.APermuterTwoSample(yA, yB)
+            self@spm1d.stats.nonparam_old.permuters.APermuterTwoSample(yA, yB)
             [JA,I]    = size(yA);
             [JB,~]    = size(yB);
             Q         = 1;
-            self.calc = spm1d.stats.nonparam.calculators.CalculatorHotellings2(JA, JB, I, Q);
+            self.calc = spm1d.stats.nonparam_old.calculators.CalculatorHotellings2(JA, JB, I, Q);
             self.ismultivariate = true;
         end
     end

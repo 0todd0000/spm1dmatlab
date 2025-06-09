@@ -3,7 +3,7 @@
 
 
 
-classdef (Abstract) ASnPM0D < spm1d.stats.nonparam.snpm.ASnPM
+classdef (Abstract) ASnPM0D < spm1d.stats.nonparam_old.snpm.ASnPM
     methods
         function [self] = ASnPM0D(z, perm, varargin)
             %parse varargin
@@ -11,7 +11,7 @@ classdef (Abstract) ASnPM0D < spm1d.stats.nonparam.snpm.ASnPM
             addOptional(parser, 'isinlist',  false, @islogical);
             parser.parse(varargin{:});
             isinlist         = parser.Results.isinlist;
-            self@spm1d.stats.nonparam.snpm.ASnPM(z, perm, isinlist)
+            self@spm1d.stats.nonparam_old.snpm.ASnPM(z, perm, isinlist)
             self.dim = 0;
        end
         
@@ -32,9 +32,9 @@ classdef (Abstract) ASnPM0D < spm1d.stats.nonparam.snpm.ASnPM
             p     = self.permuter.get_p_value( self.z, zstar, alpha );
             %return an SnPM object:
             if self.STAT=='F'
-                snpmi = spm1d.stats.nonparam.snpm.SnPM0Dinference_F(self, alpha, zstar, p);
+                snpmi = spm1d.stats.nonparam_old.snpm.SnPM0Dinference_F(self, alpha, zstar, p);
             else
-                snpmi = spm1d.stats.nonparam.snpm.SnPM0Dinference(self, alpha, zstar, p);
+                snpmi = spm1d.stats.nonparam_old.snpm.SnPM0Dinference(self, alpha, zstar, p);
             end
         end
        

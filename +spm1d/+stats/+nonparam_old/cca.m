@@ -11,10 +11,10 @@ end
 spm1d.util.check_zero_var(y);
 x     = spm1d.util.flatten(x);
 if ndims(y)==2 %#ok<ISMAT>
-    perm  = spm1d.stats.nonparam.permuters.PermuterCCA_0D(y, x);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterCCA_0D(y, x);
 else
-    perm  = spm1d.stats.nonparam.permuters.PermuterCCA_1D(y, x);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterCCA_1D(y, x);
 end
-SnPM  = spm1d.stats.nonparam.snpm.build_snpm('X2', perm);
+SnPM  = spm1d.stats.nonparam_old.snpm.build_snpm('X2', perm);
 
 

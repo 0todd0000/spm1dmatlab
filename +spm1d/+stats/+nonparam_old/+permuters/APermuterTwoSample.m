@@ -3,7 +3,7 @@
 
 
 
-classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
+classdef APermuterTwoSample < spm1d.stats.nonparam_old.permuters.APermuter
     properties
         JA            %number of responses (Group A)
         JB            %number of responses (Group B)

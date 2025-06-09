@@ -3,11 +3,11 @@
 
 
 
-classdef PermuterTtest2_0D < spm1d.stats.nonparam.permuters.APermuterTwoSample & spm1d.stats.nonparam.permuters.APermuter0D
+classdef PermuterTtest2_0D < spm1d.stats.nonparam_old.permuters.APermuterTwoSample & spm1d.stats.nonparam_old.permuters.APermuter0D
     methods
         function [self] = PermuterTtest2_0D(yA, yB)
-            self@spm1d.stats.nonparam.permuters.APermuterTwoSample(yA, yB)
-            self.calc = spm1d.stats.nonparam.calculators.CalculatorTtest2(self.JA, self.JB);
+            self@spm1d.stats.nonparam_old.permuters.APermuterTwoSample(yA, yB)
+            self.calc = spm1d.stats.nonparam_old.calculators.CalculatorTtest2(self.JA, self.JB);
         end
     end
 end

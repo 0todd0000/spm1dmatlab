@@ -3,7 +3,7 @@
 
 
 
-classdef SnPM1Di < spm1d.stats.nonparam.snpm.ASnPM1D
+classdef SnPM1Di < spm1d.stats.nonparam_old.snpm.ASnPM1D
     properties
         PDF0
         PDF1
@@ -22,7 +22,7 @@ classdef SnPM1Di < spm1d.stats.nonparam.snpm.ASnPM1D
     
     methods
         function [self] = SnPM1Di(snpm, alpha, zstar, two_tailed, clusters)
-            self @ spm1d.stats.nonparam.snpm.ASnPM1D(snpm.z, snpm.permuter)
+            self @ spm1d.stats.nonparam_old.snpm.ASnPM1D(snpm.z, snpm.permuter)
             self.STAT        = snpm.STAT;
             self.alpha       = alpha;
             self.zstar       = zstar;

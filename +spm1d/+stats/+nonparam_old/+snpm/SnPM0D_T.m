@@ -3,10 +3,10 @@
 
 
 
-classdef SnPM0D_T < spm1d.stats.nonparam.snpm.ASnPM0D
+classdef SnPM0D_T < spm1d.stats.nonparam_old.snpm.ASnPM0D
     methods
         function [self] = SnPM0D_T(z, perm, varargin)
-            self@spm1d.stats.nonparam.snpm.ASnPM0D(z, perm, varargin{:})
+            self@spm1d.stats.nonparam_old.snpm.ASnPM0D(z, perm, varargin{:})
             self.STAT = 'T';
         end
         
@@ -32,7 +32,7 @@ classdef SnPM0D_T < spm1d.stats.nonparam.snpm.ASnPM0D
             %compute critical threshold and probability value
             zstar            = self.permuter.get_z_critical(alpha0, two_tailed);
             p                = self.permuter.get_p_value( self.z, zstar, alpha );
-            snpmi            = spm1d.stats.nonparam.snpm.SnPM0Dinference(self, alpha, zstar, p, two_tailed);
+            snpmi            = spm1d.stats.nonparam_old.snpm.SnPM0Dinference(self, alpha, zstar, p, two_tailed);
         end
        
        

@@ -3,7 +3,7 @@
 
 
 
-classdef MaxClusterIntegral < spm1d.stats.nonparam.metrics.AMetric
+classdef MaxClusterIntegral < spm1d.stats.nonparam_old.metrics.AMetric
 
     methods
 

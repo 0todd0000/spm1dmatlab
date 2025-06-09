@@ -3,7 +3,7 @@
 
 
 
-classdef SnPM0Dinference < spm1d.stats.nonparam.snpm.ASnPM0D
+classdef SnPM0Dinference < spm1d.stats.nonparam_old.snpm.ASnPM0D
     properties
         PDF
         alpha
@@ -24,7 +24,7 @@ classdef SnPM0Dinference < spm1d.stats.nonparam.snpm.ASnPM0D
             parser.parse(varargin{:});
             two_tailed       = parser.Results.two_tailed;
             isinlist         = parser.Results.isinlist;
-            self@spm1d.stats.nonparam.snpm.ASnPM0D(snpm.z, snpm.permuter, isinlist)
+            self@spm1d.stats.nonparam_old.snpm.ASnPM0D(snpm.z, snpm.permuter, isinlist)
             %set attributes:
             self.STAT        = snpm.STAT;
             self.PDF         = snpm.permuter.Z;

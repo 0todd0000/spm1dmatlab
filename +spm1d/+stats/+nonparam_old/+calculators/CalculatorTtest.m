@@ -3,14 +3,14 @@
 
 
 
-classdef CalculatorTtest < spm1d.stats.nonparam.calculators.ACalculatorOneSample
+classdef CalculatorTtest < spm1d.stats.nonparam_old.calculators.ACalculatorOneSample
     properties
         sqrtJ
     end
     
     methods
         function [self] = CalculatorTtest(J, mu)
-            self@spm1d.stats.nonparam.calculators.ACalculatorOneSample(J, mu)
+            self@spm1d.stats.nonparam_old.calculators.ACalculatorOneSample(J, mu)
             self.sqrtJ = self.J ^ 0.5;
         end
         

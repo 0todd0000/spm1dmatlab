@@ -3,7 +3,7 @@
 
 
 
-classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
+classdef ASnPM1D < spm1d.stats.nonparam_old.snpm.ASnPM
     properties
         roi
     end
@@ -16,7 +16,7 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
             addOptional(parser, 'isinlist',   false, @islogical);
             parser.parse(varargin{:});
             isinlist         = parser.Results.isinlist;
-            self@spm1d.stats.nonparam.snpm.ASnPM(z, perm, isinlist)
+            self@spm1d.stats.nonparam_old.snpm.ASnPM(z, perm, isinlist)
             if isinlist
                 nPermUnique  = -1;
             else
@@ -68,9 +68,9 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
            clusters         = self.cluster_inference(alpha, clusters, two_tailed);
            %return an SnPM object:
            if self.STAT=='F'
-               snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, clusters);
+               snpmi = spm1d.stats.nonparam_old.snpm.SnPM1DiF(self, alpha, zstar, clusters);
            else
-               snpmi = spm1d.stats.nonparam.snpm.SnPM1Di(self, alpha, zstar, two_tailed, clusters);
+               snpmi = spm1d.stats.nonparam_old.snpm.SnPM1Di(self, alpha, zstar, two_tailed, clusters);
            end
        end
        
