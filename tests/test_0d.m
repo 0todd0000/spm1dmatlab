@@ -58,7 +58,6 @@ classdef test_0d < matlab.unittest.TestCase
                 testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
                 testCase.verifyEqual(spm.r, data.r, AbsTol=0.001);
             end
-            testCase.verifyEqual(1, 2);
         end
 
 
