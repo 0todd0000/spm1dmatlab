@@ -12,6 +12,12 @@ classdef test_0d < matlab.unittest.TestCase
     end
 
     methods (Test)
+    
+        %--------------------------------------------------
+        %  t-like test cases
+        %--------------------------------------------------
+        
+    
         function test_ttest(testCase)
             names  = {'ColumbiaSalmonella', 'RSWeightReduction'};
             for i = 1:numel(names)
@@ -20,6 +26,7 @@ classdef test_0d < matlab.unittest.TestCase
                 spm  = spm1d.stats.ttest(data.Y, data.mu).inference(0.05, two_tailed=false);
                 testCase.verifyEqual(spm.z, data.z, AbsTol=0.001);
                 testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
             end
         end
 
@@ -31,7 +38,7 @@ classdef test_0d < matlab.unittest.TestCase
                 spm  = spm1d.stats.ttest_paired(data.YA, data.YB).inference(0.05, two_tailed=false);
                 testCase.verifyEqual(spm.z, data.z, AbsTol=0.001);
                 testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
-                testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
             end
         end
 
@@ -43,7 +50,7 @@ classdef test_0d < matlab.unittest.TestCase
                 spm  = spm1d.stats.ttest2(data.YA, data.YB).inference(0.05, two_tailed=false);
                 testCase.verifyEqual(spm.z, data.z, AbsTol=0.001);
                 testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
-                testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
             end
         end
 
@@ -55,12 +62,14 @@ classdef test_0d < matlab.unittest.TestCase
                 spm  = spm1d.stats.regress(data.Y, data.x).inference(0.05, two_tailed=true);
                 testCase.verifyEqual(spm.z, data.z, AbsTol=0.001);
                 testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
-                testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                 verifyPvalue(testCase, spm.p, data.p, 0.001)
                 testCase.verifyEqual(spm.r, data.r, AbsTol=0.001);
             end
         end
 
-
+        %--------------------------------------------------
+        %  ANOVA test cases
+        %--------------------------------------------------
 
         function test_anova1(testCase)
             names  = {'Cars', 'ConstructionUnequalSampleSizes', 'RSUnequalSampleSizes', 'Sound', 'Southampton1'};
@@ -70,16 +79,182 @@ classdef test_0d < matlab.unittest.TestCase
                 spm  = spm1d.stats.anova1(data.Y, data.A).inference(0.05);
                 testCase.verifyEqual(spm.z, data.z, AbsTol=0.01);
                 testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
-                testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
-                % if strcmp(data.p, '<0.001')
-                %     testCase.verifyTrue( spm.p < 0.001 );
-                % else
-                %     testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
-                % end
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
             end
         end
 
 
+        function test_anova1rm(testCase)
+            names  = {'Abdi2010', 'Groceries', 'Imacelebrity', 'Southampton1rm'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova1rm.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.anova1rm(data.Y, data.A, data.SUBJ).inference(0.05);
+                testCase.verifyEqual(spm.z, data.z, AbsTol=0.01);
+                testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
+                % testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
+            end
+        end
+
+
+        function test_anova2(testCase)
+            names  = {'Detergent', 'Mouse', 'Satisfaction', 'SouthamptonCrossed1'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova2.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova2(data.Y, data.A, data.B).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+
+
+        function test_anova2nested(testCase)
+            names  = {'QIMacros', 'SouthamptonNested1'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova2nested.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova2nested(data.Y, data.A, data.B).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+
+
+        function test_anova2onerm(testCase)
+            names  = {'RSXLDrug', 'Santa23', 'Santa23UnequalSampleSizes', 'Southampton2onerm', 'Southampton2onermUnequalSampleSizes'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova2onerm.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova2onerm(data.Y, data.A, data.B, data.SUBJ).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+        
+        
+        function test_anova2rm(testCase)
+            names  = {'Antidepressant', 'RSXLTraining', 'SocialNetworks', 'Southampton2rm'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova2rm.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova2rm(data.Y, data.A, data.B, data.SUBJ).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+        
+        
+        function test_anova3(testCase)
+            names  = {'RSItalian', 'SouthamptonFullyCrossedMixed'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova3.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova3(data.Y, data.A, data.B, data.C).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+
+
+        function test_anova3nested(testCase)
+            names  = {'SouthamptonNested3'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova3nested.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova3nested(data.Y, data.A, data.B, data.C).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.01);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    % verifyPvalue(testCase, spm.p, data.p(i), 0.001)
+                end
+            end
+        end
+
+
+        function test_anova3onerm(testCase)
+            names  = {'NYUCaffeine', 'Southampton3onerm'};
+            atols  = [0.4  0.1];
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova3onerm.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova3onerm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=atols(i));
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+
+
+        function test_anova3rm(testCase)
+            names  = {'SPM1D2x2x2', 'SPM1D2x3x5', 'SPM1D3x3x3'};
+            % atols  = [0.4  0.1];
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova3rm.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova3rm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=0.001);
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+        
+        
+        function test_anova3tworm(testCase)
+            names  = {'NYUHiringExperience', 'Southampton3tworm'};
+            atols  = [0.3  0.01];
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova3tworm.%s();', names{i});
+                data = eval(cmd);
+                spms = spm1d.stats.anova3tworm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
+                n    = numel(spms);
+                for ii = 1:spms.nEffects
+                    spm = spms(ii);
+                    testCase.verifyEqual(spm.z, data.z(ii), AbsTol=atols(i));
+                    testCase.verifyEqual(spm.df, data.df{ii}, AbsTol=0.001);
+                    verifyPvalue(testCase, spm.p, data.p(ii), 0.001)
+                end
+            end
+        end
+
 
     end
 end
+
+
