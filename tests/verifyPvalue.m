@@ -18,7 +18,4 @@ function verifyPvalue(testCase, p, p_expected, tol)
     else
         testCase.verifyEqual(p, p_expected, AbsTol=tol);
     end
-    % testCase.verifyEqual(1, 2);
-    % verifyEqual(p, p_expected, AbsTol=0.001);
-    % b = false;
 end
