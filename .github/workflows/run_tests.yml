@@ -1,0 +1,25 @@
+name: matlab-unittests
+
+on:
+  push:
+    branches: [ nonparamfix ]
+
+
+jobs:
+  pytest-job:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v2
+
+    - name: spm1d MATLAB tests
+      uses: matlab-actions/run-command@v2
+      with:
+          command: addpath(genpath('.'))
+          command: cd tests;  run_tests
+
