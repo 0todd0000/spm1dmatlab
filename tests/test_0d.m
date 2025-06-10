@@ -68,6 +68,45 @@ classdef test_0d < matlab.unittest.TestCase
         end
 
         %--------------------------------------------------
+        %  confidence interval test cases
+        %--------------------------------------------------
+
+        function test_ci1(testCase)
+            names  = {'MinnesotaGeyerRate', 'WebsterSleep'};
+            atols  = [0.001 0.1];
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.ci1.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.ci_onesample(data.Y, 0.05);
+                testCase.verifyEqual(spm.ci, data.ci, AbsTol=atols(i));
+            end
+        end
+        
+        
+        function test_ci_paired(testCase)
+            names  = {'FraminghamSystolicBloodPressure'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.cipaired.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.ci_pairedsample(data.YA, data.YB, 0.05);
+                testCase.verifyEqual(spm.ci, data.ci, AbsTol=0.1);
+            end
+        end
+        
+        
+        
+        function test_ci2(testCase)
+            names  = {'AnimalsInResearch'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.ci2.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.ci_twosample(data.YA, data.YB, 0.05);
+                testCase.verifyEqual(spm.ci, data.ci, AbsTol=0.01);
+            end
+        end
+        
+
+        %--------------------------------------------------
         %  ANOVA test cases
         %--------------------------------------------------
 
