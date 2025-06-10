@@ -19,7 +19,8 @@ jobs:
 
     - name: spm1d MATLAB tests
       uses: matlab-actions/run-command@v2
-      with:
-          command: addpath(genpath('.'))
-          command: cd tests;  run_tests
+      run: |
+          addpath(genpath('.'));
+          cd tests;
+          run_tests
 
