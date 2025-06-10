@@ -24,6 +24,5 @@ jobs:
       with:
           startup-options: -nojvm
           source-folder: .
-          command: addpath(genpath('.'))
           select-by-folder: tests
 
