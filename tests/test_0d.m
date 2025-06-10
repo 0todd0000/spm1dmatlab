@@ -293,6 +293,25 @@ classdef test_0d < matlab.unittest.TestCase
         end
 
 
+        %--------------------------------------------------
+        %  normality test cases
+        %--------------------------------------------------
+
+        function test_normality_onesample(testCase)
+            names  = {'KendallRandomNumbers', 'ZarBiostatisticalAnalysis68'};
+            atols  = [0.01 0.001];
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.normality.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.normality.ttest(data.Y).inference(0.05);
+                testCase.verifyEqual(spm.z, data.z, AbsTol=atols(i));
+                testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
+                verifyPvalue(testCase, spm.p, data.p, 0.001)
+            end
+        end
+        
+
+
     end
 end
 
