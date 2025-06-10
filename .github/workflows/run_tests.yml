@@ -16,9 +16,12 @@ jobs:
 
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v2
+      release: R2024a
 
     - name: spm1d MATLAB tests
-      uses: matlab-actions/run-command@v2
+      uses: matlab-actions/run-tests@v2
       with:
-          command: cd tests;  run_tests
+          startup-options: -nojvm
+          select-by-folder: tests
+          
 
