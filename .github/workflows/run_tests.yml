@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  pytest-job:
+  matlabtest-job:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +20,5 @@ jobs:
     - name: spm1d MATLAB tests
       uses: matlab-actions/run-command@v2
       with:
-          command: tests/myscript
+          command: cd tests;  run_tests
 
