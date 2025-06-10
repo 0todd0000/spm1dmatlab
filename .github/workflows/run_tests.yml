@@ -16,7 +16,8 @@ jobs:
 
     - name: Set up MATLAB
       uses: matlab-actions/setup-matlab@v2
-      release: R2024a
+      with:
+          release: R2024a
 
     - name: spm1d MATLAB tests
       uses: matlab-actions/run-tests@v2
