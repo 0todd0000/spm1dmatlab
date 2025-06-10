@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  matlabtest-job:
+  matlab-unittests-job:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       uses: matlab-actions/run-tests@v2
       with:
           startup-options: -nojvm
+          source-folder: .
           command: addpath(genpath('.'))
           select-by-folder: tests
-          
 
