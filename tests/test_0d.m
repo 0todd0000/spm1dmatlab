@@ -61,5 +61,25 @@ classdef test_0d < matlab.unittest.TestCase
         end
 
 
+
+        function test_anova1(testCase)
+            names  = {'Cars', 'ConstructionUnequalSampleSizes', 'RSUnequalSampleSizes', 'Sound', 'Southampton1'};
+            for i = 1:numel(names)
+                cmd  = sprintf('spm1d.data.uv0d.anova1.%s();', names{i});
+                data = eval(cmd);
+                spm  = spm1d.stats.anova1(data.Y, data.A).inference(0.05);
+                testCase.verifyEqual(spm.z, data.z, AbsTol=0.01);
+                testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
+                testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                % if strcmp(data.p, '<0.001')
+                %     testCase.verifyTrue( spm.p < 0.001 );
+                % else
+                %     testCase.verifyEqual(spm.p, data.p, AbsTol=0.001);
+                % end
+            end
+        end
+
+
+
     end
 end
