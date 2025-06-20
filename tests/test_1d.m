@@ -1,3 +1,4 @@
+
 classdef test_1d < matlab.unittest.TestCase
     methods (TestMethodSetup)
         function setup(testCase)
@@ -19,19 +20,50 @@ classdef test_1d < matlab.unittest.TestCase
         
     
         function test_ttest(testCase)
+            import matlab.unittest.constraints.IsEqualTo;
+            import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.RelativeTolerance;
             names  = {'Random', 'SimulatedPataky2015a', 'SimulatedPataky2015b'};
             for i = 1:numel(names)
-                cmd  = sprintf('spm1d.data.uv1d.t1.%s();', names{i});
-                data = eval(cmd);
-                spm  = spm1d.stats.ttest(data.Y, data.mu).inference(0.05, two_tailed=false);
-                % testCase.verifyEqual(spm.z, data.z, AbsTol=0.001);
-                % testCase.verifyEqual(spm.df, data.df, AbsTol=0.001);
-                % verifyPvalue(testCase, spm.p, data.p, 0.001)
+                name      = names{i};
+                data      = eval(   sprintf('spm1d.data.uv1d.t1.%s();', name)   );
+                spm       = spm1d.stats.ttest(data.Y, data.mu).inference(0.05, two_tailed=false);
+                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
             end
         end
 
-
-
+        function test_paired(testCase)
+            import matlab.unittest.constraints.IsEqualTo;
+            import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.RelativeTolerance;
+            names  = {'PlantarArchAngle'};
+            for i = 1:numel(names)
+                name      = names{i};
+                data      = eval(   sprintf('spm1d.data.uv1d.tpaired.%s();', name)   );
+                spm       = spm1d.stats.ttest_paired(data.YA, data.YB).inference(0.05, two_tailed=true);
+                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%sPaired.mat',name) )   );
+                comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
+            end
+        end
+        
+        function test2(testCase)
+            import matlab.unittest.constraints.IsEqualTo;
+            import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.RelativeTolerance;
+            names  = {'PlantarArchAngle'};
+            for i = 1:numel(names)
+                name      = names{i};
+                data      = eval(   sprintf('spm1d.data.uv1d.tpaired.%s();', name)   );
+                spm       = spm1d.stats.ttest2(data.YA, data.YB).inference(0.05, two_tailed=true);
+                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
+            end
+        end
+        
 
     end
 end
