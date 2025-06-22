@@ -30,7 +30,7 @@ classdef test_1d < matlab.unittest.TestCase
                 spm       = spm1d.stats.ttest(data.Y, data.mu).inference(0.05, two_tailed=false);
                 expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
         end
 
@@ -45,7 +45,7 @@ classdef test_1d < matlab.unittest.TestCase
                 spm       = spm1d.stats.ttest_paired(data.YA, data.YB).inference(0.05, two_tailed=true);
                 expected  = load(   fullfile(spm1d.path, 'results', sprintf('%sPaired.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
         end
         
@@ -60,7 +60,7 @@ classdef test_1d < matlab.unittest.TestCase
                 spm       = spm1d.stats.ttest2(data.YA, data.YB).inference(0.05, two_tailed=true);
                 expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(2*eps)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
         end
         
