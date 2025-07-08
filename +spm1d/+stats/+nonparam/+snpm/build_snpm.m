@@ -1,7 +1,7 @@
 function [snpm] = build_snpm(STAT, permuter)
 
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 

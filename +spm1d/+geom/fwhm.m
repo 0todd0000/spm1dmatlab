@@ -1,6 +1,6 @@
 function [FWHM] = fwhm(R)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 % $Id: fwhm.m 1 2016-01-04 16:07 todd $
 
 

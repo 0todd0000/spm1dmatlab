@@ -1,6 +1,6 @@
 function [SPM] = ttest2(yA, yB, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 [yA,yB]       = deal(spm1d.util.flatten(yA), spm1d.util.flatten(yB));

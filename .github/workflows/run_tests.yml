@@ -1,0 +1,28 @@
+name: matlab-unittests
+
+on:
+  push:
+    branches: [ nonparamfix ]
+
+
+jobs:
+  matlab-unittests-job:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v2
+      with:
+          release: R2024a
+
+    - name: spm1d MATLAB tests
+      uses: matlab-actions/run-tests@v2
+      with:
+          startup-options: -nojvm
+          source-folder: .
+          select-by-folder: tests
+

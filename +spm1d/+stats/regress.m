@@ -1,6 +1,6 @@
 function [SPM] = regress(Y, x, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 Y             = spm1d.util.flatten(Y);

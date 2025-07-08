@@ -1,0 +1,17 @@
+%__________________________________________________________________________
+% Copyright (C) 2025 Todd Pataky
+
+
+
+classdef PermuterANOVA3_0D < spm1d.stats.nonparam_old.permuters.APermuterANOVA0DmultiF
+    methods
+        function [self] = PermuterANOVA3_0D(y, A, B, C)
+            self@spm1d.stats.nonparam_old.permuters.APermuterANOVA0DmultiF(y, A, B, C)
+            self.calc           = spm1d.stats.nonparam_old.calculators.CalculatorANOVA3(self.A, self.B, self.C);
+            self.nEffects       = 7;
+        end
+    end
+end
+
+
+

@@ -1,7 +1,7 @@
 function [pBonf] = spm1d_util_p_corrected_bonf(p, n)
 
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 

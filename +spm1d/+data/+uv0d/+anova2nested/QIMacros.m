@@ -5,5 +5,5 @@ self.A     = [0*ones(1,16)  ones(1,16)]';
 self.B     = [repmat([0,1,2,3], [1 4])  repmat([4,5,6,7], [1 4])]';
 self.z     = [0.111, 45.726];
 self.df    = {[1, 6], [6, 24]};
-self.p     = [0.742, 0.000];
+self.p     = [0.750, 0.000];  % incorrectly reported as 0.742?
 end

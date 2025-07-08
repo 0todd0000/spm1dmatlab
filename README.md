@@ -1,6 +1,6 @@
 [![Generic badge](https://img.shields.io/badge/MATLAB-R2023b-BLUE.svg)](https://shields.io/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/badge/version-0.4.13-blue)
+![Version](https://img.shields.io/badge/version-0.4.50-blue)
 
 
 # spm1dmatlab
@@ -23,7 +23,7 @@ License Information
 
 spm1d is a package for one-dimensional Statistical Parametric Mapping (SPM). spm1d uses Random Field Theory expectations regarding smooth, one-dimensional (random) Gaussian fields to make statistical inferences regarding a set of 1D measurements.
 
-    Copyright (C) 2024  Todd Pataky
+    Copyright (C) 2025  Todd Pataky
     
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

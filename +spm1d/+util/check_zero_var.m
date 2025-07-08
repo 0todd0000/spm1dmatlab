@@ -1,6 +1,6 @@
 function [] = check_zero_var(y)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 % Check for zero-variance nodes and raise and error if found
 
 

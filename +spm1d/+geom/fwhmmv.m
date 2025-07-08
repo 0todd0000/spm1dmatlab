@@ -1,6 +1,6 @@
 function [FWHM] = fwhmmv(R)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 % $Id: fwhmmv.m 1 2016-01-04 16:07 todd $
 
 nComp = size(R,3);

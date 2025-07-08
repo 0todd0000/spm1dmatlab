@@ -1,6 +1,6 @@
 function [clusters] = cluster_geom(Z, u, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 % $Id: cluster_geom.m 1 2016-01-04 16:07 todd $
 
 % parse inputs

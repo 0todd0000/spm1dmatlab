@@ -15,7 +15,7 @@ self.A    = A(:);
 self.SUBJ = SUBJ(:);
 self.z    = 5.36;
 self.df   = [3, 12];
-self.p    = 0.018;
+self.p    = 0.014;  % incorrectly reported as 0.018?  F{3,12} is actually 0.0142 but reported in the PDF as 0.018
 end
 
 

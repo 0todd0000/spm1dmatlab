@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2022 Todd Pataky
+% Copyright (C) 2025 Todd Pataky
 
 
 
@@ -31,13 +31,25 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
             self.nPermTotal  = nPerm;
         end
 
-        function [self] = build_pdf(self, iterations)
+        function [self] = build_pdf(self, iterations, varargin)
+            %parse varargin
+            parser      = inputParser;
+            addOptional(parser, 'two_tailed', false, @islogical);
+            parser.parse(varargin{:});
+            two_tailed  = parser.Results.two_tailed;
             if iterations==-1
                 ONES     = nchoosek( 1:self.J, self.JA );
                 n        = self.nPermTotal;
-                Z        = zeros(n, self.Q);
-                for i = 1:n
-                    Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
+                if two_tailed
+                    Z    = zeros(n/2, self.Q);
+                    for i = 1:(n/2)
+                        Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
+                    end
+                else
+                    Z    = zeros(n, self.Q);
+                    for i = 1:n
+                        Z(i,:) = self.get_test_stat_ones( ONES(i,:)' );
+                    end
                 end
             else
                 n        = iterations;
@@ -47,7 +59,11 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
                     Z(i,:) = self.get_test_stat_ones( ONES' );
                 end
             end
-            self.Z         = max(Z, [], 2);
+            if two_tailed
+                self.Z         = max(abs(Z), [], 2);
+            else
+                self.Z         = max(Z, [], 2);
+            end
             if self.dim == 1
                 self.ZZ    = Z;
             end
