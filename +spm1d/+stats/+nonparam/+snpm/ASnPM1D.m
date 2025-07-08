@@ -56,16 +56,29 @@ classdef ASnPM1D < spm1d.stats.nonparam.snpm.ASnPM
                error('Two-tailed inference is only possible with the T statistic (univariate t tests and regression). Set "two_tailed" to false or remove the "two_tailed" keyword from the function call.')
            end
            % build PDF:
-           self.permuter    = self.permuter.build_pdf(iterations, 'two_tailed', two_tailed);
-           % compute critical threshold and probability value
-           zstar            = self.permuter.get_z_critical(alpha, 'two_tailed', two_tailed);
-           zstar            = max(zstar);
-           % build secondary PDF:
-           self.permuter    = self.permuter.set_metric( cluster_metric );
-           self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
-           % assemble clusters:
-           clusters         = self.get_clusters(zstar, two_tailed, interp, circular, iterations, cluster_metric);
-           clusters         = self.cluster_inference(alpha, clusters, two_tailed);
+           if isequal(self.STAT, 'T')
+               self.permuter    = self.permuter.build_pdf(iterations, 'two_tailed', two_tailed);
+               % compute critical threshold and probability value
+               zstar            = self.permuter.get_z_critical(alpha, 'two_tailed', two_tailed);
+               zstar            = max(zstar);
+               % build secondary PDF:
+               self.permuter    = self.permuter.set_metric( cluster_metric );
+               self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
+               % assemble clusters:
+               clusters         = self.get_clusters(zstar, two_tailed, interp, circular, iterations, cluster_metric);
+               clusters         = self.cluster_inference(alpha, clusters, two_tailed);
+           else
+               self.permuter    = self.permuter.build_pdf(iterations);
+               % compute critical threshold and probability value
+               zstar            = self.permuter.get_z_critical(alpha);
+               zstar            = max(zstar);
+               % build secondary PDF:
+               self.permuter    = self.permuter.set_metric( cluster_metric );
+               self.permuter    = self.permuter.build_secondary_pdf(zstar, circular);
+               % assemble clusters:
+               clusters         = self.get_clusters(zstar, false, interp, circular, iterations, cluster_metric);
+               clusters         = self.cluster_inference(alpha, clusters, false);
+           end
            %return an SnPM object:
            if self.STAT=='F'
                snpmi = spm1d.stats.nonparam.snpm.SnPM1DiF(self, alpha, zstar, clusters);
