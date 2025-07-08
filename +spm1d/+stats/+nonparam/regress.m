@@ -1,4 +1,4 @@
-function [SnPM] = regress(y, x)
+function [SnPM] = regress(y, x, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2025 Todd Pataky
 
