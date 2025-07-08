@@ -1,1 +1,1 @@
-spm1d version M.0.4.50 (2025-06-09)
+spm1d version M.0.4.50 (2025-07-08)

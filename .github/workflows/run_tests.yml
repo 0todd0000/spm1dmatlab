@@ -2,7 +2,7 @@ name: matlab-unittests
 
 on:
   push:
-    branches: [ nonparamfix ]
+    branches: [ master ]
 
 
 jobs:
