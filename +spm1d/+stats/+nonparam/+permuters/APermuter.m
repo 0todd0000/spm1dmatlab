@@ -30,6 +30,22 @@ classdef (Abstract) APermuter
             z = self.get_test_stat( self.labels0 );
         end
         
+        % function [zstar] = get_z_critical(self, alpha, varargin)
+        %     %parse varargin
+        %     parser      = inputParser;
+        %     addOptional(parser, 'two_tailed', false, @islogical);
+        %     parser.parse(varargin{:});
+        %     two_tailed  = parser.Results.two_tailed;
+        %     %compute critical threshold
+        %     if two_tailed
+        %         perc    = [100*0.5*alpha   100*(1 - 0.5*alpha)];
+        %     else
+        %         perc    = 100*(1 - alpha);
+        %     end
+        %     zstar       = spm1d.util.percentile(self.Z, perc);
+        % end
+
+
         function [zstar] = get_z_critical(self, alpha, varargin)
             %parse varargin
             parser      = inputParser;
@@ -38,13 +54,15 @@ classdef (Abstract) APermuter
             two_tailed  = parser.Results.two_tailed;
             %compute critical threshold
             if two_tailed
-                perc    = [100*0.5*alpha   100*(1 - 0.5*alpha)];
+                Z = abs(self.Z);
             else
-                perc    = 100*(1 - alpha);
+                Z = self.Z;
             end
-            zstar       = spm1d.util.percentile(self.Z, perc);
+            zstar = spm1d.util.percentile(self.Z, 100*(1-alpha));
+            if two_tailed
+                zstar = zstar * [-1 1];
+            end
         end
-
 
 
         function [] = check_iterations(self, alpha, iterations, force_iterations, nPermTotal)

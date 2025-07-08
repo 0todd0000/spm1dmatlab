@@ -18,9 +18,9 @@ end
 
 y     = spm1d.util.flatten(y);
 if isvector(y)
-    perm  = spm1d.stats.nonparam.permuters.PermuterTtest_0D(y, mu);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterTtest_0D(y, mu);
 else
-    perm  = spm1d.stats.nonparam.permuters.PermuterTtest_1D(y, mu);
+    perm  = spm1d.stats.nonparam_old.permuters.PermuterTtest_1D(y, mu);
 end
-SnPM  = spm1d.stats.nonparam.snpm.build_snpm('T', perm);
+SnPM  = spm1d.stats.nonparam_old.snpm.build_snpm('T', perm);
 
