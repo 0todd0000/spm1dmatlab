@@ -2,7 +2,7 @@ function [SnPM] = hotellings(y, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2025 Todd Pataky
 
-roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin(1:end:2))   );
+roi_found = any(   cellfun(@(c)(isequal(lower(c),'roi')), varargin)   );
 if roi_found
     error('[spm1d error]  "roi" analysis is not supported for nonparametric procedures.')
 end
