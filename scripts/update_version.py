@@ -16,10 +16,12 @@ date_str     = str( datetime.date.today() )
 
 
 
-# # update VERSION.txt
-# fpathVERSION = os.path.join(dirREPO, 'VERSION.txt')
-# with open(fpathVERSION, 'w') as f:
-#     f.writelines( [f'spm1d version {version_str} ({date_str})'] )
+
+# update VERSION.txt
+fpathVERSION = os.path.join(dirREPO, 'VERSION.txt')
+with open(fpathVERSION, 'w') as f:
+    f.writelines( [f'spm1d version {version_str} ({date_str})'] )
+
 
 
 
@@ -37,14 +39,14 @@ with open(fpath, 'w') as f:
 
 
 
-# # update README.md
-# fpath = os.path.join(dirREPO, 'README.md')
-# with open(fpath, 'r') as f:
-#     lines = f.readlines()
-#     for i,line in enumerate(lines):
-#         if line.startswith('![Version]'):
-#             break
-#     lines[i] = f"![version](https://img.shields.io/badge/version-{version_str}-blue)\n"
-# with open(fpath, 'w') as f:
-#     f.writelines( lines )
+# update README.md
+fpath = os.path.join(dirREPO, 'README.md')
+with open(fpath, 'r') as f:
+    lines = f.readlines()
+    for i,line in enumerate(lines):
+        if line.startswith('![Version]'):
+            break
+    lines[i] = f"![version](https://img.shields.io/badge/version-{version_str}-blue)\n"
+with open(fpath, 'w') as f:
+    f.writelines( lines )
 

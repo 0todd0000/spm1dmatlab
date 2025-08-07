@@ -21,10 +21,10 @@ run_np = true;
 
 %nonparam tests:
 if run_np
-    % testCase = test_0d_np;
-    % testCase.run;
-
-
-    testCase = test_1d_np;
+    testCase = test_0d_np;
     testCase.run;
+
+
+    % testCase = test_1d_np;
+    % testCase.run;
 end
