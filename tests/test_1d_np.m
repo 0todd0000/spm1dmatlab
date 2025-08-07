@@ -67,7 +67,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function regress(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
-            import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             names  = {'SimulatedPataky2015c','SpeedGRF'};
             for i = 1:numel(names)
                 rng(0);
@@ -76,7 +76,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.regress(data.Y, data.x).inference(0.05, 'two_tailed', true, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', AbsoluteTolerance(1e-6)))
             end
         end
 
