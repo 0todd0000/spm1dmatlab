@@ -27,7 +27,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.t1.%s();', name)   );
                 spm       = spm1d.stats.ttest(data.Y, data.mu).inference(0.05, two_tailed=false);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -42,7 +42,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.tpaired.%s();', name)   );
                 spm       = spm1d.stats.ttest_paired(data.YA, data.YB).inference(0.05, two_tailed=true);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%sPaired.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%sPaired.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -57,7 +57,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.t2.%s();', name)   );
                 spm       = spm1d.stats.ttest2(data.YA, data.YB).inference(0.05, two_tailed=true);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -72,7 +72,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.regress.%s();', name)   );
                 spm       = spm1d.stats.regress(data.Y, data.x).inference(0.05, two_tailed=true);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -91,7 +91,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova1.%s();', name)   );
                 spm       = spm1d.stats.anova1(data.Y, data.A).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -107,7 +107,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova1rm.%s();', name)   );
                 spm       = spm1d.stats.anova1rm(data.Y, data.A, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -124,7 +124,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova2.%s();', name)   );
                 spm       = spm1d.stats.anova2(data.Y, data.A, data.B).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -143,7 +143,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova2nested.%s();', name)   );
                 spm       = spm1d.stats.anova2nested(data.Y, data.A, data.B).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -162,7 +162,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova2onerm.%s();', name)   );
                 spm       = spm1d.stats.anova2onerm(data.Y, data.A, data.B, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -181,7 +181,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova2rm.%s();', name)   );
                 spm       = spm1d.stats.anova2rm(data.Y, data.A, data.B, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -200,7 +200,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova3.%s();', name)   );
                 spm       = spm1d.stats.anova3(data.Y, data.A, data.B, data.C).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -219,7 +219,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova3nested.%s();', name)   );
                 spm       = spm1d.stats.anova3nested(data.Y, data.A, data.B, data.C).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -238,7 +238,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova3onerm.%s();', name)   );
                 spm       = spm1d.stats.anova3onerm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -257,7 +257,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova3tworm.%s();', name)   );
                 spm       = spm1d.stats.anova3tworm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -276,7 +276,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.uv1d.anova3rm.%s();', name)   );
                 spm       = spm1d.stats.anova3rm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 for ii = 1:numel(spm)
                     verifyThat(testCase, spm(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
@@ -299,7 +299,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.mv1d.cca.%s();', name)   );
                 spm       = spm1d.stats.cca(data.Y, data.x).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -316,7 +316,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.mv1d.hotellings_paired.%s();', name)   );
                 spm       = spm1d.stats.hotellings_paired(data.YA, data.YB).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end
@@ -333,7 +333,7 @@ classdef test_1d < matlab.unittest.TestCase
                 name      = names{i};
                 data      = eval(   sprintf('spm1d.data.mv1d.hotellings2.%s();', name)   );
                 spm       = spm1d.stats.hotellings2(data.YA, data.YB).inference(0.05);
-                expected  = load(   fullfile(spm1d.path, 'results', sprintf('%s.mat',name) )   );
+                expected  = load(   fullfile(spm1d.path, 'results', 'param1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
                 verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
             end

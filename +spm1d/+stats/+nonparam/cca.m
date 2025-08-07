@@ -1,4 +1,4 @@
-function [SnPM] = cca(y, x)
+function [SnPM] = cca(y, x, varargin)
 %__________________________________________________________________________
 % Copyright (C) 2025 Todd Pataky
 

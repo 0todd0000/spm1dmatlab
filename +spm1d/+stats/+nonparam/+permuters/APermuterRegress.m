@@ -22,13 +22,27 @@ classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
         end
 
 
-        function [self] = build_pdf(self, iterations)
+        function [self] = build_pdf(self, iterations, varargin)
+            parser      = inputParser;
+            addOptional(parser, 'two_tailed', false, @islogical);
+            parser.parse(varargin{:});
+            two_tailed  = parser.Results.two_tailed;
+            
             if iterations==-1
                 n        = self.nPermTotal;
-                Z        = zeros(n, self.Q);
                 IND      = perms( 1:self.J );
-                for i = 1:n
-                    Z(i,:) = self.get_test_stat( IND(i,:)' );
+                
+                if two_tailed
+                    Z    = zeros(n/2, self.Q);
+                    for i = 1:n/2
+                        Z(i,:) = self.get_test_stat( IND(i,:)' );
+                    end
+                else
+                    Z        = zeros(n, self.Q);
+                    IND      = perms( 1:self.J );
+                    for i = 1:n
+                        Z(i,:) = self.get_test_stat( IND(i,:)' );
+                    end
                 end
             else
                 n          = iterations;
@@ -38,11 +52,39 @@ classdef (Abstract) APermuterRegress < spm1d.stats.nonparam.permuters.APermuter
                     Z(i,:) = self.get_test_stat( ind' );
                 end
             end
-            self.Z         = max(Z, [], 2);
+            
+            if two_tailed
+                self.Z         = max(abs(Z), [], 2);
+            else
+                self.Z         = max(Z, [], 2);
+            end
+            
             if self.dim == 1
                 self.ZZ    = Z;
             end
         end
+
+        % function [self] = build_pdf(self, iterations)
+        %     if iterations==-1
+        %         n        = self.nPermTotal;
+        %         Z        = zeros(n, self.Q);
+        %         IND      = perms( 1:self.J );
+        %         for i = 1:n
+        %             Z(i,:) = self.get_test_stat( IND(i,:)' );
+        %         end
+        %     else
+        %         n          = iterations;
+        %         Z          = zeros(n, self.Q);
+        %         for i = 1:n
+        %             ind    = randperm( self.J );
+        %             Z(i,:) = self.get_test_stat( ind' );
+        %         end
+        %     end
+        %     self.Z         = max(Z, [], 2);
+        %     if self.dim == 1
+        %         self.ZZ    = Z;
+        %     end
+        % end
         
         
         function [z] = get_test_stat(self, labels)
