@@ -1,6 +1,6 @@
 [![Generic badge](https://img.shields.io/badge/MATLAB-R2023b-BLUE.svg)](https://shields.io/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Version](https://img.shields.io/badge/version-0.4.50-blue)
+![version](https://img.shields.io/badge/version-M.0.4.51-blue)
 
 
 # spm1dmatlab
@@ -36,4 +36,4 @@ spm1d is a package for one-dimensional Statistical Parametric Mapping (SPM). spm
     GNU General Public License for more details.
     
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+![version](https://img.shields.io/badge/version-M.0.4.51-blue)
