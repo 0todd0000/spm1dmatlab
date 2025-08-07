@@ -130,10 +130,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova2.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova2(data.Y, data.A, data.B).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova2(data.Y, data.A, data.B).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -147,10 +149,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova2nested.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova2nested(data.Y, data.A, data.B).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova2nested(data.Y, data.A, data.B).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -164,10 +168,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova2onerm.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova2onerm(data.Y, data.A, data.B, data.SUBJ).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova2onerm(data.Y, data.A, data.B, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -181,10 +187,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova2rm.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova2rm(data.Y, data.A, data.B, data.SUBJ).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova2rm(data.Y, data.A, data.B, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -198,10 +206,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova3.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova3(data.Y, data.A, data.B, data.C).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova3(data.Y, data.A, data.B, data.C).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -233,10 +243,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova3onerm.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova3onerm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova3onerm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -250,10 +262,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova3rm.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova3rm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova3rm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
@@ -268,10 +282,12 @@ classdef test_0d_np < matlab.unittest.TestCase
                 rng(0);
                 cmd  = sprintf('spm1d.data.uv0d.anova3tworm.%s();', names{i});
                 data = eval(cmd);
-                spm  = spm1d.stats.nonparam.anova3tworm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
+                spms = spm1d.stats.nonparam.anova3tworm(data.Y, data.A, data.B, data.C, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam0d', sprintf('%s.mat',names{i}) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                for ii = 1:numel(spms)
+                    verifyThat(testCase, spms(ii), IsEqualTo(expected.spm(ii), 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                end
             end
         end
 
