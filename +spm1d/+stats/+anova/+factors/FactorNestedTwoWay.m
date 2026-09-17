@@ -94,11 +94,11 @@ classdef FactorNestedTwoWay
            X   = [];
            for k = 1:nA
                uuA = uA(k);
-               for kk = 1:nB-1
-                   uuB = uB(kk+1);
-                   for kkk = 1:nC
-                       uuC = uC(kkk);
-                       uS = unique( S( (A==uuA) & (B==uuB) & (C==uuC) ) );
+               for kk = 1:nB
+                   uuB = uB(kk);
+                   uS = unique( S( (A==uuA) & (B==uuB) ) );
+                   for kkk = 1:nC-1
+                       uuC = uC(kkk+1);
                        for kkkk = 1:numel(uS)-1
                             uuS = uS(kkkk+1);
                             x = zeros(self.J,1);

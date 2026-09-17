@@ -53,7 +53,7 @@ classdef LinearModel
             self.beta  = Xi*Y;
             
             self.R     = eye(J) - X*Xi;
-            self.rankR = self.matrixrank(self.R);
+            self.rankR = J - rank(X);   %R is an orthogonal projection, so this is exact
             self.SSE   = diag(Y' * self.R * Y);
             self.dfE   = self.rankR;
             if self.dfE > eps
@@ -104,6 +104,13 @@ classdef LinearModel
                     i = find(ismember(contrasts.term_labels, term1));
                     [ss1,df1] = deal(SS(i,:), DF(i));
                     ms1 = ss1 / df1;
+                end
+                if df1 == 0
+                    error(['The "%s" effect has no error term:  the "%s" term has zero ' ...
+                           'degrees of freedom.\n\nThis happens when the design is saturated ' ...
+                           '(one observation per cell), or when a repeated-measures design ' ...
+                           'has only one subject, so that nothing is left over with which ' ...
+                           'to estimate error.'], term0, term1)
                 end
                 [ms0,ms1] = deal(ms0(:), ms1(:));
                 f  = (ms0 ./ ms1)';

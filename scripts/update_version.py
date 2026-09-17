@@ -3,7 +3,7 @@ import os, pathlib
 import datetime
 
 
-version_str  = 'M.0.4.52'
+version_str  = 'M.0.4.53'
 
 
 
