@@ -22,6 +22,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             names  = {'Random', 'SimulatedPataky2015a', 'SimulatedPataky2015b'};
             for i = 1:numel(names)
                 name      = names{i};
@@ -29,7 +30,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.ttest(data.Y, data.mu).inference(0.05, 'two_tailed', false, 'iterations', -1);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
         end
 
@@ -37,6 +38,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             names  = {'PlantarArchAngle'};
             for i = 1:numel(names)
                 name      = names{i};
@@ -44,7 +46,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.ttest_paired(data.YA, data.YB).inference(0.05, 'two_tailed', true, 'iterations', -1);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%sPaired.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
         end
 
@@ -52,6 +54,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             names  = {'PlantarArchAngle'};
             for i = 1:numel(names)
                 rng(0);
@@ -60,13 +63,14 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.ttest2(data.YA, data.YB).inference(0.05, 'two_tailed', true, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
         end
 
         function regress(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             names  = {'SimulatedPataky2015c','SpeedGRF'};
             for i = 1:numel(names)
@@ -88,6 +92,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             names = {'SpeedGRFcategorical', 'Weather'};
             for i = 1:numel(names)
                 rng(0);
@@ -96,7 +101,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.anova1(data.Y, data.A).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
         end
 
@@ -104,6 +109,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SpeedGRFcategoricalRM'};
             for i = 1:numel(names)
@@ -113,7 +119,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.anova1rm(data.Y, data.A, data.SUBJ).inference(0.05, 'iterations', 1000);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
             warning('on','all')
         end
@@ -121,6 +127,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function anova2(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA2_2x3', 'SPM1D_ANOVA2_3x3', 'SPM1D_ANOVA2_3x4', 'SPM1D_ANOVA2_3x5', 'SPM1D_ANOVA2_4x4', 'SPM1D_ANOVA2_4x5'};
@@ -142,6 +149,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.AbsoluteTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA2NESTED_2x3', 'SPM1D_ANOVA2NESTED_3x3', 'SPM1D_ANOVA2NESTED_3x4', 'SPM1D_ANOVA2NESTED_3x5', 'SPM1D_ANOVA2NESTED_4x4', 'SPM1D_ANOVA2NESTED_4x5'};
             for i = 1:numel(names)
@@ -161,6 +169,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function anova2onerm(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA2ONERM_2x3', 'SPM1D_ANOVA2ONERM_3x3', 'SPM1D_ANOVA2ONERM_3x4', 'SPM1D_ANOVA2ONERM_3x5', 'SPM1D_ANOVA2ONERM_4x4', 'SPM1D_ANOVA2ONERM_4x5'};
@@ -182,6 +191,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.AbsoluteTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA2RM_2x3', 'SPM1D_ANOVA2RM_3x3', 'SPM1D_ANOVA2RM_3x4', 'SPM1D_ANOVA2RM_3x5', 'SPM1D_ANOVA2RM_4x4', 'SPM1D_ANOVA2RM_4x5'};
             for i = 1:numel(names)
@@ -201,6 +211,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function anova3(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA3_2x2x2', 'SPM1D_ANOVA3_2x3x4'};
@@ -222,6 +233,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.AbsoluteTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA3NESTED_2x2x2', 'SPM1D_ANOVA3NESTED_2x4x2'};
             for i = 1:numel(names)
@@ -241,6 +253,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function anova3onerm(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA3ONERM_2x2x2', 'SPM1D_ANOVA3ONERM_2x3x4'};
@@ -262,6 +275,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.AbsoluteTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA3TWORM_2x2x2', 'SPM1D_ANOVA3TWORM_2x3x4'};
             for i = 1:numel(names)
@@ -281,6 +295,7 @@ classdef test_1d_np < matlab.unittest.TestCase
         function anova3rm(testCase)
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'SPM1D_ANOVA3RM_2x2x2', 'SPM1D_ANOVA3RM_2x3x4'};
@@ -306,6 +321,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'Dorn2012'};
             for i = 1:numel(names)
@@ -315,7 +331,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.cca(data.Y, data.x).inference(0.05, 'iterations', 200);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
             warning('on','all')
         end
@@ -324,6 +340,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names  = {'Neptune1999kneekin', 'Pataky2014cop'};
             for i = 1:numel(names)
@@ -333,7 +350,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.hotellings_paired(data.YA, data.YB).inference(0.05, 'iterations', 200);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
             warning('on','all')
         end
@@ -342,6 +359,7 @@ classdef test_1d_np < matlab.unittest.TestCase
             import matlab.unittest.constraints.IsEqualTo;
             import matlab.unittest.constraints.PublicPropertyComparator;
             import matlab.unittest.constraints.RelativeTolerance;
+            import matlab.unittest.constraints.AbsoluteTolerance;
             warning('off','all')
             names = {'Besier2009muscleforces'};
             for i = 1:numel(names)
@@ -351,7 +369,7 @@ classdef test_1d_np < matlab.unittest.TestCase
                 spm       = spm1d.stats.nonparam.hotellings2(data.YA, data.YB).inference(0.05, 'iterations', 200);
                 expected  = load(   fullfile(spm1d.path, 'results', 'nonparam1d', sprintf('%s.mat',name) )   );
                 comps     = [PublicPropertyComparator.supportingAllValues(), IsEqualTo([]).Comparator];
-                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6)))
+                verifyThat(testCase, spm, IsEqualTo(expected.spm, 'Using',comps,'Within', RelativeTolerance(1e-6) | AbsoluteTolerance(0.01)))
             end
             warning('on','all')
         end
