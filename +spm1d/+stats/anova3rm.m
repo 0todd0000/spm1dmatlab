@@ -1,6 +1,6 @@
 function [SPM] = anova3rm(Y, A, B, C, SUBJ, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 parser         = spm1d.stats.anova.parseargs(varargin{:});

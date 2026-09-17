@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 
@@ -39,7 +39,7 @@ classdef APermuterTwoSample < spm1d.stats.nonparam.permuters.APermuter
             two_tailed  = parser.Results.two_tailed;
             
             
-            % revision by jeremyeekhoff, 2025-08
+            % revision by jeremyeekhoff, Copyright (C) 2026  Todd Pataky-08
             % https://github.com/0todd0000/spm1d/issues/311#issue-3322446572
             if iterations==-1
                 ONES     = nchoosek( 1:self.J, self.JA );

@@ -1,6 +1,6 @@
 function [ci] = ci_onesample(y, alpha, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 spm1d.util.check_zero_var(y);

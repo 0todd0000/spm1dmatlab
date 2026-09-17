@@ -1,6 +1,6 @@
 function [SPM] = anova1(y, A)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 spm   = spm1d.stats.anova1(y, A);

@@ -1,7 +1,7 @@
 function [p] = spm1d_util_p_critical_bonf(alpha, n)
 
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 

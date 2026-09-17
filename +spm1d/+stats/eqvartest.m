@@ -1,6 +1,6 @@
 function [f,fcrit] = eqvartest(y0, y1, varargin)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 %
 %	F test for equal variance.
 %	

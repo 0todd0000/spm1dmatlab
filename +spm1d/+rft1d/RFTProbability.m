@@ -1,5 +1,5 @@
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 % $Id: RFTProbability.m 1 2016-01-04 16:07 todd $
 
 classdef RFTProbability

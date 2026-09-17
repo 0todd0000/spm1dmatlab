@@ -1,6 +1,6 @@
 function [rCounts] = resels(R, W)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 % $Id: resels.m 1 2016-01-04 16:07 todd $
 
 if ndims(R)==3

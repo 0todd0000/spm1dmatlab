@@ -1,6 +1,6 @@
 function [Ys] = spm1d_smooth(Y, w)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 % Smooth data Y using a Gaussian kernel with FWHM=w
 
 

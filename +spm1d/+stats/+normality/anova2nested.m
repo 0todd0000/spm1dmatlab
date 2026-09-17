@@ -1,6 +1,6 @@
 function [SPM] = anova2nested(y, A, B)
 %__________________________________________________________________________
-% Copyright (C) 2025 Todd Pataky
+% Copyright (C) Copyright (C) 2026  Todd Pataky Todd Pataky
 
 
 spm   = spm1d.stats.anova2nested(y, A, B);
