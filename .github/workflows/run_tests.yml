@@ -25,4 +25,5 @@ jobs:
           startup-options: -nojvm
           source-folder: .
           select-by-folder: tests
+          output-detail: Detailed
 
